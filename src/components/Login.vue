@@ -40,13 +40,13 @@
         <v-card-title>Router1</v-card-title>
         <v-card-text>
           <v-text-field
-              v-model="ip_r0"
+              v-model="ip_r1"
               label="IP地址"
               required
               outlined
           ></v-text-field>
           <v-text-field
-              v-model="pwd_telnet_r0"
+              v-model="pwd_telnet_r1"
               label="Telnet密码"
               required
               outlined
@@ -55,7 +55,7 @@
               @click:append="show_r1_1 = !show_r1_1"
           ></v-text-field>
           <v-text-field
-              v-model="pwd_enable_r0"
+              v-model="pwd_enable_r1"
               label="特权密码"
               required
               outlined
@@ -75,13 +75,13 @@
         <v-card-title>Router2</v-card-title>
         <v-card-text>
           <v-text-field
-              v-model="ip_r0"
+              v-model="ip_r2"
               label="IP地址"
               required
               outlined
           ></v-text-field>
           <v-text-field
-              v-model="pwd_telnet_r0"
+              v-model="pwd_telnet_r2"
               label="Telnet密码"
               required
               outlined
@@ -90,7 +90,7 @@
               @click:append="show_r2_1 = !show_r2_1"
           ></v-text-field>
           <v-text-field
-              v-model="pwd_enable_r0"
+              v-model="pwd_enable_r2"
               label="特权密码"
               required
               outlined
@@ -110,13 +110,13 @@
         <v-card-title>Switch2</v-card-title>
         <v-card-text>
           <v-text-field
-              v-model="ip_r0"
+              v-model="ip_s2"
               label="IP地址"
               required
               outlined
           ></v-text-field>
           <v-text-field
-              v-model="pwd_telnet_r0"
+              v-model="pwd_telnet_s2"
               label="Telnet密码"
               required
               outlined
@@ -125,7 +125,7 @@
               @click:append="show_s2_1 = !show_s2_1"
           ></v-text-field>
           <v-text-field
-              v-model="pwd_enable_r0"
+              v-model="pwd_enable_s2"
               label="特权密码"
               required
               outlined
@@ -171,6 +171,74 @@ export default {
       let params = {
         ip: '1.1.1.1',
         pwd: '12345'
+      }
+      axios({
+        method: 'post',
+        url: url,
+        data: params
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    login1() {
+      const url = 'http://127.0.0.1:5000/login'
+      let params = {
+        dev_no: 1,
+        ip: this.ip_r0,
+        pwd: this.pwd_telnet_r0
+      }
+      axios({
+        method: 'post',
+        url: url,
+        data: params
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    login2() {
+      const url = 'http://127.0.0.1:5000/login'
+      let params = {
+        dev_no: 2,
+        ip: this.ip_r1,
+        pwd: this.pwd_telnet_r1
+      }
+      axios({
+        method: 'post',
+        url: url,
+        data: params
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    login3() {
+      const url = 'http://127.0.0.1:5000/login'
+      let params = {
+        dev_no: 3,
+        ip: this.ip_r3,
+        pwd: this.pwd_telnet_r3
+      }
+      axios({
+        method: 'post',
+        url: url,
+        data: params
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    login4() {
+      const url = 'http://127.0.0.1:5000/login'
+      let params = {
+        dev_no: 4,
+        ip: this.ip_s2,
+        pwd: this.pwd_telnet_s2
       }
       axios({
         method: 'post',
