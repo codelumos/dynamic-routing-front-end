@@ -1,61 +1,60 @@
 <template>
-  <div id="app">
-    <img alt="拓补图" src="./assets/Topography.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-app>
+    <v-app-bar
+        app
+        color="primary"
+        dark
+    >
+      <div class="d-flex align-center">
+        <v-img
+            alt="Vuetify Logo"
+            class="shrink mr-2"
+            contain
+            src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+            transition="scale-transition"
+            width="40"
+        />
 
-    <label for="input_ip_r0">IP地址</label><input id="input_ip_r0" type="text" v-model="ip_r0">
-    <label for="input_pwd_telnet_r0">Telnet密码</label><input id="input_pwd_telnet_r0" type="text" v-model="pwd_telnet_r0">
-    <label for="input_pwd_enable_r0">特权密码</label><input id="input_pwd_enable_r0" type="text" v-model="pwd_enable_r0">
-    <button v-on:click="test">TEST</button>
-  </div>
+        <v-img
+            alt="Vuetify Name"
+            class="shrink mt-1 hidden-sm-and-down"
+            contain
+            min-width="100"
+            src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+            width="100"
+        />
+      </div>
+
+      <v-spacer></v-spacer>
+
+      <v-btn
+          href="https://github.com/vuetifyjs/vuetify/releases/latest"
+          target="_blank"
+          text
+      >
+        <span class="mr-2">Latest Release</span>
+        <v-icon>mdi-open-in-new</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <v-main>
+      <HelloWorld/>
+    </v-main>
+  </v-app>
 </template>
 
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import axios from 'axios'
+import HelloWorld from './components/HelloWorld';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  },
-  data(){
-    return{
-      ip_r0:'',
-      pwd_telnet_r0:'',
-      pwd_enable_r0:''
-    }
-  },
-  methods:{
-    //前端调用测试
-    test (){
-      const url='http://127.0.0.1:5000/test'
-      let params={
-        ip:'1.1.1.1',
-        pwd:'12345'
-      }
-      axios({
-        method: 'post',
-        url: url,
-        data: params
-      }).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
-    }
-  }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  components: {
+    HelloWorld,
+  },
+
+  data: () => ({
+    //
+  }),
+};
+</script>

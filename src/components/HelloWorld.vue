@@ -1,37 +1,76 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-  </div>
+  <v-container>
+    <v-row class="text-center">
+      <v-col cols="12">
+        <v-img
+            :src="require('../assets/Topography.png')"
+            class="my-3"
+            contain
+            height="200"
+        />
+      </v-col>
+
+      <v-col class="mb-4">
+        <h1 class="display-2 font-weight-bold mb-3">
+          Welcome to Vuetify
+        </h1>
+
+        <p class="subheading font-weight-regular">
+          For help and collaboration with other Vuetify developers,
+          <br>please join our online
+          <a
+              href="https://community.vuetifyjs.com"
+              target="_blank"
+          >Discord Community</a>
+        </p>
+      </v-col>
+
+      <v-col
+          class="mb-5"
+          cols="12"
+      >
+        <label for="input_ip_r0">IP地址</label><input id="input_ip_r0" type="text" v-model="ip_r0">
+        <label for="input_pwd_telnet_r0">Telnet密码</label><input id="input_pwd_telnet_r0" type="text"
+                                                                v-model="pwd_telnet_r0">
+        <label for="input_pwd_enable_r0">特权密码</label><input id="input_pwd_enable_r0" type="text"
+                                                            v-model="pwd_enable_r0">
+        <v-btn v-on:click="test">TEST</v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+
+  data() {
+    return {
+      ip_r0: '',
+      pwd_telnet_r0: '',
+      pwd_enable_r0: ''
+    }
+  },
+  methods: {
+    //前端调用测试
+    test() {
+      const url = 'http://127.0.0.1:5000/test'
+      let params = {
+        ip: '1.1.1.1',
+        pwd: '12345'
+      }
+      axios({
+        method: 'post',
+        url: url,
+        data: params
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
