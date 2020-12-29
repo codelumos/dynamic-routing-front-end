@@ -21,19 +21,22 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <Topology/>
+      <Login/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Login from './components/Login';
+import Topology from './components/Topology';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    Login,
+    Topology,
   },
 
   data: () => ({

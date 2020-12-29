@@ -1,27 +1,6 @@
 <template>
   <v-container>
     <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-            :src="require('../assets/Topography.png')"
-            class="my-3"
-            contain
-            height="400"
-        />
-      </v-col>
-
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
-
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers
-        </p>
-      </v-col>
-    </v-row>
-
-    <v-row class="text-center">
       <v-card elevation="4">
         <v-card-title>Router0</v-card-title>
         <v-card-text>
@@ -168,7 +147,7 @@
 import axios from 'axios'
 
 export default {
-  name: 'HelloWorld',
+  name: 'Login',
 
   data() {
     return {
