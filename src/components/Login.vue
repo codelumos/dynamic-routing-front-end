@@ -33,6 +33,18 @@
               登陆
             </v-btn>
           </v-card-text>
+          <v-overlay
+              :absolute=true
+              :z-index=0
+              :value="login_succeed_r0"
+          >
+            <v-btn
+                color="red lighten"
+                @click="login_succeed_r0 = false"
+            >
+              退出登陆
+            </v-btn>
+          </v-overlay>
         </v-card>
       </v-col>
 
@@ -62,6 +74,18 @@
               登陆
             </v-btn>
           </v-card-text>
+          <v-overlay
+              :absolute=true
+              :z-index=0
+              :value="login_succeed_r1"
+          >
+            <v-btn
+                color="red lighten"
+                @click="login_succeed_r1 = false"
+            >
+              退出登陆
+            </v-btn>
+          </v-overlay>
         </v-card>
       </v-col>
 
@@ -91,6 +115,18 @@
               登陆
             </v-btn>
           </v-card-text>
+          <v-overlay
+              :absolute=true
+              :z-index=0
+              :value="login_succeed_r2"
+          >
+            <v-btn
+                color="red lighten"
+                @click="login_succeed_r2 = false"
+            >
+              退出登陆
+            </v-btn>
+          </v-overlay>
         </v-card>
       </v-col>
 
@@ -120,6 +156,18 @@
               登陆
             </v-btn>
           </v-card-text>
+          <v-overlay
+              :absolute=true
+              :z-index=0
+              :value="login_succeed_s2"
+          >
+            <v-btn
+                color="red lighten"
+                @click="login_succeed_s2 = false"
+            >
+              退出登陆
+            </v-btn>
+          </v-overlay>
         </v-card>
       </v-col>
     </v-row>
@@ -137,15 +185,19 @@ export default {
       ip_r0: '127.16.0.2',
       pwd_telnet_r0: '',
       show_r0_1: false,
+      login_succeed_r0: true,
       ip_r1: '127.16.0.3',
       pwd_telnet_r1: '',
       show_r1_1: false,
+      login_succeed_r1: true,
       ip_r2: '127.16.0.4',
       pwd_telnet_r2: '',
       show_r2_1: false,
+      login_succeed_r2: true,
       ip_s2: '127.16.0.1',
       pwd_telnet_s2: '',
-      show_s2_1: false
+      show_s2_1: false,
+      login_succeed_s2: true
     }
   },
   methods: {
