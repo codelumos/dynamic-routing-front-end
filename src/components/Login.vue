@@ -30,7 +30,11 @@
                 :type="show_s2 ? 'text' : 'password'"
                 @click:append="show_s2 = !show_s2"
             ></v-text-field>
-            <v-btn elevation="2" color="primary" v-on:click="login_s2">
+            <v-btn
+                elevation="4"
+                color="primary"
+                @click="login('s2', ip_s2, pwd_uf_en ? pwd_uf : pwd_s2)"
+            >
               登陆
             </v-btn>
           </v-card-text>
@@ -72,7 +76,11 @@
                 :type="show_r0 ? 'text' : 'password'"
                 @click:append="show_r0 = !show_r0"
             ></v-text-field>
-            <v-btn elevation="2" color="primary" v-on:click="login_r0">
+            <v-btn
+                elevation="4"
+                color="primary"
+                @click="login('r0', ip_r0, pwd_uf_en ? pwd_uf : pwd_r0)"
+            >
               登陆
             </v-btn>
           </v-card-text>
@@ -110,11 +118,15 @@
                 label="Telnet密码"
                 required
                 outlined
-                :append-icon="show_r1_ ? 'mdi-eye' : 'mdi-eye-off'"
+                :append-icon="show_r1 ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="show_r1 ? 'text' : 'password'"
                 @click:append="show_r1 = !show_r1"
             ></v-text-field>
-            <v-btn elevation="2" color="primary" v-on:click="login_r1">
+            <v-btn
+                elevation="4"
+                color="primary"
+                @click="login('r1', ip_r1, pwd_uf_en ? pwd_uf : pwd_r1)"
+            >
               登陆
             </v-btn>
           </v-card-text>
@@ -156,7 +168,11 @@
                 :type="show_r2 ? 'text' : 'password'"
                 @click:append="show_r2 = !show_r2"
             ></v-text-field>
-            <v-btn elevation="2" color="primary" v-on:click="login_r2">
+            <v-btn
+                elevation="4"
+                color="primary"
+                @click="login('r2', ip_r2, pwd_uf_en ? pwd_uf : pwd_r2)"
+            >
               登陆
             </v-btn>
           </v-card-text>
@@ -244,63 +260,12 @@ export default {
     }
   },
   methods: {
-    login_s2() {
+    login(dev_no, ip, pwd) {
       const url = 'http://127.0.0.1:5000/login'
       let params = {
-        dev_no: 's2',
-        ip: this.ip_s2,
-        pwd: this.pwd_uf_en ? this.pwd_uf : this.pwd_s2
-      }
-      axios({
-        method: 'post',
-        url: url,
-        data: params
-      }).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    login_r0() {
-      const url = 'http://127.0.0.1:5000/login'
-      let params = {
-        dev_no: 'r0',
-        ip: this.ip_r0,
-        pwd: this.pwd_uf_en ? this.pwd_uf : this.pwd_r0
-      }
-      axios({
-        method: 'post',
-        url: url,
-        data: params
-      }).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    login_r1() {
-      const url = 'http://127.0.0.1:5000/login'
-      let params = {
-        dev_no: 'r1',
-        ip: this.ip_r1,
-        pwd: this.pwd_uf_en ? this.pwd_uf : this.pwd_r1
-      }
-      axios({
-        method: 'post',
-        url: url,
-        data: params
-      }).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    login_r2() {
-      const url = 'http://127.0.0.1:5000/login'
-      let params = {
-        dev_no: 'r2',
-        ip: this.ip_r2,
-        pwd: this.pwd_uf_en ? this.pwd_uf : this.pwd_r2
+        dev_no: dev_no,
+        ip: ip,
+        pwd: pwd
       }
       axios({
         method: 'post',

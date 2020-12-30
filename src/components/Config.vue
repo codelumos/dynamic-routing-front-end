@@ -154,6 +154,7 @@ export default {
       pwd_r2: '',
       pwd_s2: '',
       // 密码可见性
+      show_uf: false,
       show_r0: false,
       show_r1: false,
       show_r2: false,
