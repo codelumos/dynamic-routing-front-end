@@ -15,6 +15,7 @@
               label="IP地址"
               required
               outlined
+              disabled
           ></v-text-field>
           <v-text-field
               v-model="pwd_telnet_r0"
@@ -24,15 +25,6 @@
               :append-icon="show_r0_1 ? 'mdi-eye' : 'mdi-eye-off'"
               :type="show_r0_1 ? 'text' : 'password'"
               @click:append="show_r0_1 = !show_r0_1"
-          ></v-text-field>
-          <v-text-field
-              v-model="pwd_enable_r0"
-              label="特权密码"
-              required
-              outlined
-              :append-icon="show_r0_2 ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="show_r0_2 ? 'text' : 'password'"
-              @click:append="show_r0_2 = !show_r0_2"
           ></v-text-field>
           <v-btn elevation="2" color="primary" v-on:click="login_r0">
             登陆
@@ -50,6 +42,7 @@
               label="IP地址"
               required
               outlined
+              disabled
           ></v-text-field>
           <v-text-field
               v-model="pwd_telnet_r1"
@@ -59,15 +52,6 @@
               :append-icon="show_r1_1 ? 'mdi-eye' : 'mdi-eye-off'"
               :type="show_r1_1 ? 'text' : 'password'"
               @click:append="show_r1_1 = !show_r1_1"
-          ></v-text-field>
-          <v-text-field
-              v-model="pwd_enable_r1"
-              label="特权密码"
-              required
-              outlined
-              :append-icon="show_r1_2 ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="show_r1_2 ? 'text' : 'password'"
-              @click:append="show_r1_2 = !show_r1_2"
           ></v-text-field>
           <v-btn elevation="2" color="primary" v-on:click="login_r1">
             登陆
@@ -85,6 +69,7 @@
               label="IP地址"
               required
               outlined
+              disabled
           ></v-text-field>
           <v-text-field
               v-model="pwd_telnet_r2"
@@ -94,15 +79,6 @@
               :append-icon="show_r2_1 ? 'mdi-eye' : 'mdi-eye-off'"
               :type="show_r2_1 ? 'text' : 'password'"
               @click:append="show_r2_1 = !show_r2_1"
-          ></v-text-field>
-          <v-text-field
-              v-model="pwd_enable_r2"
-              label="特权密码"
-              required
-              outlined
-              :append-icon="show_r2_2 ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="show_r2_2 ? 'text' : 'password'"
-              @click:append="show_r2_2 = !show_r2_2"
           ></v-text-field>
           <v-btn elevation="2" color="primary" v-on:click="login_r2">
             登陆
@@ -120,6 +96,7 @@
               label="IP地址"
               required
               outlined
+              disabled
           ></v-text-field>
           <v-text-field
               v-model="pwd_telnet_s2"
@@ -129,15 +106,6 @@
               :append-icon="show_s2_1 ? 'mdi-eye' : 'mdi-eye-off'"
               :type="show_s2_1 ? 'text' : 'password'"
               @click:append="show_s2_1 = !show_s2_1"
-          ></v-text-field>
-          <v-text-field
-              v-model="pwd_enable_s2"
-              label="特权密码"
-              required
-              outlined
-              :append-icon="show_s2_2 ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="show_s2_2 ? 'text' : 'password'"
-              @click:append="show_s2_2 = !show_s2_2"
           ></v-text-field>
           <v-btn elevation="2" color="primary" v-on:click="login_s2">
             登陆
@@ -157,26 +125,18 @@ export default {
 
   data() {
     return {
-      show_r0_1: false,
-      show_r0_2: false,
-      show_r1_1: false,
-      show_r1_2: false,
-      show_r2_1: false,
-      show_r2_2: false,
-      show_s2_1: false,
-      show_s2_2: false,
-      ip_r0: '',
+      ip_r0: '127.16.0.2',
       pwd_telnet_r0: '',
-      pwd_enable_r0: '',
-      ip_r1: '',
+      show_r0_1: false,
+      ip_r1: '127.16.0.3',
       pwd_telnet_r1: '',
-      pwd_enable_r1: '',
-      ip_r2: '',
+      show_r1_1: false,
+      ip_r2: '127.16.0.4',
       pwd_telnet_r2: '',
-      pwd_enable_r2: '',
-      ip_s2: '',
+      show_r2_1: false,
+      ip_s2: '127.16.0.1',
       pwd_telnet_s2: '',
-      pwd_enable_s2: ''
+      show_s2_1: false
     }
   },
   methods: {
@@ -184,8 +144,8 @@ export default {
     test() {
       const url = 'http://127.0.0.1:5000/test'
       let params = {
-        ip: '1.1.1.1',
-        pwd: '12345'
+        ip: '127.0.0.1',
+        pwd: 'cisco'
       }
       axios({
         method: 'post',

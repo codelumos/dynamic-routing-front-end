@@ -15,21 +15,34 @@
             height="50"
         />
       </div>
-      <div class="d-flex align-center">
-        <h1>动态路由</h1>
-      </div>
+      <v-app-bar-title class="d-flex align-center">
+        <h2>动态路由</h2>
+      </v-app-bar-title>
     </v-app-bar>
 
     <v-main>
       <Topology/>
       <Login/>
+      <p style="white-space: pre-line"></p>
+      <Config/>
+      <p style="white-space: pre-line"></p>
     </v-main>
+
+    <v-app-bar
+        color="primary"
+        dark
+    >
+      <div class="align-center">
+        DynamicRouter
+      </div>
+    </v-app-bar>
   </v-app>
 </template>
 
 <script>
 import Login from './components/Login';
 import Topology from './components/Topology';
+import Config from "./components/Config";
 
 export default {
   name: 'App',
@@ -37,6 +50,7 @@ export default {
   components: {
     Login,
     Topology,
+    Config
   },
 
   data: () => ({
