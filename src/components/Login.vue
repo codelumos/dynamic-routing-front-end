@@ -1,5 +1,11 @@
 <template>
   <v-container>
+    <v-row>
+      <v-btn elevation="2" color="primary" v-on:click="test">
+        测试
+      </v-btn>
+    </v-row>
+    <p style="white-space: pre-line"></p>
     <v-row class="text-center">
       <v-card elevation="4">
         <v-card-title>Router0</v-card-title>
@@ -28,8 +34,8 @@
               :type="show_r0_2 ? 'text' : 'password'"
               @click:append="show_r0_2 = !show_r0_2"
           ></v-text-field>
-          <v-btn elevation="2" color="primary" v-on:click="test">
-            测试登陆
+          <v-btn elevation="2" color="primary" v-on:click="login_r0">
+            登陆
           </v-btn>
         </v-card-text>
       </v-card>
@@ -63,8 +69,8 @@
               :type="show_r1_2 ? 'text' : 'password'"
               @click:append="show_r1_2 = !show_r1_2"
           ></v-text-field>
-          <v-btn elevation="2" color="primary" v-on:click="test">
-            测试登陆
+          <v-btn elevation="2" color="primary" v-on:click="login_r1">
+            登陆
           </v-btn>
         </v-card-text>
       </v-card>
@@ -98,8 +104,8 @@
               :type="show_r2_2 ? 'text' : 'password'"
               @click:append="show_r2_2 = !show_r2_2"
           ></v-text-field>
-          <v-btn elevation="2" color="primary" v-on:click="test">
-            测试登陆
+          <v-btn elevation="2" color="primary" v-on:click="login_r2">
+            登陆
           </v-btn>
         </v-card-text>
       </v-card>
@@ -133,8 +139,8 @@
               :type="show_s2_2 ? 'text' : 'password'"
               @click:append="show_s2_2 = !show_s2_2"
           ></v-text-field>
-          <v-btn elevation="2" color="primary" v-on:click="test">
-            测试登陆
+          <v-btn elevation="2" color="primary" v-on:click="login_s2">
+            登陆
           </v-btn>
         </v-card-text>
       </v-card>
@@ -161,7 +167,16 @@ export default {
       show_s2_2: false,
       ip_r0: '',
       pwd_telnet_r0: '',
-      pwd_enable_r0: ''
+      pwd_enable_r0: '',
+      ip_r1: '',
+      pwd_telnet_r1: '',
+      pwd_enable_r1: '',
+      ip_r2: '',
+      pwd_telnet_r2: '',
+      pwd_enable_r2: '',
+      ip_s2: '',
+      pwd_telnet_s2: '',
+      pwd_enable_s2: ''
     }
   },
   methods: {
@@ -182,10 +197,10 @@ export default {
         console.log(err)
       })
     },
-    login1() {
+    login_r0() {
       const url = 'http://127.0.0.1:5000/login'
       let params = {
-        dev_no: 1,
+        dev_no: 'r0',
         ip: this.ip_r0,
         pwd: this.pwd_telnet_r0
       }
@@ -199,10 +214,10 @@ export default {
         console.log(err)
       })
     },
-    login2() {
+    login_r1() {
       const url = 'http://127.0.0.1:5000/login'
       let params = {
-        dev_no: 2,
+        dev_no: 'r1',
         ip: this.ip_r1,
         pwd: this.pwd_telnet_r1
       }
@@ -216,12 +231,12 @@ export default {
         console.log(err)
       })
     },
-    login3() {
+    login_r2() {
       const url = 'http://127.0.0.1:5000/login'
       let params = {
-        dev_no: 3,
-        ip: this.ip_r3,
-        pwd: this.pwd_telnet_r3
+        dev_no: 'r2',
+        ip: this.ip_r2,
+        pwd: this.pwd_telnet_r2
       }
       axios({
         method: 'post',
@@ -233,10 +248,10 @@ export default {
         console.log(err)
       })
     },
-    login4() {
+    login_s2() {
       const url = 'http://127.0.0.1:5000/login'
       let params = {
-        dev_no: 4,
+        dev_no: 's2',
         ip: this.ip_s2,
         pwd: this.pwd_telnet_s2
       }
