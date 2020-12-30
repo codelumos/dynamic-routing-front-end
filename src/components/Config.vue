@@ -116,7 +116,7 @@
         ></v-select>
       </v-col>
       <v-col sm="2">
-        <v-btn elevation="2" color="primary">
+        <v-btn elevation="4" color="primary">
           配置路由
         </v-btn>
       </v-col>

@@ -44,8 +44,9 @@
               :value="login_state_s2"
           >
             <v-btn
+                elevation="4"
                 color="red lighten"
-                @click="login_state_s2 = false"
+                @click="logout('s2')"
             >
               退出登陆
             </v-btn>
@@ -90,8 +91,9 @@
               :value="login_state_r0"
           >
             <v-btn
+                elevation="4"
                 color="red lighten"
-                @click="login_state_r0 = false"
+                @click="logout('r0')"
             >
               退出登陆
             </v-btn>
@@ -136,8 +138,9 @@
               :value="login_state_r1"
           >
             <v-btn
+                elevation="4"
                 color="red lighten"
-                @click="login_state_r1 = false"
+                @click="logout('r1')"
             >
               退出登陆
             </v-btn>
@@ -182,8 +185,9 @@
               :value="login_state_r2"
           >
             <v-btn
+                elevation="4"
                 color="red lighten"
-                @click="login_state_r2 = false"
+                @click="logout('r2')"
             >
               退出登陆
             </v-btn>
@@ -214,6 +218,7 @@
       <v-col sm="3">
         <v-btn
             v-show="pwd_uf_en"
+            elevation="4"
             color="primary"
             v-on:click="login_all"
         >
@@ -266,6 +271,21 @@ export default {
         dev_no: dev_no,
         ip: ip,
         pwd: pwd
+      }
+      axios({
+        method: 'post',
+        url: url,
+        data: params
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    logout(dev_no) {
+      const url = 'http://127.0.0.1:5000/logout'
+      let params = {
+        dev_no: dev_no
       }
       axios({
         method: 'post',
