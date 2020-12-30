@@ -8,19 +8,38 @@
 
     <p style="white-space: pre-line"></p>
 
-    <v-row class="text-center">
+    <v-row class="text-center" v-show="!pwd_uf_en">
+      <v-col sm="3">
+        <v-card elevation="4">
+          <v-card-title>Switch2</v-card-title>
+          <v-card-text>
+            <v-text-field
+                v-model="pwd_s2"
+                label="特权密码"
+                required
+                outlined
+                :append-icon="show_s2 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show_s2 ? 'text' : 'password'"
+                @click:append="show_s2 = !show_s2"
+            ></v-text-field>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-spacer></v-spacer>
+
       <v-col sm="3">
         <v-card elevation="4">
           <v-card-title>Router0</v-card-title>
           <v-card-text>
             <v-text-field
-                v-model="pwd_enable_r0"
+                v-model="pwd_r0"
                 label="特权密码"
                 required
                 outlined
-                :append-icon="show_r0_2 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show_r0_2 ? 'text' : 'password'"
-                @click:append="show_r0_2 = !show_r0_2"
+                :append-icon="show_r0 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show_r0 ? 'text' : 'password'"
+                @click:append="show_r0 = !show_r0"
             ></v-text-field>
           </v-card-text>
         </v-card>
@@ -33,13 +52,13 @@
           <v-card-title>Router1</v-card-title>
           <v-card-text>
             <v-text-field
-                v-model="pwd_enable_r1"
+                v-model="pwd_r1"
                 label="特权密码"
                 required
                 outlined
-                :append-icon="show_r1_2 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show_r1_2 ? 'text' : 'password'"
-                @click:append="show_r1_2 = !show_r1_2"
+                :append-icon="show_r1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show_r1 ? 'text' : 'password'"
+                @click:append="show_r1 = !show_r1"
             ></v-text-field>
           </v-card-text>
         </v-card>
@@ -52,35 +71,37 @@
           <v-card-title>Router2</v-card-title>
           <v-card-text>
             <v-text-field
-                v-model="pwd_enable_r2"
+                v-model="pwd_r2"
                 label="特权密码"
                 required
                 outlined
-                :append-icon="show_r2_2 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show_r2_2 ? 'text' : 'password'"
-                @click:append="show_r2_2 = !show_r2_2"
+                :append-icon="show_r2 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show_r2 ? 'text' : 'password'"
+                @click:append="show_r2 = !show_r2"
             ></v-text-field>
           </v-card-text>
         </v-card>
       </v-col>
+    </v-row>
 
-      <v-spacer></v-spacer>
-
+    <v-row>
       <v-col sm="3">
-        <v-card elevation="4">
-          <v-card-title>Switch2</v-card-title>
-          <v-card-text>
-            <v-text-field
-                v-model="pwd_enable_s2"
-                label="特权密码"
-                required
-                outlined
-                :append-icon="show_s2_2 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show_s2_2 ? 'text' : 'password'"
-                @click:append="show_s2_2 = !show_s2_2"
-            ></v-text-field>
-          </v-card-text>
-        </v-card>
+        <v-switch
+            v-model="pwd_uf_en"
+            :label="`使用统一密码`"
+        ></v-switch>
+      </v-col>
+      <v-col sm="6">
+        <v-text-field
+            v-show="pwd_uf_en"
+            v-model="pwd_uf"
+            label="统一特权密码"
+            required
+            outlined
+            :append-icon="show_uf ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show_uf ? 'text' : 'password'"
+            @click:append="show_uf = !show_uf"
+        ></v-text-field>
       </v-col>
     </v-row>
 
@@ -124,14 +145,19 @@ export default {
   name: "Config",
   data() {
     return {
-      pwd_enable_r0: '',
-      show_r0_2: false,
-      pwd_enable_r1: '',
-      show_r1_2: false,
-      pwd_enable_r2: '',
-      show_r2_2: false,
-      pwd_enable_s2: '',
-      show_s2_2: false
+      // 使用统一密码
+      pwd_uf_en: true,
+      pwd_uf: '',
+      // 设备独立密码
+      pwd_r0: '',
+      pwd_r1: '',
+      pwd_r2: '',
+      pwd_s2: '',
+      // 密码可见性
+      show_r0: false,
+      show_r1: false,
+      show_r2: false,
+      show_s2: false
     }
   }
 }
