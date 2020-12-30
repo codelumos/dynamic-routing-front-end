@@ -1,120 +1,129 @@
 <template>
   <v-container>
     <v-row>
-      <v-btn elevation="2" color="primary" v-on:click="test">
-        测试
-      </v-btn>
+      <p class="title font-weight-bold mb-3">
+        设备登陆
+      </p>
     </v-row>
+
     <p style="white-space: pre-line"></p>
+
     <v-row class="text-center">
-      <v-card elevation="4">
-        <v-card-title>Router0</v-card-title>
-        <v-card-text>
-          <v-text-field
-              v-model="ip_r0"
-              label="IP地址"
-              required
-              outlined
-              disabled
-          ></v-text-field>
-          <v-text-field
-              v-model="pwd_telnet_r0"
-              label="Telnet密码"
-              required
-              outlined
-              :append-icon="show_r0_1 ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="show_r0_1 ? 'text' : 'password'"
-              @click:append="show_r0_1 = !show_r0_1"
-          ></v-text-field>
-          <v-btn elevation="2" color="primary" v-on:click="login_r0">
-            登陆
-          </v-btn>
-        </v-card-text>
-      </v-card>
+      <v-col sm="3">
+        <v-card elevation="4">
+          <v-card-title>Router0</v-card-title>
+          <v-card-text>
+            <v-text-field
+                v-model="ip_r0"
+                label="IP地址"
+                required
+                outlined
+                disabled
+            ></v-text-field>
+            <v-text-field
+                v-model="pwd_telnet_r0"
+                label="Telnet密码"
+                required
+                outlined
+                :append-icon="show_r0_1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show_r0_1 ? 'text' : 'password'"
+                @click:append="show_r0_1 = !show_r0_1"
+            ></v-text-field>
+            <v-btn elevation="2" color="primary" v-on:click="login_r0">
+              登陆
+            </v-btn>
+          </v-card-text>
+        </v-card>
+      </v-col>
 
       <v-spacer></v-spacer>
 
-      <v-card elevation="4">
-        <v-card-title>Router1</v-card-title>
-        <v-card-text>
-          <v-text-field
-              v-model="ip_r1"
-              label="IP地址"
-              required
-              outlined
-              disabled
-          ></v-text-field>
-          <v-text-field
-              v-model="pwd_telnet_r1"
-              label="Telnet密码"
-              required
-              outlined
-              :append-icon="show_r1_1 ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="show_r1_1 ? 'text' : 'password'"
-              @click:append="show_r1_1 = !show_r1_1"
-          ></v-text-field>
-          <v-btn elevation="2" color="primary" v-on:click="login_r1">
-            登陆
-          </v-btn>
-        </v-card-text>
-      </v-card>
+      <v-col sm="3">
+        <v-card elevation="4">
+          <v-card-title>Router1</v-card-title>
+          <v-card-text>
+            <v-text-field
+                v-model="ip_r1"
+                label="IP地址"
+                required
+                outlined
+                disabled
+            ></v-text-field>
+            <v-text-field
+                v-model="pwd_telnet_r1"
+                label="Telnet密码"
+                required
+                outlined
+                :append-icon="show_r1_1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show_r1_1 ? 'text' : 'password'"
+                @click:append="show_r1_1 = !show_r1_1"
+            ></v-text-field>
+            <v-btn elevation="2" color="primary" v-on:click="login_r1">
+              登陆
+            </v-btn>
+          </v-card-text>
+        </v-card>
+      </v-col>
 
       <v-spacer></v-spacer>
 
-      <v-card elevation="4">
-        <v-card-title>Router2</v-card-title>
-        <v-card-text>
-          <v-text-field
-              v-model="ip_r2"
-              label="IP地址"
-              required
-              outlined
-              disabled
-          ></v-text-field>
-          <v-text-field
-              v-model="pwd_telnet_r2"
-              label="Telnet密码"
-              required
-              outlined
-              :append-icon="show_r2_1 ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="show_r2_1 ? 'text' : 'password'"
-              @click:append="show_r2_1 = !show_r2_1"
-          ></v-text-field>
-          <v-btn elevation="2" color="primary" v-on:click="login_r2">
-            登陆
-          </v-btn>
-        </v-card-text>
-      </v-card>
+      <v-col sm="3">
+        <v-card elevation="4">
+          <v-card-title>Router2</v-card-title>
+          <v-card-text>
+            <v-text-field
+                v-model="ip_r2"
+                label="IP地址"
+                required
+                outlined
+                disabled
+            ></v-text-field>
+            <v-text-field
+                v-model="pwd_telnet_r2"
+                label="Telnet密码"
+                required
+                outlined
+                :append-icon="show_r2_1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show_r2_1 ? 'text' : 'password'"
+                @click:append="show_r2_1 = !show_r2_1"
+            ></v-text-field>
+            <v-btn elevation="2" color="primary" v-on:click="login_r2">
+              登陆
+            </v-btn>
+          </v-card-text>
+        </v-card>
+      </v-col>
 
       <v-spacer></v-spacer>
 
-      <v-card elevation="4">
-        <v-card-title>Switch2</v-card-title>
-        <v-card-text>
-          <v-text-field
-              v-model="ip_s2"
-              label="IP地址"
-              required
-              outlined
-              disabled
-          ></v-text-field>
-          <v-text-field
-              v-model="pwd_telnet_s2"
-              label="Telnet密码"
-              required
-              outlined
-              :append-icon="show_s2_1 ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="show_s2_1 ? 'text' : 'password'"
-              @click:append="show_s2_1 = !show_s2_1"
-          ></v-text-field>
-          <v-btn elevation="2" color="primary" v-on:click="login_s2">
-            登陆
-          </v-btn>
-        </v-card-text>
-      </v-card>
+      <v-col sm="3">
+        <v-card elevation="4">
+          <v-card-title>Switch2</v-card-title>
+          <v-card-text>
+            <v-text-field
+                v-model="ip_s2"
+                label="IP地址"
+                required
+                outlined
+                disabled
+            ></v-text-field>
+            <v-text-field
+                v-model="pwd_telnet_s2"
+                label="Telnet密码"
+                required
+                outlined
+                :append-icon="show_s2_1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="show_s2_1 ? 'text' : 'password'"
+                @click:append="show_s2_1 = !show_s2_1"
+            ></v-text-field>
+            <v-btn elevation="2" color="primary" v-on:click="login_s2">
+              登陆
+            </v-btn>
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
-
 </template>
 
 <script>
@@ -140,23 +149,6 @@ export default {
     }
   },
   methods: {
-    //前端调用测试
-    test() {
-      const url = 'http://127.0.0.1:5000/test'
-      let params = {
-        ip: '127.0.0.1',
-        pwd: 'cisco'
-      }
-      axios({
-        method: 'post',
-        url: url,
-        data: params
-      }).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
-    },
     login_r0() {
       const url = 'http://127.0.0.1:5000/login'
       let params = {

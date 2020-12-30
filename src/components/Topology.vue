@@ -1,23 +1,21 @@
 <template>
   <v-container>
-    <v-row class="text-center">
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
+    <v-row>
+      <p class="title font-weight-bold mb-3">
+        网络拓补
+      </p>
+    </v-row>
 
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers
-        </p>
-      </v-col>
-
-      <v-col cols="12">
-        <v-img
-            :src="require('../assets/Topography.png')"
-            class="my-3"
-            contain
-            height="350"
-        />
+    <v-row>
+      <v-col>
+        <v-card>
+          <v-img
+              :src="require('../assets/Topography.png')"
+              class="my-3"
+              contain
+              height="350"
+          />
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
