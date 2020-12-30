@@ -1,11 +1,24 @@
 <template>
   <v-container>
     <v-row>
+
+      <v-overlay :value="overlay">
+        <v-text>
+            登录{{resState}}
+        </v-text>
+        <br>
+        <v-btn
+            color="success"
+            @click="overlay = !overlay"
+          >
+            确定
+        </v-btn>
+
+      </v-overlay>
       <p class="title font-weight-bold mb-3">
         设备登陆
       </p>
     </v-row>
-
     <p style="white-space: pre-line"></p>
 
     <v-row class="text-center">
@@ -258,10 +271,13 @@ export default {
       show_r1: false,
       show_r2: false,
       // 登陆状态
-      login_state_s2: true,
-      login_state_r0: true,
-      login_state_r1: true,
-      login_state_r2: true
+      login_state_s2: false,
+      login_state_r0: false,
+      login_state_r1: false,
+      login_state_r2: false,
+      //弹框状态
+      overlay: false,
+      resState: ''
     }
   },
   methods: {
@@ -276,11 +292,20 @@ export default {
         method: 'post',
         url: url,
         data: params
-      }).then(res => {
-        console.log(res)
+      }).then(
+        res => {
+        console.log(res);
+        this.overlay = true
+        if(res.data.state == true){
+          this.changeDevState(dev_no)
+          this.resState="成功"
+        }else{
+          this.resState="失败"
+        }
       }).catch(err => {
         console.log(err)
       })
+      
     },
     logout(dev_no) {
       const url = 'http://127.0.0.1:5000/logout'
@@ -311,6 +336,29 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+    },
+    changeDevState(dev_no){
+      switch(dev_no){
+        case "s2":
+          this.login_state_s2 = true;
+          break;
+        case "r0":
+          this.login_state_r0 = true;
+          break;
+        case "r1":
+          this.login_state_r1 = true;
+          break;
+        case "r2":
+          this.login_state_r2 = true;
+          break;
+      }
+    },
+     watch: {
+      overlay (val) {
+        val && setTimeout(() => {
+          this.overlay = false
+        }, 2000)
+      },
     }
   }
 }

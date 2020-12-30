@@ -53,9 +53,5 @@ export default {
     Topology,
     Config
   },
-
-  data: () => ({
-    //
-  }),
 };
 </script>
