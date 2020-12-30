@@ -110,17 +110,38 @@
     <v-row>
       <v-col sm="10">
         <v-select
-            :items="['RIP', 'OSPF']"
+            :items="protocol_table"
+            v-model="selected_protocol"
             label="路由协议"
             outlined
         ></v-select>
       </v-col>
       <v-col sm="2">
-        <v-btn elevation="4" color="primary">
+        <v-btn elevation="4" color="primary" v-on:click="config">
           配置路由
         </v-btn>
       </v-col>
     </v-row>
+
+    <v-snackbar
+        v-model="isSucceed"
+        :timeout="timeout"
+        :top="true"
+        :color="color"
+    >
+      {{ snackbar_text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+            color="blue"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+        >
+          关闭
+        </v-btn>
+      </template>
+    </v-snackbar>
 
     <v-row>
       <v-col cols="12">
@@ -128,6 +149,7 @@
             color="teal"
             outlined
             readonly
+            v-model="msg"
         >
           <template v-slot:label>
             <div>
@@ -141,10 +163,18 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "Config",
   data() {
     return {
+      //组件变量
+      //信息条
+      isSucceed: false,
+      snackbar_text: '',
+      timeout: 2000,
+      color: 'white',
       // 使用统一密码
       pwd_uf_en: true,
       pwd_uf: '',
@@ -158,8 +188,46 @@ export default {
       show_r0: false,
       show_r1: false,
       show_r2: false,
-      show_s2: false
+      show_s2: false,
+      //路由协议表
+      selected_protocol: '',
+      protocol_table: ['RIP', 'OSPF', 'BGP'],
+      //返回信息
+      msg: ''
     }
+  },
+  methods: {
+    //配置协议
+    config() {
+      let data = {
+        pwd_r0: this.pwd_uf ? this.pwd_uf : this.pwd_r0,
+        pwd_r1: this.pwd_uf ? this.pwd_uf : this.pwd_r1,
+        pwd_r2: this.pwd_uf ? this.pwd_uf : this.pwd_r2
+      }
+      let url = 'http://127.0.0.1:5000/config_' + this.selected_protocol.toLowerCase()
+      //调用接口
+      axios({
+        method: 'post',
+        url: url,
+        data: data
+      }).then(res => {
+        console.log(res)
+        //输出信息到控制台
+        let result = res.data
+        this.msg += result.msg + '\n'
+        if (result.state) {
+          this.snackbar_text = '配置完成'
+          this.color = 'green'
+        } else {
+          this.snackbar_text = '配置失败'
+          this.color = 'red'
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+      //提示信息
+      this.isSucceed = true
+    },
   }
 }
 </script>
