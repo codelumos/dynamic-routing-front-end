@@ -8,14 +8,16 @@
 
     <v-row>
       <v-col>
-        <v-card>
-          <v-img
-              :src="require('../assets/Topography.png')"
-              class="my-3"
-              contain
-              height="350"
-          />
-        </v-card>
+        <v-hover v-slot="{ hover }">
+          <v-card :elevation="hover ? 12 : 4">
+            <v-img
+                :src="require('../assets/Topography.png')"
+                class="my-3"
+                contain
+                height="350"
+            />
+          </v-card>
+        </v-hover>
       </v-col>
     </v-row>
   </v-container>

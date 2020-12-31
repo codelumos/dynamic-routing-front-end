@@ -1,20 +1,28 @@
 <template>
   <v-container>
-    <v-row>
-
-      <v-overlay :value="overlay">
-        <v-text>
-            登录{{resState}}
-        </v-text>
-        <br>
+    <v-snackbar
+        v-model="show_snackbar"
+        :top="true"
+        :color="color"
+    >
+      <v-icon left>
+        {{ icon }}
+      </v-icon>
+      {{ snackbar_text }}
+      <template v-slot:action="{ attrs }">
         <v-btn
-            color="success"
-            @click="overlay = !overlay"
-          >
-            确定
+            icon
+            v-bind="attrs"
+            @click="show_snackbar = false"
+        >
+          <v-icon>
+            mdi-window-close
+          </v-icon>
         </v-btn>
+      </template>
+    </v-snackbar>
 
-      </v-overlay>
+    <v-row>
       <p class="title font-weight-bold mb-3">
         设备登陆
       </p>
@@ -23,189 +31,197 @@
 
     <v-row class="text-center">
       <v-col sm="3">
-        <v-card elevation="4">
-          <v-card-title>Switch2</v-card-title>
-          <v-card-text>
-            <v-text-field
-                v-model="ip_s2"
-                label="IP地址"
-                required
-                outlined
-                disabled
-            ></v-text-field>
-            <v-text-field
-                v-show="!pwd_uf_en"
-                v-model="pwd_s2"
-                label="Telnet密码"
-                required
-                outlined
-                :append-icon="show_s2 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show_s2 ? 'text' : 'password'"
-                @click:append="show_s2 = !show_s2"
-            ></v-text-field>
-            <v-btn
-                elevation="4"
-                color="primary"
-                @click="login('s2', ip_s2, pwd_uf_en ? pwd_uf : pwd_s2)"
+        <v-hover v-slot="{ hover }">
+          <v-card :elevation="hover ? 12 : 4">
+            <v-card-title>Switch2</v-card-title>
+            <v-card-text>
+              <v-text-field
+                  v-model="ip_s2"
+                  label="IP地址"
+                  required
+                  outlined
+                  disabled
+              ></v-text-field>
+              <v-text-field
+                  v-show="!pwd_uf_en"
+                  v-model="pwd_s2"
+                  label="Telnet密码"
+                  required
+                  outlined
+                  :append-icon="show_s2 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show_s2 ? 'text' : 'password'"
+                  @click:append="show_s2 = !show_s2"
+              ></v-text-field>
+              <v-btn
+                  elevation="4"
+                  color="primary"
+                  @click="login('s2', ip_s2, pwd_uf_en ? pwd_uf : pwd_s2)"
+              >
+                登陆
+              </v-btn>
+            </v-card-text>
+            <v-overlay
+                :absolute=true
+                :z-index=0
+                :value="login_state_s2"
             >
-              登陆
-            </v-btn>
-          </v-card-text>
-          <v-overlay
-              :absolute=true
-              :z-index=0
-              :value="login_state_s2"
-          >
-            <v-btn
-                elevation="4"
-                color="red lighten"
-                @click="logout('s2')"
-            >
-              退出登陆
-            </v-btn>
-          </v-overlay>
-        </v-card>
+              <v-btn
+                  elevation="4"
+                  color="red lighten"
+                  @click="logout('s2')"
+              >
+                退出登陆
+              </v-btn>
+            </v-overlay>
+          </v-card>
+        </v-hover>
       </v-col>
 
       <v-spacer></v-spacer>
 
       <v-col sm="3">
-        <v-card elevation="4">
-          <v-card-title>Router0</v-card-title>
-          <v-card-text>
-            <v-text-field
-                v-model="ip_r0"
-                label="IP地址"
-                required
-                outlined
-                disabled
-            ></v-text-field>
-            <v-text-field
-                v-show="!pwd_uf_en"
-                v-model="pwd_r0"
-                label="Telnet密码"
-                required
-                outlined
-                :append-icon="show_r0 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show_r0 ? 'text' : 'password'"
-                @click:append="show_r0 = !show_r0"
-            ></v-text-field>
-            <v-btn
-                elevation="4"
-                color="primary"
-                @click="login('r0', ip_r0, pwd_uf_en ? pwd_uf : pwd_r0)"
+        <v-hover v-slot="{ hover }">
+          <v-card :elevation="hover ? 12 : 4">
+            <v-card-title>Router0</v-card-title>
+            <v-card-text>
+              <v-text-field
+                  v-model="ip_r0"
+                  label="IP地址"
+                  required
+                  outlined
+                  disabled
+              ></v-text-field>
+              <v-text-field
+                  v-show="!pwd_uf_en"
+                  v-model="pwd_r0"
+                  label="Telnet密码"
+                  required
+                  outlined
+                  :append-icon="show_r0 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show_r0 ? 'text' : 'password'"
+                  @click:append="show_r0 = !show_r0"
+              ></v-text-field>
+              <v-btn
+                  elevation="4"
+                  color="primary"
+                  @click="login('r0', ip_r0, pwd_uf_en ? pwd_uf : pwd_r0)"
+              >
+                登陆
+              </v-btn>
+            </v-card-text>
+            <v-overlay
+                :absolute=true
+                :z-index=0
+                :value="login_state_r0"
             >
-              登陆
-            </v-btn>
-          </v-card-text>
-          <v-overlay
-              :absolute=true
-              :z-index=0
-              :value="login_state_r0"
-          >
-            <v-btn
-                elevation="4"
-                color="red lighten"
-                @click="logout('r0')"
-            >
-              退出登陆
-            </v-btn>
-          </v-overlay>
-        </v-card>
+              <v-btn
+                  elevation="4"
+                  color="red lighten"
+                  @click="logout('r0')"
+              >
+                退出登陆
+              </v-btn>
+            </v-overlay>
+          </v-card>
+        </v-hover>
       </v-col>
 
       <v-spacer></v-spacer>
 
       <v-col sm="3">
-        <v-card elevation="4">
-          <v-card-title>Router1</v-card-title>
-          <v-card-text>
-            <v-text-field
-                v-model="ip_r1"
-                label="IP地址"
-                required
-                outlined
-                disabled
-            ></v-text-field>
-            <v-text-field
-                v-show="!pwd_uf_en"
-                v-model="pwd_r1"
-                label="Telnet密码"
-                required
-                outlined
-                :append-icon="show_r1 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show_r1 ? 'text' : 'password'"
-                @click:append="show_r1 = !show_r1"
-            ></v-text-field>
-            <v-btn
-                elevation="4"
-                color="primary"
-                @click="login('r1', ip_r1, pwd_uf_en ? pwd_uf : pwd_r1)"
+        <v-hover v-slot="{ hover }">
+          <v-card :elevation="hover ? 12 : 4">
+            <v-card-title>Router1</v-card-title>
+            <v-card-text>
+              <v-text-field
+                  v-model="ip_r1"
+                  label="IP地址"
+                  required
+                  outlined
+                  disabled
+              ></v-text-field>
+              <v-text-field
+                  v-show="!pwd_uf_en"
+                  v-model="pwd_r1"
+                  label="Telnet密码"
+                  required
+                  outlined
+                  :append-icon="show_r1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show_r1 ? 'text' : 'password'"
+                  @click:append="show_r1 = !show_r1"
+              ></v-text-field>
+              <v-btn
+                  elevation="4"
+                  color="primary"
+                  @click="login('r1', ip_r1, pwd_uf_en ? pwd_uf : pwd_r1)"
+              >
+                登陆
+              </v-btn>
+            </v-card-text>
+            <v-overlay
+                :absolute=true
+                :z-index=0
+                :value="login_state_r1"
             >
-              登陆
-            </v-btn>
-          </v-card-text>
-          <v-overlay
-              :absolute=true
-              :z-index=0
-              :value="login_state_r1"
-          >
-            <v-btn
-                elevation="4"
-                color="red lighten"
-                @click="logout('r1')"
-            >
-              退出登陆
-            </v-btn>
-          </v-overlay>
-        </v-card>
+              <v-btn
+                  elevation="4"
+                  color="red lighten"
+                  @click="logout('r1')"
+              >
+                退出登陆
+              </v-btn>
+            </v-overlay>
+          </v-card>
+        </v-hover>
       </v-col>
 
       <v-spacer></v-spacer>
 
       <v-col sm="3">
-        <v-card elevation="4">
-          <v-card-title>Router2</v-card-title>
-          <v-card-text>
-            <v-text-field
-                v-model="ip_r2"
-                label="IP地址"
-                required
-                outlined
-                disabled
-            ></v-text-field>
-            <v-text-field
-                v-show="!pwd_uf_en"
-                v-model="pwd_r2"
-                label="Telnet密码"
-                required
-                outlined
-                :append-icon="show_r2 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show_r2 ? 'text' : 'password'"
-                @click:append="show_r2 = !show_r2"
-            ></v-text-field>
-            <v-btn
-                elevation="4"
-                color="primary"
-                @click="login('r2', ip_r2, pwd_uf_en ? pwd_uf : pwd_r2)"
+        <v-hover v-slot="{ hover }">
+          <v-card :elevation="hover ? 12 : 4">
+            <v-card-title>Router2</v-card-title>
+            <v-card-text>
+              <v-text-field
+                  v-model="ip_r2"
+                  label="IP地址"
+                  required
+                  outlined
+                  disabled
+              ></v-text-field>
+              <v-text-field
+                  v-show="!pwd_uf_en"
+                  v-model="pwd_r2"
+                  label="Telnet密码"
+                  required
+                  outlined
+                  :append-icon="show_r2 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show_r2 ? 'text' : 'password'"
+                  @click:append="show_r2 = !show_r2"
+              ></v-text-field>
+              <v-btn
+                  elevation="4"
+                  color="primary"
+                  @click="login('r2', ip_r2, pwd_uf_en ? pwd_uf : pwd_r2)"
+              >
+                登陆
+              </v-btn>
+            </v-card-text>
+            <v-overlay
+                :absolute=true
+                :z-index=0
+                :value="login_state_r2"
             >
-              登陆
-            </v-btn>
-          </v-card-text>
-          <v-overlay
-              :absolute=true
-              :z-index=0
-              :value="login_state_r2"
-          >
-            <v-btn
-                elevation="4"
-                color="red lighten"
-                @click="logout('r2')"
-            >
-              退出登陆
-            </v-btn>
-          </v-overlay>
-        </v-card>
+              <v-btn
+                  elevation="4"
+                  color="red lighten"
+                  @click="logout('r2')"
+              >
+                退出登陆
+              </v-btn>
+            </v-overlay>
+          </v-card>
+        </v-hover>
       </v-col>
     </v-row>
 
@@ -251,6 +267,12 @@ export default {
 
   data() {
     return {
+      // 消息条
+      show_snackbar: false,
+      icon: 'mdi-minus-circle',
+      snackbar_text: '网络连接失败',
+      timeout: 2000,
+      color: 'warning',
       // IP地址
       ip_s2: '127.16.0.1',
       ip_r0: '127.16.0.2',
@@ -274,10 +296,7 @@ export default {
       login_state_s2: false,
       login_state_r0: false,
       login_state_r1: false,
-      login_state_r2: false,
-      //弹框状态
-      overlay: false,
-      resState: ''
+      login_state_r2: false
     }
   },
   methods: {
@@ -292,20 +311,25 @@ export default {
         method: 'post',
         url: url,
         data: params
-      }).then(
-        res => {
+      }).then(res => {
         console.log(res);
-        this.overlay = true
-        if(res.data.state == true){
+        if (res.data.state) {
           this.changeDevState(dev_no)
-          this.resState="成功"
-        }else{
-          this.resState="失败"
+          this.snackbar_text = "登陆成功"
+          this.icon = 'mdi-checkbox-marked-circle'
+          this.color = 'success'
+        } else {
+          this.snackbar_text = "登陆失败"
+          this.icon = 'mdi-cancel'
+          this.color = 'error'
         }
+        // 弹出消息条
+        this.show_snackbar = true
       }).catch(err => {
         console.log(err)
+        // 弹出消息条
+        this.show_snackbar = true
       })
-      
     },
     logout(dev_no) {
       const url = 'http://127.0.0.1:5000/logout'
@@ -337,8 +361,8 @@ export default {
         console.log(err)
       })
     },
-    changeDevState(dev_no){
-      switch(dev_no){
+    changeDevState(dev_no) {
+      switch (dev_no) {
         case "s2":
           this.login_state_s2 = true;
           break;
@@ -353,10 +377,10 @@ export default {
           break;
       }
     },
-     watch: {
-      overlay (val) {
+    watch: {
+      overlay(val) {
         val && setTimeout(() => {
-          this.overlay = false
+          this.show_snackbar = false
         }, 2000)
       },
     }

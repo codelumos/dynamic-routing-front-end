@@ -1,5 +1,28 @@
 <template>
   <v-container>
+    <v-snackbar
+        v-model="show_snackbar"
+        :timeout="timeout"
+        :top="true"
+        :color="color"
+    >
+      <v-icon left>
+        {{ icon }}
+      </v-icon>
+      {{ snackbar_text }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+            icon
+            v-bind="attrs"
+            @click="show_snackbar = false"
+        >
+          <v-icon>
+            mdi-window-close
+          </v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
+
     <v-row>
       <p class="title font-weight-bold mb-3">
         路由配置
@@ -110,8 +133,8 @@
     <v-row>
       <v-col sm="10">
         <v-select
-            :items="protocol_table"
             v-model="selected_protocol"
+            :items="protocol_table"
             label="路由协议"
             outlined
         ></v-select>
@@ -122,26 +145,6 @@
         </v-btn>
       </v-col>
     </v-row>
-
-    <v-snackbar
-        v-model="isSucceed"
-        :timeout="timeout"
-        :top="true"
-        :color="color"
-    >
-      {{ snackbar_text }}
-
-      <template v-slot:action="{ attrs }">
-        <v-btn
-            color="blue"
-            text
-            v-bind="attrs"
-            @click="snackbar = false"
-        >
-          关闭
-        </v-btn>
-      </template>
-    </v-snackbar>
 
     <v-row>
       <v-col cols="12">
@@ -169,12 +172,12 @@ export default {
   name: "Config",
   data() {
     return {
-      //组件变量
-      //信息条
-      isSucceed: false,
-      snackbar_text: '',
+      // 消息条
+      show_snackbar: false,
+      icon: 'mdi-minus-circle',
+      snackbar_text: '网络连接失败',
       timeout: 2000,
-      color: 'white',
+      color: 'warning',
       // 使用统一密码
       pwd_uf_en: true,
       pwd_uf: '',
@@ -189,15 +192,15 @@ export default {
       show_r1: false,
       show_r2: false,
       show_s2: false,
-      //路由协议表
-      selected_protocol: '',
+      // 路由协议表
+      selected_protocol: 'RIP',
       protocol_table: ['RIP', 'OSPF', 'BGP'],
-      //返回信息
+      // 返回信息
       msg: ''
     }
   },
   methods: {
-    //配置协议
+    // 配置协议
     config() {
       let data = {
         pwd_r0: this.pwd_uf ? this.pwd_uf : this.pwd_r0,
@@ -205,29 +208,33 @@ export default {
         pwd_r2: this.pwd_uf ? this.pwd_uf : this.pwd_r2
       }
       let url = 'http://127.0.0.1:5000/config_' + this.selected_protocol.toLowerCase()
-      //调用接口
+      // 调用接口
       axios({
         method: 'post',
         url: url,
         data: data
       }).then(res => {
         console.log(res)
-        //输出信息到控制台
+        // 输出信息到控制台
         let result = res.data
         this.msg += result.msg + '\n'
         if (result.state) {
           this.snackbar_text = '配置完成'
-          this.color = 'green'
+          this.icon = 'mdi-checkbox-marked-circle'
+          this.color = 'success'
         } else {
           this.snackbar_text = '配置失败'
-          this.color = 'red'
+          this.icon = 'mdi-cancel'
+          this.color = 'error'
         }
+        // 弹出消息条
+        this.show_snackbar = true
       }).catch(err => {
         console.log(err)
+        // 弹出消息条
+        this.show_snackbar = true
       })
-      //提示信息
-      this.isSucceed = true
-    },
+    }
   }
 }
 </script>
