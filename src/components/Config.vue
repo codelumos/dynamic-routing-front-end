@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <!-- 消息条 -->
     <v-snackbar
         v-model="show_snackbar"
         :timeout="timeout"
@@ -23,6 +24,7 @@
       </template>
     </v-snackbar>
 
+    <!-- 标题 -->
     <v-row>
       <p class="title font-weight-bold mb-3">
         路由配置
@@ -31,6 +33,7 @@
 
     <p style="white-space: pre-line"></p>
 
+    <!-- 卡片 -->
     <v-row class="text-center" v-show="!pwd_uf_en">
       <v-col sm="3">
         <v-card elevation="4">
@@ -107,6 +110,7 @@
       </v-col>
     </v-row>
 
+    <!-- 配置统一密码 -->
     <v-row>
       <v-col sm="3">
         <v-switch
@@ -178,10 +182,10 @@ export default {
       snackbar_text: '网络连接失败',
       timeout: 2000,
       color: 'warning',
-      // 使用统一密码
+      // 使用统一特权密码
       pwd_uf_en: true,
       pwd_uf: '',
-      // 设备独立密码
+      // 设备独立特权密码
       pwd_r0: '',
       pwd_r1: '',
       pwd_r2: '',

@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <!-- 顶栏 -->
     <v-app-bar
         app
         color="primary"
@@ -20,6 +21,7 @@
       </v-app-bar-title>
     </v-app-bar>
 
+    <!-- 主页面 -->
     <v-main>
       <p style="white-space: pre-line"></p>
       <Topology/>
@@ -29,6 +31,7 @@
       <p style="white-space: pre-line"></p>
     </v-main>
 
+    <!-- 底栏 -->
     <v-app-bar
         color="primary"
         dark

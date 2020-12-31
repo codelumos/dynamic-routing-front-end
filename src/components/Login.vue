@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <!-- 消息条 -->
     <v-snackbar
         v-model="show_snackbar"
         :top="true"
@@ -22,6 +23,7 @@
       </template>
     </v-snackbar>
 
+    <!-- 标题 -->
     <v-row>
       <p class="title font-weight-bold mb-3">
         设备登陆
@@ -29,6 +31,7 @@
     </v-row>
     <p style="white-space: pre-line"></p>
 
+    <!-- 卡片 -->
     <v-row class="text-center">
       <v-col sm="3">
         <v-hover v-slot="{ hover }">
@@ -63,7 +66,7 @@
             <v-overlay
                 :absolute=true
                 :z-index=0
-                :value="login_state_s2"
+                :value="state_s2"
             >
               <v-btn
                   elevation="4"
@@ -112,7 +115,7 @@
             <v-overlay
                 :absolute=true
                 :z-index=0
-                :value="login_state_r0"
+                :value="state_r0"
             >
               <v-btn
                   elevation="4"
@@ -161,7 +164,7 @@
             <v-overlay
                 :absolute=true
                 :z-index=0
-                :value="login_state_r1"
+                :value="state_r1"
             >
               <v-btn
                   elevation="4"
@@ -210,7 +213,7 @@
             <v-overlay
                 :absolute=true
                 :z-index=0
-                :value="login_state_r2"
+                :value="state_r2"
             >
               <v-btn
                   elevation="4"
@@ -225,6 +228,7 @@
       </v-col>
     </v-row>
 
+    <!-- 配置统一密码 -->
     <v-row>
       <v-col sm="3">
         <v-switch
@@ -273,15 +277,15 @@ export default {
       snackbar_text: '网络连接失败',
       timeout: 2000,
       color: 'warning',
-      // IP地址
+      // 设备IP地址
       ip_s2: '127.16.0.1',
       ip_r0: '127.16.0.2',
       ip_r1: '127.16.0.3',
       ip_r2: '127.16.0.4',
-      // 使用统一密码
+      // 使用统一telnet密码
       pwd_uf_en: true,
       pwd_uf: '',
-      // 设备独立密码
+      // 设备独立telnet密码
       pwd_s2: '',
       pwd_r0: '',
       pwd_r1: '',
@@ -292,11 +296,11 @@ export default {
       show_r0: false,
       show_r1: false,
       show_r2: false,
-      // 登陆状态
-      login_state_s2: false,
-      login_state_r0: false,
-      login_state_r1: false,
-      login_state_r2: false
+      // 设备登陆状态(true:已登陆, false:未登陆)
+      state_s2: false,
+      state_r0: false,
+      state_r1: false,
+      state_r2: false
     }
   },
   methods: {
@@ -314,11 +318,16 @@ export default {
       }).then(res => {
         console.log(res);
         if (res.data.state) {
-          this.changeDevState(dev_no)
+          // 将设备状态设为登陆状态
+          this.set_dev_state(dev_no, true)
+          // 设置消息条
           this.snackbar_text = "登陆成功"
           this.icon = 'mdi-checkbox-marked-circle'
           this.color = 'success'
         } else {
+          // 将设备状态设为未登陆状态
+          this.set_dev_state(dev_no, false)
+          // 设置消息条
           this.snackbar_text = "登陆失败"
           this.icon = 'mdi-cancel'
           this.color = 'error'
@@ -361,28 +370,21 @@ export default {
         console.log(err)
       })
     },
-    changeDevState(dev_no) {
+    set_dev_state(dev_no, state) {
       switch (dev_no) {
         case "s2":
-          this.login_state_s2 = true;
+          this.state_s2 = state;
           break;
         case "r0":
-          this.login_state_r0 = true;
+          this.state_r0 = state;
           break;
         case "r1":
-          this.login_state_r1 = true;
+          this.state_r1 = state;
           break;
         case "r2":
-          this.login_state_r2 = true;
+          this.state_r2 = state;
           break;
       }
-    },
-    watch: {
-      overlay(val) {
-        val && setTimeout(() => {
-          this.show_snackbar = false
-        }, 2000)
-      },
     }
   }
 }
