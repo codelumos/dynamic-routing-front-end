@@ -206,6 +206,11 @@ export default {
   methods: {
     // 配置协议
     config() {
+      //初始化信息条
+      this.snackbar_text = '配置失败'
+      this.icon = 'mdi-cancel'
+      this.color = 'error'
+
       let data = {
         pwd_r0: this.pwd_uf ? this.pwd_uf : this.pwd_r0,
         pwd_r1: this.pwd_uf ? this.pwd_uf : this.pwd_r1,
@@ -226,10 +231,6 @@ export default {
           this.snackbar_text = '配置完成'
           this.icon = 'mdi-checkbox-marked-circle'
           this.color = 'success'
-        } else {
-          this.snackbar_text = '配置失败'
-          this.icon = 'mdi-cancel'
-          this.color = 'error'
         }
         // 弹出消息条
         this.show_snackbar = true
