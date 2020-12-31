@@ -206,6 +206,14 @@ export default {
   methods: {
     // 配置协议
     config() {
+      //检查特权密码是否为空
+      if ((this.pwd_uf_en && this.pwd_uf === '') || (!this.pwd_uf_en && (this.pwd_r0 === '' || this.pwd_r1 === '' || this.pwd_r2 === '' || this.pwd_s2 === ''))) {
+        this.snackbar_text = '特权密码不能为空！'
+        this.icon = 'mdi-alert-circle'
+        this.color = 'warning'
+        this.show_snackbar = true
+        return
+      }
       //初始化信息条
       this.snackbar_text = '配置失败'
       this.icon = 'mdi-cancel'
