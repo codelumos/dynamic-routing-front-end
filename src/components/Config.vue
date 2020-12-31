@@ -30,9 +30,7 @@
       </p>
     </v-row>
 
-    <p style="white-space: pre-line"></p>
-
-    <!-- 卡片 -->
+    <!-- 配置卡片 -->
     <v-row class="text-center" v-show="!pwd_uf_en">
       <v-col sm="3">
         <v-card elevation="4">
@@ -109,7 +107,7 @@
       </v-col>
     </v-row>
 
-    <!-- 配置统一密码 -->
+    <!-- 统一密码选项 -->
     <v-row>
       <v-col sm="3">
         <v-switch
@@ -133,8 +131,8 @@
 
     <p style="white-space: pre-line"></p>
 
+    <!-- 路由协议及设备选择 -->
     <v-row>
-      <!-- 配置路由 -->
       <v-col sm="4">
         <v-select
             v-model="protocol_selected"
@@ -153,7 +151,6 @@
         </v-btn>
       </v-col>
 
-      <!-- 查看信息 -->
       <v-col sm="4">
         <v-select
             v-model="dev_selected"
@@ -175,18 +172,20 @@
 
     <!-- 控制台 -->
     <v-row>
+      <p class="title font-weight-bold mb-3">
+        控制台
+      </p>
+    </v-row>
+
+    <v-row>
       <v-col cols="12">
         <v-textarea
-            color="teal"
+            v-model="msg"
             outlined
             readonly
-            v-model="msg"
+            dark
+            background-color="#212121"
         >
-          <template v-slot:label>
-            <div>
-              控制台
-            </div>
-          </template>
         </v-textarea>
       </v-col>
     </v-row>
@@ -225,8 +224,8 @@ export default {
       // 设备列表
       dev_selected: 'Switch2',
       dev_list: ['Switch2', 'Router0', 'Router1', 'Router2'],
-      // 返回信息
-      msg: ''
+      // 控制台信息
+      msg: 'Dynamic Router Telnet\nRouter>'
     }
   },
   methods: {

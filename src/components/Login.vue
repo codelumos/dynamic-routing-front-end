@@ -29,9 +29,8 @@
         设备登陆
       </p>
     </v-row>
-    <p style="white-space: pre-line"></p>
 
-    <!-- 卡片 -->
+    <!-- 配置卡片 -->
     <v-row class="text-center">
       <v-col sm="3">
         <v-hover v-slot="{ hover }">
@@ -228,7 +227,7 @@
       </v-col>
     </v-row>
 
-    <!-- 配置统一密码 -->
+    <!-- 统一密码选项 -->
     <v-row>
       <v-col sm="3">
         <v-switch
