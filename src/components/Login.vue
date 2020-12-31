@@ -253,7 +253,7 @@
             v-show="pwd_uf_en"
             elevation="4"
             color="primary"
-            v-on:click="login_all"
+            @click="login_all"
         >
           一键登录
         </v-btn>
@@ -371,11 +371,11 @@ export default {
       })
     },
     login_all() {
-      axios.all([this.login("s2",this.ip_s2,this.pwd_uf),
-                this.login("r0",this.ip_r0,this.pwd_uf),
-                this.login("r1",this.ip_r1,this.pwd_uf),
-                this.login("r2",this.ip_r2,this.pwd_uf),
-                ]).then(axios.spread(function(res) {
+      axios.all([this.login("s2", this.ip_s2, this.pwd_uf),
+        this.login("r0", this.ip_r0, this.pwd_uf),
+        this.login("r1", this.ip_r1, this.pwd_uf),
+        this.login("r2", this.ip_r2, this.pwd_uf),
+      ]).then(axios.spread(function (res) {
         console.log(res);
       })).catch(err => {
         console.log(err)

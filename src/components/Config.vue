@@ -3,7 +3,6 @@
     <!-- 消息条 -->
     <v-snackbar
         v-model="show_snackbar"
-        :timeout="timeout"
         :top="true"
         :color="color"
     >
@@ -135,21 +134,46 @@
     <p style="white-space: pre-line"></p>
 
     <v-row>
-      <v-col sm="10">
+      <!-- 配置路由 -->
+      <v-col sm="4">
         <v-select
-            v-model="selected_protocol"
-            :items="protocol_table"
+            v-model="protocol_selected"
+            :items="protocol_list"
             label="路由协议"
             outlined
         ></v-select>
       </v-col>
       <v-col sm="2">
-        <v-btn elevation="4" color="primary" v-on:click="config">
+        <v-btn
+            elevation="4"
+            color="primary"
+            @click="config"
+        >
           配置路由
+        </v-btn>
+      </v-col>
+
+      <!-- 查看信息 -->
+      <v-col sm="4">
+        <v-select
+            v-model="dev_selected"
+            :items="dev_list"
+            label="设备选择"
+            outlined
+        ></v-select>
+      </v-col>
+      <v-col sm="2">
+        <v-btn
+            elevation="4"
+            color="primary"
+            @click="info"
+        >
+          查看路由
         </v-btn>
       </v-col>
     </v-row>
 
+    <!-- 控制台 -->
     <v-row>
       <v-col cols="12">
         <v-textarea
@@ -180,7 +204,6 @@ export default {
       show_snackbar: false,
       icon: 'mdi-minus-circle',
       snackbar_text: '网络连接失败',
-      timeout: 2000,
       color: 'warning',
       // 使用统一特权密码
       pwd_uf_en: true,
@@ -196,9 +219,12 @@ export default {
       show_r1: false,
       show_r2: false,
       show_s2: false,
-      // 路由协议表
-      selected_protocol: 'RIP',
-      protocol_table: ['RIP', 'OSPF', 'BGP'],
+      // 路由协议列表
+      protocol_selected: 'RIP',
+      protocol_list: ['RIP', 'OSPF', 'BGP'],
+      // 设备列表
+      dev_selected: 'Switch2',
+      dev_list: ['Switch2', 'Router0', 'Router1', 'Router2'],
       // 返回信息
       msg: ''
     }
@@ -224,7 +250,7 @@ export default {
         pwd_r1: this.pwd_uf ? this.pwd_uf : this.pwd_r1,
         pwd_r2: this.pwd_uf ? this.pwd_uf : this.pwd_r2
       }
-      let url = 'http://127.0.0.1:5000/config_' + this.selected_protocol.toLowerCase()
+      let url = 'http://127.0.0.1:5000/config/' + this.protocol_selected.toLowerCase()
       // 调用接口
       axios({
         method: 'post',
@@ -246,6 +272,25 @@ export default {
         console.log(err)
         // 弹出消息条
         this.show_snackbar = true
+      })
+    },
+    info() {
+      let data = {
+        dev_no: this.dev_selected[0].toLowerCase() + this.dev_selected[this.dev_selected.length - 1]
+      }
+      let url = 'http://127.0.0.1:5000/info'
+      // 调用接口
+      axios({
+        method: 'post',
+        url: url,
+        data: data
+      }).then(res => {
+        console.log(res)
+        // 输出信息到控制台
+        let result = res.data
+        this.msg += result.route + '\n' + result.protocol + '\n'
+      }).catch(err => {
+        console.log(err)
       })
     }
   }

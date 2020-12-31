@@ -32,14 +32,14 @@
     </v-main>
 
     <!-- 底栏 -->
-    <v-app-bar
+    <v-footer
         color="primary"
         dark
     >
       <div class="align-center">
         DynamicRouter
       </div>
-    </v-app-bar>
+    </v-footer>
   </v-app>
 </template>
 
