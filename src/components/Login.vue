@@ -350,23 +350,34 @@ export default {
         url: url,
         data: params
       }).then(res => {
-        console.log(res)
+        console.log(res);
+        if (res.data.state) {
+          // 将设备状态设为未登陆状态
+          this.set_dev_state(dev_no, false)
+          this.snackbar_text = "登出成功"
+          this.icon = 'mdi-checkbox-marked-circle'
+          this.color = 'success'
+        } else {
+          // 设备状态保持登陆状态
+          this.set_dev_state(dev_no, true)
+          this.snackbar_text = "登出失败"
+          this.icon = 'mdi-cancel'
+          this.color = 'error'
+        }
+        this.show_snackbar = true
       }).catch(err => {
         console.log(err)
+        this.show_snackbar = true
       })
     },
     login_all() {
-      const url = 'http://127.0.0.1:5000/login'
-      let params = {
-        pwd: this.pwd_uf
-      }
-      axios({
-        method: 'post',
-        url: url,
-        data: params
-      }).then(res => {
-        console.log(res)
-      }).catch(err => {
+      axios.all([this.login("s2",this.ip_s2,this.pwd_uf),
+                this.login("r0",this.ip_r0,this.pwd_uf),
+                this.login("r1",this.ip_r1,this.pwd_uf),
+                this.login("r2",this.ip_r2,this.pwd_uf),
+                ]).then(axios.spread(function(res) {
+        console.log(res);
+      })).catch(err => {
         console.log(err)
       })
     },
