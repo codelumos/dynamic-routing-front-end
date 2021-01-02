@@ -28,7 +28,11 @@
       <p style="white-space: pre-line"></p>
       <Login/>
       <p style="white-space: pre-line"></p>
-      <Config/>
+      <Privilege/>
+      <p style="white-space: pre-line"></p>
+      <Serial/>
+      <p style="white-space: pre-line"></p>
+      <Protocol/>
       <p style="white-space: pre-line"></p>
     </v-main>
 
@@ -47,17 +51,21 @@
 </template>
 
 <script>
-import Login from './components/Login';
-import Topology from './components/Topology';
-import Config from "./components/Config";
+import Login from '@/components/Login';
+import Privilege from "@/components/Privilege";
+import Serial from "@/components/Serial";
+import Topology from '@/components/Topology';
+import Protocol from "@/components/Protocol";
 
 export default {
   name: 'App',
 
   components: {
     Login,
+    Privilege,
+    Serial,
     Topology,
-    Config
+    Protocol
   },
 };
 </script>

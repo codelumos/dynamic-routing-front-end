@@ -45,6 +45,13 @@
                   disabled
               ></v-text-field>
               <v-text-field
+                  v-model="mask_s2"
+                  label="子网掩码"
+                  required
+                  outlined
+                  disabled
+              ></v-text-field>
+              <v-text-field
                   v-show="!pwd_uf_en"
                   v-model="pwd_s2"
                   label="Telnet密码"
@@ -89,6 +96,13 @@
               <v-text-field
                   v-model="ip_r0"
                   label="IP地址"
+                  required
+                  outlined
+                  disabled
+              ></v-text-field>
+              <v-text-field
+                  v-model="mask_r0"
+                  label="子网掩码"
                   required
                   outlined
                   disabled
@@ -143,6 +157,13 @@
                   disabled
               ></v-text-field>
               <v-text-field
+                  v-model="mask_r1"
+                  label="子网掩码"
+                  required
+                  outlined
+                  disabled
+              ></v-text-field>
+              <v-text-field
                   v-show="!pwd_uf_en"
                   v-model="pwd_r1"
                   label="Telnet密码"
@@ -192,6 +213,13 @@
                   disabled
               ></v-text-field>
               <v-text-field
+                  v-model="mask_r2"
+                  label="子网掩码"
+                  required
+                  outlined
+                  disabled
+              ></v-text-field>
+              <v-text-field
                   v-show="!pwd_uf_en"
                   v-model="pwd_r2"
                   label="Telnet密码"
@@ -228,6 +256,7 @@
     </v-row>
 
     <!-- 统一密码选项 -->
+    <p style="white-space: pre-line" v-show="pwd_uf_en"></p>
     <v-row>
       <v-col sm="3">
         <v-switch
@@ -267,7 +296,6 @@ import axios from 'axios'
 
 export default {
   name: 'Login',
-
   data() {
     return {
       // 消息条
@@ -281,6 +309,11 @@ export default {
       ip_r0: '127.16.0.2',
       ip_r1: '127.16.0.3',
       ip_r2: '127.16.0.4',
+      // 设备子网掩码
+      mask_s2: '255.255.0.0',
+      mask_r0: '255.255.0.0',
+      mask_r1: '255.255.0.0',
+      mask_r2: '255.255.0.0',
       // 使用统一telnet密码
       pwd_uf_en: true,
       pwd_uf: '',
