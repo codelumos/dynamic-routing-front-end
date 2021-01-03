@@ -170,16 +170,25 @@ export default {
     }
   },
   methods: {
+    // 弹出消息条
+    tip() {
+      this.show_snackbar = true
+      // 重置消息条信息
+      this.snackbar_text = "网络连接失败"
+      this.icon = 'mdi-minus-circle'
+      this.color = 'warning'
+    },
+    // 进入特权模式
     enable() {
       // 检查特权密码是否为空
       if ((this.pwd_uf_en && this.pwd_uf === '') || (!this.pwd_uf_en && (this.pwd_r0 === '' || this.pwd_r1 === '' || this.pwd_r2 === '' || this.pwd_s2 === ''))) {
         this.snackbar_text = '特权密码不能为空！'
         this.icon = 'mdi-alert-circle'
         this.color = 'warning'
-        this.show_snackbar = true
+        this.tip()
         return
       }
-      const url = 'http://127.0.0.1:5000/enable/'
+      const url = 'http://127.0.0.1:5000/enable'
       let data = {
         pwd_r0: this.pwd_uf ? this.pwd_uf : this.pwd_r0,
         pwd_r1: this.pwd_uf ? this.pwd_uf : this.pwd_r1,
@@ -191,8 +200,19 @@ export default {
         data: data
       }).then(res => {
         console.log(res)
+        if (res.data.state) {
+          this.snackbar_text = "进入特权模式"
+          this.icon = 'mdi-checkbox-marked-circle'
+          this.color = 'success'
+        } else {
+          this.snackbar_text = "进入特权模式失败"
+          this.icon = 'mdi-cancel'
+          this.color = 'error'
+        }
+        this.tip()
       }).catch(err => {
         console.log(err)
+        this.tip()
       })
     }
   }

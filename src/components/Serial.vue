@@ -171,15 +171,26 @@ export default {
     }
   },
   methods: {
+    // 弹出消息条
+    tip() {
+      this.show_snackbar = true
+      // 重置消息条信息
+      this.snackbar_text = "网络连接失败"
+      this.icon = 'mdi-minus-circle'
+      this.color = 'warning'
+    },
+    // 初始化串行接口
     init() {
-      const url = 'http://127.0.0.1:5000/init/'
+      const url = 'http://127.0.0.1:5000/init'
       axios({
         url: url,
         method: 'post',
       }).then(res => {
         console.log(res)
+        this.tip()
       }).catch(err => {
         console.log(err)
+        this.tip()
       })
     }
   }

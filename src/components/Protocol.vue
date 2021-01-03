@@ -114,6 +114,14 @@ export default {
     }
   },
   methods: {
+    // 弹出消息条
+    tip() {
+      this.show_snackbar = true
+      // 重置消息条信息
+      this.snackbar_text = "网络连接失败"
+      this.icon = 'mdi-minus-circle'
+      this.color = 'warning'
+    },
     // 配置协议
     config() {
       //初始化信息条
@@ -121,7 +129,7 @@ export default {
       this.icon = 'mdi-cancel'
       this.color = 'error'
 
-      let url = 'http://127.0.0.1:5000/config/' + this.protocol_selected.toLowerCase()
+      let url = 'http://127.0.0.1:5000/config' + this.protocol_selected.toLowerCase()
       // 调用接口
       axios({
         method: 'post',
@@ -136,14 +144,13 @@ export default {
           this.icon = 'mdi-checkbox-marked-circle'
           this.color = 'success'
         }
-        // 弹出消息条
-        this.show_snackbar = true
+        this.tip()
       }).catch(err => {
         console.log(err)
-        // 弹出消息条
-        this.show_snackbar = true
+        this.tip()
       })
     },
+    // 查看信息
     info() {
       let data = {
         dev_no: this.dev_selected[0].toLowerCase() + this.dev_selected[this.dev_selected.length - 1]

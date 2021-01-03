@@ -335,6 +335,15 @@ export default {
     }
   },
   methods: {
+    // 弹出消息条
+    tip() {
+      this.show_snackbar = true
+      // 重置消息条信息
+      this.snackbar_text = "网络连接失败"
+      this.icon = 'mdi-minus-circle'
+      this.color = 'warning'
+    },
+    // 设备登陆
     login(dev_no, ip, mask, pwd) {
       const url = 'http://127.0.0.1:5000/login'
       let params = {
@@ -363,14 +372,13 @@ export default {
           this.icon = 'mdi-cancel'
           this.color = 'error'
         }
-        // 弹出消息条
-        this.show_snackbar = true
+        this.tip()
       }).catch(err => {
         console.log(err)
-        // 弹出消息条
-        this.show_snackbar = true
+        this.tip()
       })
     },
+    // 设备登出
     logout(dev_no) {
       const url = 'http://127.0.0.1:5000/logout'
       let params = {
@@ -382,6 +390,9 @@ export default {
         data: params
       }).then(res => {
         console.log(res);
+        this.snackbar_text = "网络连接失败"
+        this.icon = 'mdi-minus-circle'
+        this.color = 'warning'
         if (res.data.state) {
           // 将设备状态设为未登陆状态
           this.set_dev_state(dev_no, false)
@@ -389,18 +400,17 @@ export default {
           this.icon = 'mdi-checkbox-marked-circle'
           this.color = 'success'
         } else {
-          // 设备状态保持登陆状态
-          this.set_dev_state(dev_no, true)
           this.snackbar_text = "登出失败"
           this.icon = 'mdi-cancel'
           this.color = 'error'
         }
-        this.show_snackbar = true
+        this.tip()
       }).catch(err => {
         console.log(err)
-        this.show_snackbar = true
+        this.tip()
       })
     },
+    // 一键登录
     login_all() {
       axios.all([this.login("s2", this.ip_s2, this.pwd_uf),
         this.login("r0", this.ip_r0, this.pwd_uf),
