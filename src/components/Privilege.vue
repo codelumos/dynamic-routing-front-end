@@ -1,5 +1,28 @@
 <template>
   <v-container>
+    <!-- 消息条 -->
+    <v-snackbar
+        v-model="show_snackbar"
+        :top="true"
+        :color="color"
+    >
+      <v-icon left>
+        {{ icon }}
+      </v-icon>
+      {{ snackbar_text }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+            icon
+            v-bind="attrs"
+            @click="show_snackbar = false"
+        >
+          <v-icon>
+            mdi-window-close
+          </v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
+
     <!-- 标题 -->
     <v-row>
       <p class="title font-weight-bold mb-3">
@@ -109,6 +132,7 @@
         <v-btn
             elevation="4"
             color="primary"
+            @click="enable"
         >
           进入特权模式
         </v-btn>
@@ -124,6 +148,11 @@ export default {
   name: "Privilege",
   data() {
     return {
+      // 消息条
+      show_snackbar: false,
+      icon: 'mdi-minus-circle',
+      snackbar_text: '网络连接失败',
+      color: 'warning',
       // 使用统一特权密码
       pwd_uf_en: true,
       pwd_uf: '',
@@ -140,34 +169,32 @@ export default {
       show_s2: false
     }
   },
-  check() {
-    //检查特权密码是否为空
-    if ((this.pwd_uf_en && this.pwd_uf === '') || (!this.pwd_uf_en && (this.pwd_r0 === '' || this.pwd_r1 === '' || this.pwd_r2 === '' || this.pwd_s2 === ''))) {
-      this.snackbar_text = '特权密码不能为空！'
-      this.icon = 'mdi-alert-circle'
-      this.color = 'warning'
-      this.show_snackbar = true
-      return
+  methods: {
+    enable() {
+      // 检查特权密码是否为空
+      if ((this.pwd_uf_en && this.pwd_uf === '') || (!this.pwd_uf_en && (this.pwd_r0 === '' || this.pwd_r1 === '' || this.pwd_r2 === '' || this.pwd_s2 === ''))) {
+        this.snackbar_text = '特权密码不能为空！'
+        this.icon = 'mdi-alert-circle'
+        this.color = 'warning'
+        this.show_snackbar = true
+        return
+      }
+      const url = 'http://127.0.0.1:5000/enable/'
+      let data = {
+        pwd_r0: this.pwd_uf ? this.pwd_uf : this.pwd_r0,
+        pwd_r1: this.pwd_uf ? this.pwd_uf : this.pwd_r1,
+        pwd_r2: this.pwd_uf ? this.pwd_uf : this.pwd_r2
+      }
+      axios({
+        method: 'post',
+        url: url,
+        data: data
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     }
-    const url = 'http://127.0.0.1:5000/enable/'
-    let data = {
-      pwd_r0: this.pwd_uf ? this.pwd_uf : this.pwd_r0,
-      pwd_r1: this.pwd_uf ? this.pwd_uf : this.pwd_r1,
-      pwd_r2: this.pwd_uf ? this.pwd_uf : this.pwd_r2
-    }
-    axios({
-      method: 'post',
-      url: url,
-      data: data
-    }).then(res => {
-      console.log(res)
-    }).catch(err => {
-      console.log(err)
-    })
   }
 }
 </script>
-
-<style scoped>
-
-</style>

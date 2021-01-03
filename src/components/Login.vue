@@ -64,7 +64,7 @@
               <v-btn
                   elevation="4"
                   color="primary"
-                  @click="login('s2', ip_s2, pwd_uf_en ? pwd_uf : pwd_s2)"
+                  @click="login('s2', ip_s2, mask_s2, pwd_uf_en ? pwd_uf : pwd_s2)"
               >
                 登陆
               </v-btn>
@@ -120,7 +120,7 @@
               <v-btn
                   elevation="4"
                   color="primary"
-                  @click="login('r0', ip_r0, pwd_uf_en ? pwd_uf : pwd_r0)"
+                  @click="login('r0', ip_r0, mask_r0, pwd_uf_en ? pwd_uf : pwd_r0)"
               >
                 登陆
               </v-btn>
@@ -176,7 +176,7 @@
               <v-btn
                   elevation="4"
                   color="primary"
-                  @click="login('r1', ip_r1, pwd_uf_en ? pwd_uf : pwd_r1)"
+                  @click="login('r1', ip_r1, mask_r1, pwd_uf_en ? pwd_uf : pwd_r1)"
               >
                 登陆
               </v-btn>
@@ -232,7 +232,7 @@
               <v-btn
                   elevation="4"
                   color="primary"
-                  @click="login('r2', ip_r2, pwd_uf_en ? pwd_uf : pwd_r2)"
+                  @click="login('r2', ip_r2, mask_r2, pwd_uf_en ? pwd_uf : pwd_r2)"
               >
                 登陆
               </v-btn>
@@ -302,7 +302,6 @@ export default {
       show_snackbar: false,
       icon: 'mdi-minus-circle',
       snackbar_text: '网络连接失败',
-      timeout: 2000,
       color: 'warning',
       // 设备IP地址
       ip_s2: '127.16.0.1',
@@ -336,7 +335,7 @@ export default {
     }
   },
   methods: {
-    login(dev_no, ip, pwd) {
+    login(dev_no, ip, mask, pwd) {
       const url = 'http://127.0.0.1:5000/login'
       let params = {
         dev_no: dev_no,

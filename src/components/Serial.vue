@@ -1,5 +1,28 @@
 <template>
   <v-container>
+    <!-- 消息条 -->
+    <v-snackbar
+        v-model="show_snackbar"
+        :top="true"
+        :color="color"
+    >
+      <v-icon left>
+        {{ icon }}
+      </v-icon>
+      {{ snackbar_text }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+            icon
+            v-bind="attrs"
+            @click="show_snackbar = false"
+        >
+          <v-icon>
+            mdi-window-close
+          </v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
+
     <!-- 标题 -->
     <v-row>
       <p class="title font-weight-bold mb-3">
@@ -29,7 +52,7 @@
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-model="mask_r1"
+                  v-model="mask_r0"
                   label="子网掩码"
                   required
                   outlined
@@ -95,7 +118,7 @@
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-model="mask_r1"
+                  v-model="mask_r2"
                   label="子网掩码"
                   required
                   outlined
@@ -112,6 +135,7 @@
         <v-btn
             elevation="4"
             color="primary"
+            @click="init"
         >
           初始化串口
         </v-btn>
@@ -121,10 +145,17 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Serial",
   data() {
     return {
+      // 消息条
+      show_snackbar: false,
+      icon: 'mdi-minus-circle',
+      snackbar_text: '网络连接失败',
+      color: 'warning',
       // 串行接口Serial0/0/0
       serial0_r0: '127.17.0.1',
       serial0_r1: '127.17.0.0',
@@ -139,5 +170,18 @@ export default {
       mask_r2: '255.255.0.0'
     }
   },
+  methods: {
+    init() {
+      const url = 'http://127.0.0.1:5000/init/'
+      axios({
+        url: url,
+        method: 'post',
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  }
 }
 </script>
