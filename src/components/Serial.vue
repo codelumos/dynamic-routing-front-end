@@ -158,7 +158,7 @@ export default {
       color: 'warning',
       // 串行接口Serial0/0/0
       serial0_r0: '172.17.0.1',
-      serial0_r1: '172.17.0.0',
+      serial0_r1: '172.17.0.2',
       serial0_r2: '172.18.0.2',
       // 串行接口Serial0/0/1
       serial1_r0: '-',
@@ -205,11 +205,11 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.data.state) {
-          this.snackbar_text = "serial配置成功"
+          this.snackbar_text = "串行接口配置成功"
           this.icon = 'mdi-checkbox-marked-circle'
           this.color = 'success'
         } else {
-          this.snackbar_text = "serial配置失败"
+          this.snackbar_text = "串行接口配置失败"
           this.icon = 'mdi-cancel'
           this.color = 'error'
         }

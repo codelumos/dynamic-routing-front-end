@@ -84,6 +84,7 @@
             readonly
             dark
             background-color="#212121"
+            height="500"
         >
         </v-textarea>
       </v-col>
@@ -131,7 +132,7 @@ export default {
       this.icon = 'mdi-cancel'
       this.color = 'error'
 
-      let url = 'http://127.0.0.1:5000/config' + this.protocol_selected.toLowerCase()
+      let url = 'http://127.0.0.1:5000/config/' + this.protocol_selected.toLowerCase()
       // 调用接口
       axios({
         method: 'post',
