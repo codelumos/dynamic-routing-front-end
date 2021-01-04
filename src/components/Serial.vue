@@ -157,9 +157,9 @@ export default {
       snackbar_text: '网络连接失败',
       color: 'warning',
       // 串行接口Serial0/0/0
-      serial0_r0: '127.17.0.1',
-      serial0_r1: '127.17.0.0',
-      serial0_r2: '127.18.0.2',
+      serial0_r0: '172.17.0.1',
+      serial0_r1: '172.17.0.0',
+      serial0_r2: '172.18.0.2',
       // 串行接口Serial0/0/1
       serial1_r0: '-',
       serial1_r1: '172.18.0.1',
@@ -174,10 +174,12 @@ export default {
     // 弹出消息条
     tip() {
       this.show_snackbar = true
-      // 重置消息条信息
-      this.snackbar_text = "网络连接失败"
-      this.icon = 'mdi-minus-circle'
-      this.color = 'warning'
+      setTimeout(function () {
+        // 重置消息条信息
+        this.snackbar_text = "网络连接失败"
+        this.icon = 'mdi-minus-circle'
+        this.color = 'warning'
+      }, 1000)
     },
     // 初始化串行接口
     init() {

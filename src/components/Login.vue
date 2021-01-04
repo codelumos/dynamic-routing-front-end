@@ -304,10 +304,10 @@ export default {
       snackbar_text: '网络连接失败',
       color: 'warning',
       // 设备IP地址
-      ip_s2: '127.16.0.1',
-      ip_r0: '127.16.0.2',
-      ip_r1: '127.16.0.3',
-      ip_r2: '127.16.0.4',
+      ip_s2: '172.16.0.1',
+      ip_r0: '172.16.0.2',
+      ip_r1: '172.16.0.3',
+      ip_r2: '172.16.0.4',
       // 设备子网掩码
       mask_s2: '255.255.0.0',
       mask_r0: '255.255.0.0',
@@ -339,9 +339,11 @@ export default {
     tip() {
       this.show_snackbar = true
       // 重置消息条信息
-      this.snackbar_text = "网络连接失败"
-      this.icon = 'mdi-minus-circle'
-      this.color = 'warning'
+      setTimeout(function () {
+        this.snackbar_text = "网络连接失败"
+        this.icon = 'mdi-minus-circle'
+        this.color = 'warning'
+      }, 1000)
     },
     // 设备登陆
     login(dev_no, ip, mask, pwd) {
@@ -412,10 +414,10 @@ export default {
     },
     // 一键登录
     login_all() {
-      axios.all([this.login("s2", this.ip_s2, this.pwd_uf),
-        this.login("r0", this.ip_r0, this.pwd_uf),
-        this.login("r1", this.ip_r1, this.pwd_uf),
-        this.login("r2", this.ip_r2, this.pwd_uf),
+      axios.all([this.login("s2", this.ip_s2, this.mask_s2, this.pwd_uf),
+        this.login("r0", this.ip_r0, this.mask_r0, this.pwd_uf),
+        this.login("r1", this.ip_r1, this.mask_r1, this.pwd_uf),
+        this.login("r2", this.ip_r2, this.mask_r2, this.pwd_uf),
       ]).then(axios.spread(function (res) {
         console.log(res);
       })).catch(err => {

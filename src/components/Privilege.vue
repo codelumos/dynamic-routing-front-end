@@ -173,10 +173,12 @@ export default {
     // 弹出消息条
     tip() {
       this.show_snackbar = true
-      // 重置消息条信息
-      this.snackbar_text = "网络连接失败"
-      this.icon = 'mdi-minus-circle'
-      this.color = 'warning'
+      setTimeout(function () {
+        // 重置消息条信息
+        this.snackbar_text = "网络连接失败"
+        this.icon = 'mdi-minus-circle'
+        this.color = 'warning'
+      }, 1000)
     },
     // 进入特权模式
     enable() {
