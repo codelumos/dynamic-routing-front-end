@@ -184,11 +184,35 @@ export default {
     // 初始化串行接口
     init() {
       const url = 'http://127.0.0.1:5000/init'
+      let data = {
+        r0: {
+          serial_ip: [this.serial0_r0, this.serial1_r0],
+          mask: this.mask_r0
+        },
+        r1: {
+          serial_ip: [this.serial0_r1, this.serial1_r1],
+          mask: this.mask_r1
+        },
+        r2: {
+          serial_ip: [this.serial0_r2, this.serial1_r2],
+          mask: this.mask_r2
+        }
+      }
       axios({
         url: url,
         method: 'post',
+        data: data
       }).then(res => {
         console.log(res)
+        if (res.data.state) {
+          this.snackbar_text = "serial配置成功"
+          this.icon = 'mdi-checkbox-marked-circle'
+          this.color = 'success'
+        } else {
+          this.snackbar_text = "serial配置失败"
+          this.icon = 'mdi-cancel'
+          this.color = 'error'
+        }
         this.tip()
       }).catch(err => {
         console.log(err)
