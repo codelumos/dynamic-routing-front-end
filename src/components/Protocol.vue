@@ -157,9 +157,9 @@ export default {
         console.log(res)
         // 输出信息到控制台
         let result = res.data
-        this.msg += result.msg + '\n'
+        this.msg += result.info + '\n'
         if (result.state) {
-          this.snackbar_text = '配置完成'
+          this.snackbar_text = res.data.msg
           this.icon = 'mdi-checkbox-marked-circle'
           this.color = 'success'
         }
@@ -184,7 +184,7 @@ export default {
         console.log(res)
         // 输出信息到控制台
         let result = res.data
-        this.msg += result.route + '\n' + result.protocol + '\n'
+        this.msg += 'IP Route>\n' + result.info.route + '\nIP Protocols>\n' + result.info.protocol + '\n'
       }).catch(err => {
         console.log(err)
       })

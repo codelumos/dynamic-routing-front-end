@@ -363,14 +363,14 @@ export default {
           // 将设备状态设为登陆状态
           this.set_dev_state(dev_no, true)
           // 设置消息条
-          this.snackbar_text = "登陆成功"
+          this.snackbar_text = res.data.msg
           this.icon = 'mdi-checkbox-marked-circle'
           this.color = 'success'
         } else {
           // 将设备状态设为未登陆状态
           this.set_dev_state(dev_no, false)
           // 设置消息条
-          this.snackbar_text = "登陆失败"
+          this.snackbar_text = res.data.msg
           this.icon = 'mdi-cancel'
           this.color = 'error'
         }
@@ -392,17 +392,14 @@ export default {
         data: params
       }).then(res => {
         console.log(res);
-        this.snackbar_text = "网络连接失败"
-        this.icon = 'mdi-minus-circle'
-        this.color = 'warning'
         if (res.data.state) {
           // 将设备状态设为未登陆状态
           this.set_dev_state(dev_no, false)
-          this.snackbar_text = "登出成功"
+          this.snackbar_text = res.data.msg
           this.icon = 'mdi-checkbox-marked-circle'
           this.color = 'success'
         } else {
-          this.snackbar_text = "登出失败"
+          this.snackbar_text = res.data.msg
           this.icon = 'mdi-cancel'
           this.color = 'error'
         }

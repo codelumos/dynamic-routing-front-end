@@ -205,11 +205,11 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.data.state) {
-          this.snackbar_text = "串行接口配置成功"
+          this.snackbar_text = res.data.msg
           this.icon = 'mdi-checkbox-marked-circle'
           this.color = 'success'
         } else {
-          this.snackbar_text = "串行接口配置失败"
+          this.snackbar_text = res.data.msg
           this.icon = 'mdi-cancel'
           this.color = 'error'
         }
