@@ -1,28 +1,5 @@
 <template>
   <v-container>
-    <!-- 消息条 -->
-    <v-snackbar
-        v-model="show_snackbar"
-        :top="true"
-        :color="color"
-    >
-      <v-icon left>
-        {{ icon }}
-      </v-icon>
-      {{ snackbar_text }}
-      <template v-slot:action="{ attrs }">
-        <v-btn
-            icon
-            v-bind="attrs"
-            @click="show_snackbar = false"
-        >
-          <v-icon>
-            mdi-window-close
-          </v-icon>
-        </v-btn>
-      </template>
-    </v-snackbar>
-
     <!-- 标题 -->
     <v-row>
       <p class="title font-weight-bold mb-3">
@@ -148,11 +125,6 @@ export default {
   name: "Privilege",
   data() {
     return {
-      // 消息条
-      show_snackbar: false,
-      icon: 'mdi-minus-circle',
-      snackbar_text: '网络连接失败',
-      color: 'warning',
       // 使用统一特权密码
       pwd_uf_en: true,
       pwd_uf: '',
@@ -171,25 +143,18 @@ export default {
   },
   methods: {
     // 弹出消息条
-    tip() {
-      this.show_snackbar = true
-      //保存组件对象
-      let _this = this
-      setTimeout(function () {
-        // 重置消息条信息
-        _this.snackbar_text = "网络连接失败"
-        _this.icon = 'mdi-minus-circle'
-        _this.color = 'warning'
-      }, 6000)
+    showMessage(icon, msg, color) {
+      // 通过触发 showSnackbar 事件并传递消息参数，从而调用全局 Snackbar
+      this.$eventBus.$emit('showSnackbar', {
+        id: new Date().getTime(), // id 用于设置 Snackbar 在 v-for 循环中的 key 属性，避免排序混乱的问题
+        content: {icon, msg, color},
+      })
     },
     // 进入特权模式
     enable() {
       // 检查特权密码是否为空
       if ((this.pwd_uf_en && this.pwd_uf === '') || (!this.pwd_uf_en && (this.pwd_r0 === '' || this.pwd_r1 === '' || this.pwd_r2 === '' || this.pwd_s2 === ''))) {
-        this.snackbar_text = '特权密码不能为空！'
-        this.icon = 'mdi-alert-circle'
-        this.color = 'warning'
-        this.tip()
+        this.showMessage('mdi-alert-circle', '特权密码不能为空！', 'warning')
         return
       }
       const url = 'http://127.0.0.1:5000/enable'
@@ -205,20 +170,16 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.data.state) {
-          // 设置消息条
-          this.snackbar_text = res.data.msg
-          this.icon = 'mdi-checkbox-marked-circle'
-          this.color = 'success'
+          // 弹出消息条
+          this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
         } else {
-          // 设置消息条
-          this.snackbar_text = res.data.msg
-          this.icon = 'mdi-cancel'
-          this.color = 'error'
+          // 弹出消息条
+          this.showMessage('mdi-cancel', res.data.msg, 'error')
         }
-        this.tip()
       }).catch(err => {
         console.log(err)
-        this.tip()
+        // 弹出消息条
+        this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
       })
     }
   }

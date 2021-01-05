@@ -23,6 +23,18 @@
 
     <!-- 主页面 -->
     <v-main>
+      <div id="app">
+        <!-- 全局Snackbar队列 -->
+        <!-- 根据当前Snackbar的index动态计算Y方向的位移，达到依次排列的目的 -->
+        <snackbar
+            v-model="item.show"
+            :style="{transform: 'translateY(' + 60 * index + 'px)'}"
+            :message="item.content"
+            v-for="(item, index) in messages"
+            :key="item.id"
+            @input="onSnackbarClose($event, index)">
+        </snackbar>
+      </div>
       <p style="white-space: pre-line"></p>
       <Topology/>
       <p style="white-space: pre-line"></p>
@@ -51,6 +63,7 @@
 </template>
 
 <script>
+import Snackbar from '@/components/Snackbar';
 import Login from '@/components/Login';
 import Privilege from "@/components/Privilege";
 import Serial from "@/components/Serial";
@@ -61,11 +74,39 @@ export default {
   name: 'App',
 
   components: {
+    Snackbar,
     Login,
     Privilege,
     Serial,
     Topology,
     Protocol
   },
+  data: function () {
+    return {
+      messages: [] // 消息队列
+    }
+  },
+  mounted() {
+    // 全局Snackbar控制器事件监听
+    this.snackbarController()
+  },
+  methods: {
+    snackbarController() {
+      // 监听showSnackbar事件
+      this.$eventBus.$on('showSnackbar', data => {
+        // 将收到的message推入messages数组中
+        this.messages.push({
+          ...data,
+          show: true
+        })
+      })
+    },
+    onSnackbarClose(value, index) {
+      // value为Snackbar组件内部传递出来的
+      // index为当前关闭Snackbar的索引
+      // 删除已关闭的Snackbar对应的消息数据
+      this.messages.splice(index, 1)
+    }
+  }
 };
 </script>

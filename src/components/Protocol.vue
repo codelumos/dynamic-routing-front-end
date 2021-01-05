@@ -1,28 +1,5 @@
 <template>
   <v-container>
-    <!-- 消息条 -->
-    <v-snackbar
-        v-model="show_snackbar"
-        :top="true"
-        :color="color"
-    >
-      <v-icon left>
-        {{ icon }}
-      </v-icon>
-      {{ snackbar_text }}
-      <template v-slot:action="{ attrs }">
-        <v-btn
-            icon
-            v-bind="attrs"
-            @click="show_snackbar = false"
-        >
-          <v-icon>
-            mdi-window-close
-          </v-icon>
-        </v-btn>
-      </template>
-    </v-snackbar>
-
     <!-- 标题 -->
     <v-row>
       <p class="title font-weight-bold mb-3">
@@ -115,11 +92,6 @@ export default {
   name: "Config",
   data() {
     return {
-      // 消息条
-      show_snackbar: false,
-      icon: 'mdi-minus-circle',
-      snackbar_text: '网络连接失败',
-      color: 'warning',
       // 路由协议列表
       protocol_selected: 'RIP',
       protocol_list: ['RIP', 'OSPF', 'BGP'],
@@ -132,24 +104,15 @@ export default {
   },
   methods: {
     // 弹出消息条
-    tip() {
-      this.show_snackbar = true
-      //保存组件对象
-      let _this = this
-      setTimeout(function () {
-        // 重置消息条信息
-        _this.snackbar_text = "网络连接失败"
-        _this.icon = 'mdi-minus-circle'
-        _this.color = 'warning'
-      }, 6000)
+    showMessage(icon, msg, color) {
+      // 通过触发 showSnackbar 事件并传递消息参数，从而调用全局 Snackbar
+      this.$eventBus.$emit('showSnackbar', {
+        id: new Date().getTime(), // id 用于设置 Snackbar 在 v-for 循环中的 key 属性，避免排序混乱的问题
+        content: {icon, msg, color},
+      })
     },
     // 配置协议
     config() {
-      //初始化信息条
-      this.snackbar_text = '配置失败'
-      this.icon = 'mdi-cancel'
-      this.color = 'error'
-
       let url = 'http://127.0.0.1:5000/config/' + this.protocol_selected.toLowerCase()
       // 调用接口
       axios({
@@ -160,20 +123,16 @@ export default {
         // 输出信息到控制台
         this.msg += res.data.info + '\n'
         if (res.data.state) {
-          // 设置消息条
-          this.snackbar_text = res.data.msg
-          this.icon = 'mdi-checkbox-marked-circle'
-          this.color = 'success'
+          // 弹出消息条
+          this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
         } else {
-          // 设置消息条
-          this.snackbar_text = res.data.msg
-          this.icon = 'mdi-cancel'
-          this.color = 'error'
+          // 弹出消息条
+          this.showMessage('mdi-cancel', res.data.msg, 'error')
         }
-        this.tip()
       }).catch(err => {
         console.log(err)
-        this.tip()
+        // 弹出消息条
+        this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
       })
     },
     // 查看信息
@@ -190,23 +149,19 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.data.state) {
-          // 设置消息条
-          this.snackbar_text = res.data.msg
-          this.icon = 'mdi-checkbox-marked-circle'
-          this.color = 'success'
+          // 弹出消息条
+          this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
         } else {
-          // 设置消息条
-          this.snackbar_text = res.data.msg
-          this.icon = 'mdi-cancel'
-          this.color = 'error'
+          // 弹出消息条
+          this.showMessage('mdi-cancel', res.data.msg, 'error')
         }
-        this.tip()
         // 输出信息到控制台
         let result = res.data
         this.msg += 'IP Route>\n' + result.info.route + '\nIP Protocols>\n' + result.info.protocol + '\n'
       }).catch(err => {
         console.log(err)
-        this.tip()
+        // 弹出消息条
+        this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
       })
     }
   }
