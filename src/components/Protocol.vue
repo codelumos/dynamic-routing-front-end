@@ -158,12 +158,17 @@ export default {
       }).then(res => {
         console.log(res)
         // 输出信息到控制台
-        let result = res.data
-        this.msg += result.info + '\n'
-        if (result.state) {
+        this.msg += res.data.info + '\n'
+        if (res.data.state) {
+          // 设置消息条
           this.snackbar_text = res.data.msg
           this.icon = 'mdi-checkbox-marked-circle'
           this.color = 'success'
+        } else {
+          // 设置消息条
+          this.snackbar_text = res.data.msg
+          this.icon = 'mdi-cancel'
+          this.color = 'error'
         }
         this.tip()
       }).catch(err => {
@@ -184,11 +189,24 @@ export default {
         data: data
       }).then(res => {
         console.log(res)
+        if (res.data.state) {
+          // 设置消息条
+          this.snackbar_text = res.data.msg
+          this.icon = 'mdi-checkbox-marked-circle'
+          this.color = 'success'
+        } else {
+          // 设置消息条
+          this.snackbar_text = res.data.msg
+          this.icon = 'mdi-cancel'
+          this.color = 'error'
+        }
+        this.tip()
         // 输出信息到控制台
         let result = res.data
         this.msg += 'IP Route>\n' + result.info.route + '\nIP Protocols>\n' + result.info.protocol + '\n'
       }).catch(err => {
         console.log(err)
+        this.tip()
       })
     }
   }

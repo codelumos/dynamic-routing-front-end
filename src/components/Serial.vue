@@ -207,10 +207,12 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.data.state) {
+          // 设置消息条
           this.snackbar_text = res.data.msg
           this.icon = 'mdi-checkbox-marked-circle'
           this.color = 'success'
         } else {
+          // 设置消息条
           this.snackbar_text = res.data.msg
           this.icon = 'mdi-cancel'
           this.color = 'error'
