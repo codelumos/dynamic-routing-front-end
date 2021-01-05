@@ -8,19 +8,19 @@
     </v-row>
 
     <!-- 配置卡片 -->
-    <v-row class="text-center" v-show="!pwd_uf_en">
+    <v-row class="text-center" v-show="!unify.enable">
       <v-col sm="3">
         <v-card elevation="4">
           <v-card-title>Switch2</v-card-title>
           <v-card-text>
             <v-text-field
-                v-model="pwd_s2"
+                v-model="s2.pwd"
                 label="特权密码"
                 required
                 outlined
-                :append-icon="show_s2 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show_s2 ? 'text' : 'password'"
-                @click:append="show_s2 = !show_s2"
+                :append-icon="s2.show ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="s2.show ? 'text' : 'password'"
+                @click:append="s2.show = !s2.show"
             ></v-text-field>
           </v-card-text>
         </v-card>
@@ -33,13 +33,13 @@
           <v-card-title>Router0</v-card-title>
           <v-card-text>
             <v-text-field
-                v-model="pwd_r0"
+                v-model="r0.pwd"
                 label="特权密码"
                 required
                 outlined
-                :append-icon="show_r0 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show_r0 ? 'text' : 'password'"
-                @click:append="show_r0 = !show_r0"
+                :append-icon="r0.show ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="r0.show ? 'text' : 'password'"
+                @click:append="r0.show = !r0.show"
             ></v-text-field>
           </v-card-text>
         </v-card>
@@ -52,13 +52,13 @@
           <v-card-title>Router1</v-card-title>
           <v-card-text>
             <v-text-field
-                v-model="pwd_r1"
+                v-model="r1.pwd"
                 label="特权密码"
                 required
                 outlined
-                :append-icon="show_r1 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show_r1 ? 'text' : 'password'"
-                @click:append="show_r1 = !show_r1"
+                :append-icon="r1.show ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="r1.show ? 'text' : 'password'"
+                @click:append="r1.show = !r1.show"
             ></v-text-field>
           </v-card-text>
         </v-card>
@@ -71,13 +71,13 @@
           <v-card-title>Router2</v-card-title>
           <v-card-text>
             <v-text-field
-                v-model="pwd_r2"
+                v-model="r2.pwd"
                 label="特权密码"
                 required
                 outlined
-                :append-icon="show_r2 ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="show_r2 ? 'text' : 'password'"
-                @click:append="show_r2 = !show_r2"
+                :append-icon="r2.show ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="r2.show ? 'text' : 'password'"
+                @click:append="r2.show = !r2.show"
             ></v-text-field>
           </v-card-text>
         </v-card>
@@ -85,31 +85,32 @@
     </v-row>
 
     <!-- 统一密码选项 -->
-    <p style="white-space: pre-line" v-show="!pwd_uf_en"></p>
+    <p style="white-space: pre-line" v-show="!unify.enable"></p>
     <v-row>
       <v-col sm="3">
         <v-switch
-            v-model="pwd_uf_en"
+            v-model="unify.enable"
             :label="`使用统一密码`"
         ></v-switch>
       </v-col>
       <v-col sm="6">
         <v-text-field
-            v-show="pwd_uf_en"
-            v-model="pwd_uf"
+            v-show="unify.enable"
+            v-model="unify.pwd"
             label="统一特权密码"
             required
             outlined
-            :append-icon="show_uf ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="show_uf ? 'text' : 'password'"
-            @click:append="show_uf = !show_uf"
+            :append-icon="unify.show ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="unify.show ? 'text' : 'password'"
+            @click:append="unify.show = !unify.show"
         ></v-text-field>
       </v-col>
       <v-col sm="3">
         <v-btn
             elevation="4"
             color="primary"
-            @click="enable"
+            :loading="unify.loader"
+            @click="unify.loader = !unify.loader; enable()"
         >
           进入特权模式
         </v-btn>
@@ -125,20 +126,28 @@ export default {
   name: "Privilege",
   data() {
     return {
-      // 使用统一特权密码
-      pwd_uf_en: true,
-      pwd_uf: '',
-      // 设备独立特权密码
-      pwd_r0: '',
-      pwd_r1: '',
-      pwd_r2: '',
-      pwd_s2: '',
-      // 密码可见性
-      show_uf: false,
-      show_r0: false,
-      show_r1: false,
-      show_r2: false,
-      show_s2: false
+      s2: {
+        pwd: '', // 特权密码
+        show: false, // 密码可见性
+      },
+      r0: {
+        pwd: '', // 特权密码
+        show: false, // 密码可见性
+      },
+      r1: {
+        pwd: '', // 特权密码
+        show: false, // 密码可见性
+      },
+      r2: {
+        pwd: '', // 特权密码
+        show: false, // 密码可见性
+      },
+      unify: {
+        enable: true, // 使用统一密码
+        pwd: '', // 统一特权密码
+        show: false, // 密码可见性
+        loader: false // 加载器
+      }
     }
   },
   methods: {
@@ -150,18 +159,23 @@ export default {
         content: {icon, msg, color},
       })
     },
+    // 关闭加载器
+    closeLoader() {
+      this.unify.loader = false
+    },
     // 进入特权模式
     enable() {
       // 检查密码是否为空
-      if ((this.pwd_uf_en && this.pwd_uf === '') || (!this.pwd_uf_en && (this.pwd_r0 === '' || this.pwd_r1 === '' || this.pwd_r2 === '' || this.pwd_s2 === ''))) {
+      if ((this.unify.enable && this.unify.pwd === '') || (!this.unify.enable && (this.r0.pwd === '' || this.r1.pwd === '' || this.r2.pwd === '' || this.s2.pwd === ''))) {
         this.showMessage('mdi-alert-circle', '密码不能为空', 'warning')
+        this.closeLoader()
         return
       }
       const url = 'http://127.0.0.1:5000/enable'
       let data = {
-        pwd_r0: this.pwd_uf ? this.pwd_uf : this.pwd_r0,
-        pwd_r1: this.pwd_uf ? this.pwd_uf : this.pwd_r1,
-        pwd_r2: this.pwd_uf ? this.pwd_uf : this.pwd_r2
+        pwd_r0: this.unify.enable ? this.unify.pwd : this.r0.pwd,
+        pwd_r1: this.unify.enable ? this.unify.pwd : this.r1.pwd,
+        pwd_r2: this.unify.enable ? this.unify.pwd : this.r2.pwd
       }
       axios({
         method: 'post',
@@ -170,16 +184,16 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.data.state) {
-          // 弹出消息条
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
+          this.closeLoader()
         } else {
-          // 弹出消息条
           this.showMessage('mdi-cancel', res.data.msg, 'error')
+          this.closeLoader()
         }
       }).catch(err => {
         console.log(err)
-        // 弹出消息条
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
+        this.closeLoader()
       })
     }
   }

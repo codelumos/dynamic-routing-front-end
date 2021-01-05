@@ -15,21 +15,21 @@
             <v-card-title>Router0</v-card-title>
             <v-card-text>
               <v-text-field
-                  v-model="serial0_r0"
+                  v-model="r0.serial0"
                   label="Serial0/0/0"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-model="serial1_r0"
+                  v-model="r0.serial1"
                   label="Serial0/0/1"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-model="mask_r0"
+                  v-model="r0.mask"
                   label="子网掩码"
                   required
                   outlined
@@ -48,21 +48,21 @@
             <v-card-title>Router1</v-card-title>
             <v-card-text>
               <v-text-field
-                  v-model="serial0_r1"
+                  v-model="r1.serial0"
                   label="Serial0/0/0"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-model="serial1_r1"
+                  v-model="r1.serial1"
                   label="Serial0/0/1"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-model="mask_r1"
+                  v-model="r1.mask"
                   label="子网掩码"
                   required
                   outlined
@@ -81,21 +81,21 @@
             <v-card-title>Router2</v-card-title>
             <v-card-text>
               <v-text-field
-                  v-model="serial0_r2"
+                  v-model="r2.serial0"
                   label="Serial0/0/0"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-model="serial1_r2"
+                  v-model="r2.serial1"
                   label="Serial0/0/1"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-model="mask_r2"
+                  v-model="r2.mask"
                   label="子网掩码"
                   required
                   outlined
@@ -128,18 +128,21 @@ export default {
   name: "Serial",
   data() {
     return {
-      // 串行接口Serial0/0/0
-      serial0_r0: '172.17.0.1',
-      serial0_r1: '172.17.0.2',
-      serial0_r2: '172.18.0.2',
-      // 串行接口Serial0/0/1
-      serial1_r0: '-',
-      serial1_r1: '172.18.0.1',
-      serial1_r2: '-',
-      // 串行接口子网掩码
-      mask_r0: '255.255.0.0',
-      mask_r1: '255.255.0.0',
-      mask_r2: '255.255.0.0'
+      r0: {
+        serial0: '172.17.0.1', // 串行接口Serial0/0/0
+        serial1: '-', // 串行接口Serial0/0/1
+        mask: '255.255.0.0' // 串行接口子网掩码
+      },
+      r1: {
+        serial0: '172.17.0.2', // 串行接口Serial0/0/0
+        serial1: '172.18.0.1', // 串行接口Serial0/0/1
+        mask: '255.255.0.0' // 串行接口子网掩码
+      },
+      r2: {
+        serial0: '172.18.0.2', // 串行接口Serial0/0/0
+        serial1: '-', // 串行接口Serial0/0/1
+        mask: '255.255.0.0' // 串行接口子网掩码
+      }
     }
   },
   methods: {
@@ -156,16 +159,16 @@ export default {
       const url = 'http://127.0.0.1:5000/init'
       let data = {
         r0: {
-          serial_ip: [this.serial0_r0, this.serial1_r0],
-          mask: this.mask_r0
+          serial_ip: [this.r0.serial0, this.r0.serial1],
+          mask: this.r0.mask
         },
         r1: {
-          serial_ip: [this.serial0_r1, this.serial1_r1],
-          mask: this.mask_r1
+          serial_ip: [this.r1.serial0, this.r1.serial1],
+          mask: this.r1.mask
         },
         r2: {
-          serial_ip: [this.serial0_r2, this.serial1_r2],
-          mask: this.mask_r2
+          serial_ip: [this.r2.serial0, this.r2.serial1],
+          mask: this.r2.mask
         }
       }
       axios({
@@ -175,15 +178,12 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.data.state) {
-          // 弹出消息条
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
         } else {
-          // 弹出消息条
           this.showMessage('mdi-cancel', res.data.msg, 'error')
         }
       }).catch(err => {
         console.log(err)
-        // 弹出消息条
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
       })
     }

@@ -15,33 +15,34 @@
             <v-card-title>Switch2</v-card-title>
             <v-card-text>
               <v-text-field
-                  v-model="ip_s2"
+                  v-model="s2.ip"
                   label="IP地址"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-model="mask_s2"
+                  v-model="s2.mask"
                   label="子网掩码"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-show="!pwd_uf_en"
-                  v-model="pwd_s2"
+                  v-show="!unify.enable"
+                  v-model="s2.pwd"
                   label="Telnet密码"
                   required
                   outlined
-                  :append-icon="show_s2 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="show_s2 ? 'text' : 'password'"
-                  @click:append="show_s2 = !show_s2"
+                  :append-icon="s2.show ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="s2.show ? 'text' : 'password'"
+                  @click:append="s2.show = !s2.show"
               ></v-text-field>
               <v-btn
                   elevation="4"
                   color="primary"
-                  @click="login('s2', ip_s2, mask_s2, pwd_uf_en ? pwd_uf : pwd_s2)"
+                  :loading="s2.loader"
+                  @click="s2.loader = !s2.loader; login('s2', s2.ip, s2.mask, unify.enable ? unify.pwd : s2.pwd)"
               >
                 登陆
               </v-btn>
@@ -49,7 +50,7 @@
             <v-overlay
                 :absolute=true
                 :z-index=0
-                :value="state_s2"
+                :value="s2.state"
             >
               <v-btn
                   elevation="4"
@@ -71,33 +72,34 @@
             <v-card-title>Router0</v-card-title>
             <v-card-text>
               <v-text-field
-                  v-model="ip_r0"
+                  v-model="r0.ip"
                   label="IP地址"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-model="mask_r0"
+                  v-model="r0.mask"
                   label="子网掩码"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-show="!pwd_uf_en"
-                  v-model="pwd_r0"
+                  v-show="!unify.enable"
+                  v-model="r0.pwd"
                   label="Telnet密码"
                   required
                   outlined
-                  :append-icon="show_r0 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="show_r0 ? 'text' : 'password'"
-                  @click:append="show_r0 = !show_r0"
+                  :append-icon="r0.show ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="r0.show ? 'text' : 'password'"
+                  @click:append="r0.show = !r0.show"
               ></v-text-field>
               <v-btn
                   elevation="4"
                   color="primary"
-                  @click="login('r0', ip_r0, mask_r0, pwd_uf_en ? pwd_uf : pwd_r0)"
+                  :loading="r0.loader"
+                  @click="r0.loader = !r0.loader; login('r0', r0.ip, r0.mask, unify.enable ? unify.pwd : r0.pwd)"
               >
                 登陆
               </v-btn>
@@ -105,7 +107,7 @@
             <v-overlay
                 :absolute=true
                 :z-index=0
-                :value="state_r0"
+                :value="r0.state"
             >
               <v-btn
                   elevation="4"
@@ -127,33 +129,34 @@
             <v-card-title>Router1</v-card-title>
             <v-card-text>
               <v-text-field
-                  v-model="ip_r1"
+                  v-model="r1.ip"
                   label="IP地址"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-model="mask_r1"
+                  v-model="r1.mask"
                   label="子网掩码"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-show="!pwd_uf_en"
-                  v-model="pwd_r1"
+                  v-show="!unify.enable"
+                  v-model="r1.pwd"
                   label="Telnet密码"
                   required
                   outlined
-                  :append-icon="show_r1 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="show_r1 ? 'text' : 'password'"
-                  @click:append="show_r1 = !show_r1"
+                  :append-icon="r1.show ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="r1.show ? 'text' : 'password'"
+                  @click:append="r1.show = !r1.show"
               ></v-text-field>
               <v-btn
                   elevation="4"
                   color="primary"
-                  @click="login('r1', ip_r1, mask_r1, pwd_uf_en ? pwd_uf : pwd_r1)"
+                  :loading="r1.loader"
+                  @click="r1.loader = !r1.loader; login('r1', r1.ip, r1.mask, unify.enable ? unify.pwd : r1.pwd)"
               >
                 登陆
               </v-btn>
@@ -161,7 +164,7 @@
             <v-overlay
                 :absolute=true
                 :z-index=0
-                :value="state_r1"
+                :value="r1.state"
             >
               <v-btn
                   elevation="4"
@@ -183,33 +186,34 @@
             <v-card-title>Router2</v-card-title>
             <v-card-text>
               <v-text-field
-                  v-model="ip_r2"
+                  v-model="r2.ip"
                   label="IP地址"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-model="mask_r2"
+                  v-model="r2.mask"
                   label="子网掩码"
                   required
                   outlined
                   disabled
               ></v-text-field>
               <v-text-field
-                  v-show="!pwd_uf_en"
-                  v-model="pwd_r2"
+                  v-show="!unify.enable"
+                  v-model="r2.pwd"
                   label="Telnet密码"
                   required
                   outlined
-                  :append-icon="show_r2 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="show_r2 ? 'text' : 'password'"
-                  @click:append="show_r2 = !show_r2"
+                  :append-icon="r2.show ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="r2.show ? 'text' : 'password'"
+                  @click:append="r2.show = !r2.show"
               ></v-text-field>
               <v-btn
                   elevation="4"
                   color="primary"
-                  @click="login('r2', ip_r2, mask_r2, pwd_uf_en ? pwd_uf : pwd_r2)"
+                  :loading="r2.loader"
+                  @click="r2.loader = !r2.loader; login('r2', r2.ip, r2.mask, unify.enable ? unify.pwd : r2.pwd)"
               >
                 登陆
               </v-btn>
@@ -217,7 +221,7 @@
             <v-overlay
                 :absolute=true
                 :z-index=0
-                :value="state_r2"
+                :value="r2.state"
             >
               <v-btn
                   elevation="4"
@@ -233,32 +237,33 @@
     </v-row>
 
     <!-- 统一密码选项 -->
-    <p style="white-space: pre-line" v-show="pwd_uf_en"></p>
+    <p style="white-space: pre-line" v-show="unify.enable"></p>
     <v-row>
       <v-col sm="3">
         <v-switch
-            v-model="pwd_uf_en"
+            v-model="unify.enable"
             :label="`使用统一密码`"
         ></v-switch>
       </v-col>
       <v-col sm="6">
         <v-text-field
-            v-show="pwd_uf_en"
-            v-model="pwd_uf"
+            v-show="unify.enable"
+            v-model="unify.pwd"
             label="统一Telnet密码"
             required
             outlined
-            :append-icon="show_uf ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="show_uf ? 'text' : 'password'"
-            @click:append="show_uf = !show_uf"
+            :append-icon="unify.show ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="unify.show ? 'text' : 'password'"
+            @click:append="unify.show = !unify.show"
         ></v-text-field>
       </v-col>
       <v-col sm="3">
         <v-btn
-            v-show="pwd_uf_en"
+            v-show="unify.enable"
             elevation="4"
             color="primary"
-            @click="login_all"
+            :loading="s2.loader || r0.loader || r1.loader || r2.loader"
+            @click="s2.loader = !s2.loader; r0.loader = !r0.loader; r1.loader = !r1.loader; r2.loader = !r2.loader; login_all()"
         >
           一键登录
         </v-btn>
@@ -275,35 +280,43 @@ export default {
   name: 'Login',
   data() {
     return {
-      // 设备IP地址
-      ip_s2: '172.16.0.1',
-      ip_r0: '172.16.0.2',
-      ip_r1: '172.16.0.3',
-      ip_r2: '172.16.0.4',
-      // 设备子网掩码
-      mask_s2: '255.255.0.0',
-      mask_r0: '255.255.0.0',
-      mask_r1: '255.255.0.0',
-      mask_r2: '255.255.0.0',
-      // 使用统一telnet密码
-      pwd_uf_en: true,
-      pwd_uf: '',
-      // 设备独立telnet密码
-      pwd_s2: '',
-      pwd_r0: '',
-      pwd_r1: '',
-      pwd_r2: '',
-      // 密码可见性
-      show_uf: false,
-      show_s2: false,
-      show_r0: false,
-      show_r1: false,
-      show_r2: false,
-      // 设备登陆状态(true:已登陆, false:未登陆)
-      state_s2: false,
-      state_r0: false,
-      state_r1: false,
-      state_r2: false
+      s2: {
+        state: false, // 登陆状态(true:已登陆, false:未登陆)
+        ip: '172.16.0.1', // IP地址
+        mask: '255.255.0.0', // 子网掩码
+        pwd: '', // telnet密码
+        show: false, // 密码可见性
+        loader: false // 加载器
+      },
+      r0: {
+        state: false, // 登陆状态(true:已登陆, false:未登陆)
+        ip: '172.16.0.1', // IP地址
+        mask: '255.255.0.0', // 子网掩码
+        pwd: '', // telnet密码
+        show: false, // 密码可见性
+        loader: false // 加载器
+      },
+      r1: {
+        state: false, // 登陆状态(true:已登陆, false:未登陆)
+        ip: '172.16.0.1', // IP地址
+        mask: '255.255.0.0', // 子网掩码
+        pwd: '', // telnet密码
+        show: false, // 密码可见性
+        loader: false // 加载器
+      },
+      r2: {
+        state: false, // 登陆状态(true:已登陆, false:未登陆)
+        ip: '172.16.0.1', // IP地址
+        mask: '255.255.0.0', // 子网掩码
+        pwd: '', // telnet密码
+        show: false, // 密码可见性
+        loader: false // 加载器
+      },
+      unify: {
+        enable: true, // 使用统一密码
+        pwd: '', // 统一telnet密码
+        show: false // 密码可见性
+      }
     }
   },
   methods: {
@@ -315,32 +328,29 @@ export default {
         content: {icon, msg, color},
       })
     },
+    // 关闭加载器
+    closeLoader(dev_no) {
+      let set_loader = "this." + dev_no + ".loader = false"
+      eval(set_loader)
+    },
+    // 改变设备登陆状态
+    changeState(dev_no, state) {
+      let set_state = "this." + dev_no + ".state = " + state
+      eval(set_state)
+    },
     // 设备登陆
     login(dev_no, ip, mask, pwd) {
+      let pwd_check = "this." + dev_no + ".pwd === ''"
       // 检查密码是否为空
-      if (this.pwd_uf_en && this.pwd_uf === '') {
+      if (this.unify.enable && this.unify.pwd === '') {
         this.showMessage('mdi-alert-circle', '密码不能为空', 'warning')
+        this.closeLoader(dev_no)
         return
       }
-      if (!this.pwd_uf_en) {
-        switch (dev_no) {
-          case "s2":
-            if (this.pwd_s2 === '')
-              this.showMessage('mdi-alert-circle', '密码不能为空', 'warning')
-            return;
-          case "r0":
-            if (this.pwd_r0 === '')
-              this.showMessage('mdi-alert-circle', '密码不能为空', 'warning')
-            return;
-          case "r1":
-            if (this.pwd_r1 === '')
-              this.showMessage('mdi-alert-circle', '密码不能为空', 'warning')
-            return;
-          case "r2":
-            if (this.pwd_r2 === '')
-              this.showMessage('mdi-alert-circle', '密码不能为空', 'warning')
-            return;
-        }
+      if (!this.unify.enable && eval(pwd_check)) {
+        this.showMessage('mdi-alert-circle', '密码不能为空', 'warning')
+        this.closeLoader(dev_no)
+        return
       }
       const url = 'http://127.0.0.1:5000/login'
       let params = {
@@ -356,19 +366,19 @@ export default {
         console.log(res);
         if (res.data.state) {
           // 将设备状态设为登陆状态
-          this.set_dev_state(dev_no, true)
-          // 弹出消息条
+          this.changeState(dev_no, true)
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
+          this.closeLoader(dev_no)
         } else {
           // 将设备状态设为未登陆状态
-          this.set_dev_state(dev_no, false)
-          // 弹出消息条
+          this.changeState(dev_no, false)
           this.showMessage('mdi-cancel', res.data.msg, 'error')
+          this.closeLoader(dev_no)
         }
       }).catch(err => {
         console.log(err)
-        // 弹出消息条
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
+        this.closeLoader(dev_no)
       })
     },
     // 设备登出
@@ -385,46 +395,27 @@ export default {
         console.log(res);
         if (res.data.state) {
           // 将设备状态设为未登陆状态
-          this.set_dev_state(dev_no, false)
-          // 弹出消息条
+          this.changeState(dev_no, false)
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
         } else {
-          // 弹出消息条
           this.showMessage('mdi-cancel', res.data.msg, 'error')
         }
       }).catch(err => {
         console.log(err)
-        // 弹出消息条
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
       })
     },
     // 一键登录
     login_all() {
-      axios.all([this.login("s2", this.ip_s2, this.mask_s2, this.pwd_uf),
-        this.login("r0", this.ip_r0, this.mask_r0, this.pwd_uf),
-        this.login("r1", this.ip_r1, this.mask_r1, this.pwd_uf),
-        this.login("r2", this.ip_r2, this.mask_r2, this.pwd_uf),
+      axios.all([this.login("s2", this.s2.ip, this.s2.mask, this.unify.pwd),
+        this.login("r0", this.r0.ip, this.r0.mask, this.unify.pwd),
+        this.login("r1", this.r1.ip, this.r1.mask, this.unify.pwd),
+        this.login("r2", this.r2.ip, this.r2.mask, this.unify.pwd),
       ]).then(axios.spread(function (res) {
         console.log(res);
       })).catch(err => {
         console.log(err)
       })
-    },
-    set_dev_state(dev_no, state) {
-      switch (dev_no) {
-        case "s2":
-          this.state_s2 = state;
-          break;
-        case "r0":
-          this.state_r0 = state;
-          break;
-        case "r1":
-          this.state_r1 = state;
-          break;
-        case "r2":
-          this.state_r2 = state;
-          break;
-      }
     }
   }
 }
