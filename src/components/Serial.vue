@@ -145,9 +145,9 @@ export default {
   methods: {
     // 弹出消息条
     showMessage(icon, msg, color) {
-      // 通过触发 showSnackbar 事件并传递消息参数，从而调用全局 Snackbar
+      // 通过触发showSnackbar事件并传递消息参数，从而调用全局Snackbar
       this.$eventBus.$emit('showSnackbar', {
-        id: new Date().getTime(), // id 用于设置 Snackbar 在 v-for 循环中的 key 属性，避免排序混乱的问题
+        id: new Date().getTime(), // id用于设置Snackbar在v-for循环中的key属性，避免排序混乱的问题
         content: {icon, msg, color},
       })
     },

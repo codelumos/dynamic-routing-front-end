@@ -144,17 +144,17 @@ export default {
   methods: {
     // 弹出消息条
     showMessage(icon, msg, color) {
-      // 通过触发 showSnackbar 事件并传递消息参数，从而调用全局 Snackbar
+      // 通过触发showSnackbar事件并传递消息参数，从而调用全局Snackbar
       this.$eventBus.$emit('showSnackbar', {
-        id: new Date().getTime(), // id 用于设置 Snackbar 在 v-for 循环中的 key 属性，避免排序混乱的问题
+        id: new Date().getTime(), // id用于设置Snackbar在v-for循环中的key属性，避免排序混乱的问题
         content: {icon, msg, color},
       })
     },
     // 进入特权模式
     enable() {
-      // 检查特权密码是否为空
+      // 检查密码是否为空
       if ((this.pwd_uf_en && this.pwd_uf === '') || (!this.pwd_uf_en && (this.pwd_r0 === '' || this.pwd_r1 === '' || this.pwd_r2 === '' || this.pwd_s2 === ''))) {
-        this.showMessage('mdi-alert-circle', '特权密码不能为空！', 'warning')
+        this.showMessage('mdi-alert-circle', '密码不能为空', 'warning')
         return
       }
       const url = 'http://127.0.0.1:5000/enable'
