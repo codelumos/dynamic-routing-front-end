@@ -82,11 +82,27 @@
             v-model="msg"
             outlined
             readonly
+            dense
             dark
             background-color="#212121"
             height="500"
+            no-resize
         >
         </v-textarea>
+      </v-col>
+    </v-row>
+
+    <!-- 清空按钮 -->
+    <v-row>
+      <v-col sm="10"></v-col>
+      <v-col sm="2">
+        <v-btn
+            elevation="4"
+            color="primary"
+            @click="msg='## Telnet Client ##\n'"
+        >
+          清空控制台
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -111,7 +127,7 @@ export default {
       dev_selected: 'Switch2',
       dev_list: ['Switch2', 'Router0', 'Router1', 'Router2'],
       // 控制台信息
-      msg: 'Dynamic Router Telnet\nRouter>'
+      msg: '## Telnet Client ##\n'
     }
   },
   methods: {
