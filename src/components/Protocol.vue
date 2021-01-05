@@ -134,12 +134,14 @@ export default {
     // 弹出消息条
     tip() {
       this.show_snackbar = true
+      //保存组件对象
+      let _this = this
       setTimeout(function () {
         // 重置消息条信息
-        this.snackbar_text = "网络连接失败"
-        this.icon = 'mdi-minus-circle'
-        this.color = 'warning'
-      }, 1000)
+        _this.snackbar_text = "网络连接失败"
+        _this.icon = 'mdi-minus-circle'
+        _this.color = 'warning'
+      }, 6000)
     },
     // 配置协议
     config() {
