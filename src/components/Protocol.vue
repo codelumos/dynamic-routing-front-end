@@ -87,6 +87,7 @@
 
 <script>
 import axios from 'axios'
+import Serial from "@/components/Serial"
 
 export default {
   name: "Config",
@@ -114,10 +115,16 @@ export default {
     // 配置协议
     config() {
       let url = 'http://127.0.0.1:5000/config/' + this.protocol_selected.toLowerCase()
+      let data = {
+        r0: Serial.data().r0,
+        r1: Serial.data().r1,
+        r2: Serial.data().r2
+      }
       // 调用接口
       axios({
         method: 'post',
-        url: url
+        url: url,
+        data: data
       }).then(res => {
         console.log(res)
         // 输出信息到控制台
