@@ -110,7 +110,7 @@
             elevation="4"
             color="primary"
             :loading="unify.loader"
-            @click="unify.loader = !unify.loader; enable()"
+            @click="enable"
         >
           进入特权模式
         </v-btn>
@@ -171,7 +171,10 @@ export default {
         this.closeLoader()
         return
       }
+      // 设置加载器
+      this.unify.loader = true
       const url = 'http://127.0.0.1:5000/enable'
+      // 进入特权模式
       let data = {
         pwd_r0: this.unify.enable ? this.unify.pwd : this.r0.pwd,
         pwd_r1: this.unify.enable ? this.unify.pwd : this.r1.pwd,

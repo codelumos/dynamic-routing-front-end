@@ -21,6 +21,7 @@
         <v-btn
             elevation="4"
             color="primary"
+            :loading="loader_protocol"
             @click="config"
         >
           配置路由
@@ -39,6 +40,7 @@
         <v-btn
             elevation="4"
             color="primary"
+            :loading="loader_info"
             @click="info"
         >
           查看路由
@@ -99,6 +101,9 @@ export default {
       // 设备列表
       dev_selected: 'Switch2',
       dev_list: ['Switch2', 'Router0', 'Router1', 'Router2'],
+      // 加载器
+      loader_protocol: false,
+      loader_info: false,
       // 控制台信息
       msg: '## Telnet Client ##\n'
     }
@@ -112,8 +117,14 @@ export default {
         content: {icon, msg, color},
       })
     },
+    // 关闭加载器
+    closeLoader(btn_name) {
+      let set_loader = "this.loader_" + btn_name + " = false"
+      eval(set_loader)
+    },
     // 配置协议
     config() {
+      this.loader_protocol = true // 设置加载器
       let url = 'http://127.0.0.1:5000/config/' + this.protocol_selected.toLowerCase()
       let data = {
         r0: Serial.data().r0,
@@ -130,20 +141,21 @@ export default {
         // 输出信息到控制台
         this.msg += res.data.info + '\n'
         if (res.data.state) {
-          // 弹出消息条
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
+          this.closeLoader('protocol')
         } else {
-          // 弹出消息条
           this.showMessage('mdi-cancel', res.data.msg, 'error')
+          this.closeLoader('protocol')
         }
       }).catch(err => {
         console.log(err)
-        // 弹出消息条
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
+        this.closeLoader('protocol')
       })
     },
     // 查看信息
     info() {
+      this.loader_info = true // 设置加载器
       let data = {
         dev_no: this.dev_selected[0].toLowerCase() + this.dev_selected[this.dev_selected.length - 1]
       }
@@ -156,19 +168,19 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.data.state) {
-          // 弹出消息条
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
+          this.closeLoader('info')
         } else {
-          // 弹出消息条
           this.showMessage('mdi-cancel', res.data.msg, 'error')
+          this.closeLoader('info')
         }
         // 输出信息到控制台
         let result = res.data
         this.msg += 'IP Route>\n' + result.info.route + '\nIP Protocols>\n' + result.info.protocol + '\n'
       }).catch(err => {
         console.log(err)
-        // 弹出消息条
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
+        this.closeLoader('info')
       })
     }
   }

@@ -42,7 +42,7 @@
                   elevation="4"
                   color="primary"
                   :loading="s2.loader"
-                  @click="s2.loader = !s2.loader; login('s2', s2.ip, s2.mask, unify.enable ? unify.pwd : s2.pwd)"
+                  @click="login('s2', s2.ip, s2.mask, unify.enable ? unify.pwd : s2.pwd)"
               >
                 登陆
               </v-btn>
@@ -99,7 +99,7 @@
                   elevation="4"
                   color="primary"
                   :loading="r0.loader"
-                  @click="r0.loader = !r0.loader; login('r0', r0.ip, r0.mask, unify.enable ? unify.pwd : r0.pwd)"
+                  @click="login('r0', r0.ip, r0.mask, unify.enable ? unify.pwd : r0.pwd)"
               >
                 登陆
               </v-btn>
@@ -156,7 +156,7 @@
                   elevation="4"
                   color="primary"
                   :loading="r1.loader"
-                  @click="r1.loader = !r1.loader; login('r1', r1.ip, r1.mask, unify.enable ? unify.pwd : r1.pwd)"
+                  @click="login('r1', r1.ip, r1.mask, unify.enable ? unify.pwd : r1.pwd)"
               >
                 登陆
               </v-btn>
@@ -213,7 +213,7 @@
                   elevation="4"
                   color="primary"
                   :loading="r2.loader"
-                  @click="r2.loader = !r2.loader; login('r2', r2.ip, r2.mask, unify.enable ? unify.pwd : r2.pwd)"
+                  @click="login('r2', r2.ip, r2.mask, unify.enable ? unify.pwd : r2.pwd)"
               >
                 登陆
               </v-btn>
@@ -262,8 +262,8 @@
             v-show="unify.enable"
             elevation="4"
             color="primary"
-            :loading="s2.loader || r0.loader || r1.loader || r2.loader"
-            @click="s2.loader = !s2.loader; r0.loader = !r0.loader; r1.loader = !r1.loader; r2.loader = !r2.loader; login_all()"
+            :loading="s2.loader && r0.loader && r1.loader && r2.loader"
+            @click="login_all"
         >
           一键登录
         </v-btn>
@@ -340,8 +340,14 @@ export default {
     },
     // 设备登陆
     login(dev_no, ip, mask, pwd) {
-      let pwd_check = "this." + dev_no + ".pwd === ''"
+      // 检查设备登陆状态
+      let state_check = "this." + dev_no + ".state === true" // 已登录
+      let waiting_check = "this." + dev_no + ".loader === true" // 登陆中
+      if (eval(state_check) || eval(waiting_check)) {
+        return
+      }
       // 检查密码是否为空
+      let pwd_check = "this." + dev_no + ".pwd === ''"
       if (this.unify.enable && this.unify.pwd === '') {
         this.showMessage('mdi-alert-circle', '密码不能为空', 'warning')
         this.closeLoader(dev_no)
@@ -352,6 +358,10 @@ export default {
         this.closeLoader(dev_no)
         return
       }
+      // 设置加载器
+      let set_loader = "this." + dev_no + ".loader = true"
+      eval(set_loader)
+      // 设备登陆
       const url = 'http://127.0.0.1:5000/login'
       let params = {
         dev_no: dev_no,

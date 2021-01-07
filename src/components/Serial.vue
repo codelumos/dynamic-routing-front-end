@@ -112,6 +112,7 @@
         <v-btn
             elevation="4"
             color="primary"
+            :loading="loader"
             @click="init"
         >
           初始化串口
@@ -142,7 +143,8 @@ export default {
         serial0: '172.18.0.2', // 串行接口Serial0/0/0
         serial1: '-', // 串行接口Serial0/0/1
         mask: '255.255.0.0' // 串行接口子网掩码
-      }
+      },
+      loader: false // 加载器
     }
   },
   methods: {
@@ -154,8 +156,13 @@ export default {
         content: {icon, msg, color},
       })
     },
+    // 关闭加载器
+    closeLoader() {
+      this.loader = false
+    },
     // 初始化串行接口
     init() {
+      this.loader = true // 设置加载器
       const url = 'http://127.0.0.1:5000/init'
       let data = {
         r0: {
@@ -179,12 +186,15 @@ export default {
         console.log(res)
         if (res.data.state) {
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
+          this.closeLoader()
         } else {
           this.showMessage('mdi-cancel', res.data.msg, 'error')
+          this.closeLoader()
         }
       }).catch(err => {
         console.log(err)
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
+        this.closeLoader()
       })
     }
   }
