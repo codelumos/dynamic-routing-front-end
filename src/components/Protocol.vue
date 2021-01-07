@@ -66,6 +66,7 @@
             background-color="#212121"
             height="500"
             no-resize
+            class="console"
         >
         </v-textarea>
       </v-col>
@@ -99,7 +100,7 @@ export default {
       protocol_selected: 'RIP',
       protocol_list: ['RIP', 'OSPF', 'BGP'],
       // 设备列表
-      dev_selected: 'Switch2',
+      dev_selected: 'Router1',
       dev_list: ['Switch2', 'Router0', 'Router1', 'Router2'],
       // 加载器
       loader_protocol: false,
@@ -186,3 +187,15 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="less">
+.console {
+  font-family: Consolas, sans-serif;
+  font-size: 16px;
+
+  ::selection {
+    color: black;
+    background: white;
+  }
+}
+</style>
