@@ -3,119 +3,141 @@
     <!-- 标题 -->
     <v-row>
       <p class="title font-weight-bold mb-3">
-        特权密码
+        特权模式
       </p>
     </v-row>
 
-    <!-- 配置卡片 -->
-    <v-row class="text-center" v-show="!unify.enable">
-      <v-col sm="3">
-        <v-card elevation="4">
-          <v-card-title>Switch2</v-card-title>
-          <v-card-text>
-            <v-text-field
-                v-model="s2.pwd"
-                label="特权密码"
-                required
-                outlined
-                :append-icon="s2.show ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="s2.show ? 'text' : 'password'"
-                @click:append="s2.show = !s2.show"
-            ></v-text-field>
-          </v-card-text>
-        </v-card>
-      </v-col>
+    <v-card flat>
+      <!-- 配置卡片 -->
+      <v-row class="text-center" v-show="!unify.enable">
+        <v-col sm="3">
+          <v-hover v-slot="{ hover }">
+            <v-card :elevation="hover ? 12 : 4">
+              <v-card-title>Switch2</v-card-title>
+              <v-card-text>
+                <v-text-field
+                    v-model="s2.pwd"
+                    label="特权密码"
+                    required
+                    outlined
+                    :append-icon="s2.show ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="s2.show ? 'text' : 'password'"
+                    @click:append="s2.show = !s2.show"
+                ></v-text-field>
+              </v-card-text>
+            </v-card>
+          </v-hover>
+        </v-col>
 
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-      <v-col sm="3">
-        <v-card elevation="4">
-          <v-card-title>Router0</v-card-title>
-          <v-card-text>
-            <v-text-field
-                v-model="r0.pwd"
-                label="特权密码"
-                required
-                outlined
-                :append-icon="r0.show ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="r0.show ? 'text' : 'password'"
-                @click:append="r0.show = !r0.show"
-            ></v-text-field>
-          </v-card-text>
-        </v-card>
-      </v-col>
+        <v-col sm="3">
+          <v-hover v-slot="{ hover }">
+            <v-card :elevation="hover ? 12 : 4">
+              <v-card-title>Router0</v-card-title>
+              <v-card-text>
+                <v-text-field
+                    v-model="r0.pwd"
+                    label="特权密码"
+                    required
+                    outlined
+                    :append-icon="r0.show ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="r0.show ? 'text' : 'password'"
+                    @click:append="r0.show = !r0.show"
+                ></v-text-field>
+              </v-card-text>
+            </v-card>
+          </v-hover>
+        </v-col>
 
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-      <v-col sm="3">
-        <v-card elevation="4">
-          <v-card-title>Router1</v-card-title>
-          <v-card-text>
-            <v-text-field
-                v-model="r1.pwd"
-                label="特权密码"
-                required
-                outlined
-                :append-icon="r1.show ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="r1.show ? 'text' : 'password'"
-                @click:append="r1.show = !r1.show"
-            ></v-text-field>
-          </v-card-text>
-        </v-card>
-      </v-col>
+        <v-col sm="3">
+          <v-hover v-slot="{ hover }">
+            <v-card :elevation="hover ? 12 : 4">
+              <v-card-title>Router1</v-card-title>
+              <v-card-text>
+                <v-text-field
+                    v-model="r1.pwd"
+                    label="特权密码"
+                    required
+                    outlined
+                    :append-icon="r1.show ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="r1.show ? 'text' : 'password'"
+                    @click:append="r1.show = !r1.show"
+                ></v-text-field>
+              </v-card-text>
+            </v-card>
+          </v-hover>
+        </v-col>
 
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-      <v-col sm="3">
-        <v-card elevation="4">
-          <v-card-title>Router2</v-card-title>
-          <v-card-text>
-            <v-text-field
-                v-model="r2.pwd"
-                label="特权密码"
-                required
-                outlined
-                :append-icon="r2.show ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="r2.show ? 'text' : 'password'"
-                @click:append="r2.show = !r2.show"
-            ></v-text-field>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+        <v-col sm="3">
+          <v-hover v-slot="{ hover }">
+            <v-card :elevation="hover ? 12 : 4">
+              <v-card-title>Router2</v-card-title>
+              <v-card-text>
+                <v-text-field
+                    v-model="r2.pwd"
+                    label="特权密码"
+                    required
+                    outlined
+                    :append-icon="r2.show ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="r2.show ? 'text' : 'password'"
+                    @click:append="r2.show = !r2.show"
+                ></v-text-field>
+              </v-card-text>
+            </v-card>
+          </v-hover>
+        </v-col>
+      </v-row>
 
-    <!-- 统一密码选项 -->
-    <p style="white-space: pre-line" v-show="!unify.enable"></p>
-    <v-row>
-      <v-col sm="3">
-        <v-switch
-            v-model="unify.enable"
-            :label="`使用统一密码`"
-        ></v-switch>
-      </v-col>
-      <v-col sm="6">
-        <v-text-field
-            v-show="unify.enable"
-            v-model="unify.pwd"
-            label="统一特权密码"
-            required
-            outlined
-            :append-icon="unify.show ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="unify.show ? 'text' : 'password'"
-            @click:append="unify.show = !unify.show"
-        ></v-text-field>
-      </v-col>
-      <v-col sm="3">
-        <v-btn
-            elevation="4"
-            color="primary"
-            :loading="unify.loader"
-            @click="enable"
-        >
-          进入特权模式
+      <!-- 统一密码选项 -->
+      <p style="white-space: pre-line" v-show="!unify.enable"></p>
+      <v-row>
+        <v-col sm="3">
+          <v-switch
+              v-model="unify.enable"
+              :label="`使用统一密码`"
+          ></v-switch>
+        </v-col>
+        <v-col sm="6">
+          <v-text-field
+              v-show="unify.enable"
+              v-model="unify.pwd"
+              label="统一特权密码"
+              required
+              outlined
+              :append-icon="unify.show ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="unify.show ? 'text' : 'password'"
+              @click:append="unify.show = !unify.show"
+          ></v-text-field>
+        </v-col>
+        <v-col sm="3">
+          <v-btn
+              elevation="4"
+              color="primary"
+              :disabled="unify.state"
+              :loading="unify.loader"
+              @click="enable"
+          >
+            进入特权模式
+          </v-btn>
+        </v-col>
+      </v-row>
+
+      <!-- 遮罩层 -->
+      <v-overlay
+          absolute
+          :z-index=0
+          :value="unify.state"
+      >
+        <v-btn color="success">
+          已进入特权模式
         </v-btn>
-      </v-col>
-    </v-row>
+      </v-overlay>
+    </v-card>
   </v-container>
 </template>
 
@@ -143,6 +165,7 @@ export default {
         show: false, // 密码可见性
       },
       unify: {
+        state: false, // 设备状态(true:特权模式, false:普通模式)
         enable: true, // 使用统一密码
         pwd: '', // 统一特权密码
         show: false, // 密码可见性
@@ -162,6 +185,11 @@ export default {
     // 关闭加载器
     closeLoader() {
       this.unify.loader = false
+    },
+    // 改变设备状态
+    changeState(state) {
+      let set_state = "this.unify.state = " + state
+      eval(set_state)
     },
     // 进入特权模式
     enable() {
@@ -187,6 +215,8 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.data.state) {
+          // 将状态设为特权模式
+          this.changeState(true)
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
           this.closeLoader()
         } else {

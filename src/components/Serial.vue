@@ -7,118 +7,132 @@
       </p>
     </v-row>
 
-    <!-- 配置卡片 -->
-    <v-row class="text-center">
-      <v-col sm="4">
-        <v-hover v-slot="{ hover }">
-          <v-card :elevation="hover ? 12 : 4">
-            <v-card-title>Router0</v-card-title>
-            <v-card-text>
-              <v-text-field
-                  v-model="r0.serial0"
-                  label="Serial0/0/0"
-                  required
-                  outlined
-                  disabled
-              ></v-text-field>
-              <v-text-field
-                  v-model="r0.serial1"
-                  label="Serial0/0/1"
-                  required
-                  outlined
-                  disabled
-              ></v-text-field>
-              <v-text-field
-                  v-model="r0.mask"
-                  label="子网掩码"
-                  required
-                  outlined
-                  disabled
-              ></v-text-field>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-col>
+    <v-card flat>
+      <!-- 配置卡片 -->
+      <v-row class="text-center">
+        <v-col sm="4">
+          <v-hover v-slot="{ hover }">
+            <v-card :elevation="hover ? 12 : 4">
+              <v-card-title>Router0</v-card-title>
+              <v-card-text>
+                <v-text-field
+                    v-model="r0.serial0"
+                    label="Serial0/0/0"
+                    required
+                    outlined
+                    disabled
+                ></v-text-field>
+                <v-text-field
+                    v-model="r0.serial1"
+                    label="Serial0/0/1"
+                    required
+                    outlined
+                    disabled
+                ></v-text-field>
+                <v-text-field
+                    v-model="r0.mask"
+                    label="子网掩码"
+                    required
+                    outlined
+                    disabled
+                ></v-text-field>
+              </v-card-text>
+            </v-card>
+          </v-hover>
+        </v-col>
 
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-      <v-col sm="4">
-        <v-hover v-slot="{ hover }">
-          <v-card :elevation="hover ? 12 : 4">
-            <v-card-title>Router1</v-card-title>
-            <v-card-text>
-              <v-text-field
-                  v-model="r1.serial0"
-                  label="Serial0/0/0"
-                  required
-                  outlined
-                  disabled
-              ></v-text-field>
-              <v-text-field
-                  v-model="r1.serial1"
-                  label="Serial0/0/1"
-                  required
-                  outlined
-                  disabled
-              ></v-text-field>
-              <v-text-field
-                  v-model="r1.mask"
-                  label="子网掩码"
-                  required
-                  outlined
-                  disabled
-              ></v-text-field>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-col>
+        <v-col sm="4">
+          <v-hover v-slot="{ hover }">
+            <v-card :elevation="hover ? 12 : 4">
+              <v-card-title>Router1</v-card-title>
+              <v-card-text>
+                <v-text-field
+                    v-model="r1.serial0"
+                    label="Serial0/0/0"
+                    required
+                    outlined
+                    disabled
+                ></v-text-field>
+                <v-text-field
+                    v-model="r1.serial1"
+                    label="Serial0/0/1"
+                    required
+                    outlined
+                    disabled
+                ></v-text-field>
+                <v-text-field
+                    v-model="r1.mask"
+                    label="子网掩码"
+                    required
+                    outlined
+                    disabled
+                ></v-text-field>
+              </v-card-text>
+            </v-card>
+          </v-hover>
+        </v-col>
 
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-      <v-col sm="4">
-        <v-hover v-slot="{ hover }">
-          <v-card :elevation="hover ? 12 : 4">
-            <v-card-title>Router2</v-card-title>
-            <v-card-text>
-              <v-text-field
-                  v-model="r2.serial0"
-                  label="Serial0/0/0"
-                  required
-                  outlined
-                  disabled
-              ></v-text-field>
-              <v-text-field
-                  v-model="r2.serial1"
-                  label="Serial0/0/1"
-                  required
-                  outlined
-                  disabled
-              ></v-text-field>
-              <v-text-field
-                  v-model="r2.mask"
-                  label="子网掩码"
-                  required
-                  outlined
-                  disabled
-              ></v-text-field>
-            </v-card-text>
-          </v-card>
-        </v-hover>
-      </v-col>
-    </v-row>
+        <v-col sm="4">
+          <v-hover v-slot="{ hover }">
+            <v-card :elevation="hover ? 12 : 4">
+              <v-card-title>Router2</v-card-title>
+              <v-card-text>
+                <v-text-field
+                    v-model="r2.serial0"
+                    label="Serial0/0/0"
+                    required
+                    outlined
+                    disabled
+                ></v-text-field>
+                <v-text-field
+                    v-model="r2.serial1"
+                    label="Serial0/0/1"
+                    required
+                    outlined
+                    disabled
+                ></v-text-field>
+                <v-text-field
+                    v-model="r2.mask"
+                    label="子网掩码"
+                    required
+                    outlined
+                    disabled
+                ></v-text-field>
+              </v-card-text>
+            </v-card>
+          </v-hover>
+        </v-col>
+      </v-row>
 
-    <v-row class="text-center">
-      <v-col>
-        <v-btn
-            elevation="4"
-            color="primary"
-            :loading="loader"
-            @click="init"
-        >
-          初始化串口
+      <v-row class="text-center">
+        <v-col>
+          <v-btn
+              elevation="4"
+              color="primary"
+              :disabled="unify.state"
+              :loading="unify.loader"
+              @click="init"
+          >
+            初始化串口
+          </v-btn>
+        </v-col>
+      </v-row>
+
+      <!-- 遮罩层 -->
+      <v-overlay
+          absolute
+          :z-index=0
+          :value="unify.state"
+      >
+        <v-btn color="success">
+          串行接口已初始化
         </v-btn>
-      </v-col>
-    </v-row>
+      </v-overlay>
+    </v-card>
   </v-container>
 </template>
 
@@ -144,7 +158,10 @@ export default {
         serial1: '-', // 串行接口Serial0/0/1
         mask: '255.255.0.0' // 串行接口子网掩码
       },
-      loader: false // 加载器
+      unify: {
+        state: false, // 状态(true:已初始化, false:未初始化)
+        loader: false // 加载器
+      }
     }
   },
   methods: {
@@ -158,7 +175,12 @@ export default {
     },
     // 关闭加载器
     closeLoader() {
-      this.loader = false
+      this.unify.loader = false
+    },
+    // 改变状态
+    changeState(state) {
+      let set_state = "this.unify.state = " + state
+      eval(set_state)
     },
     // 初始化串行接口
     init() {
@@ -185,6 +207,8 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.data.state) {
+          // 将状态设为已初始化
+          this.changeState(true)
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
           this.closeLoader()
         } else {

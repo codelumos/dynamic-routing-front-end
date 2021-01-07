@@ -41,14 +41,17 @@
               <v-btn
                   elevation="4"
                   color="primary"
+                  :disabled="s2.state"
                   :loading="s2.loader"
                   @click="login('s2', s2.ip, s2.mask, unify.enable ? unify.pwd : s2.pwd)"
               >
                 登陆
               </v-btn>
             </v-card-text>
+
+            <!-- 遮罩层 -->
             <v-overlay
-                :absolute=true
+                absolute
                 :z-index=0
                 :value="s2.state"
             >
@@ -98,14 +101,17 @@
               <v-btn
                   elevation="4"
                   color="primary"
+                  :disabled="r0.state"
                   :loading="r0.loader"
                   @click="login('r0', r0.ip, r0.mask, unify.enable ? unify.pwd : r0.pwd)"
               >
                 登陆
               </v-btn>
             </v-card-text>
+
+            <!-- 遮罩层 -->
             <v-overlay
-                :absolute=true
+                absolute
                 :z-index=0
                 :value="r0.state"
             >
@@ -155,14 +161,17 @@
               <v-btn
                   elevation="4"
                   color="primary"
+                  :disabled="r1.state"
                   :loading="r1.loader"
                   @click="login('r1', r1.ip, r1.mask, unify.enable ? unify.pwd : r1.pwd)"
               >
                 登陆
               </v-btn>
             </v-card-text>
+
+            <!-- 遮罩层 -->
             <v-overlay
-                :absolute=true
+                absolute
                 :z-index=0
                 :value="r1.state"
             >
@@ -212,14 +221,17 @@
               <v-btn
                   elevation="4"
                   color="primary"
+                  :disabled="r2.state"
                   :loading="r2.loader"
                   @click="login('r2', r2.ip, r2.mask, unify.enable ? unify.pwd : r2.pwd)"
               >
                 登陆
               </v-btn>
             </v-card-text>
+
+            <!-- 遮罩层 -->
             <v-overlay
-                :absolute=true
+                absolute
                 :z-index=0
                 :value="r2.state"
             >
@@ -262,6 +274,7 @@
             v-show="unify.enable"
             elevation="4"
             color="primary"
+            :disabled="s2.state && r0.state && r1.state && r2.state"
             :loading="s2.loader && r0.loader && r1.loader && r2.loader"
             @click="login_all"
         >
