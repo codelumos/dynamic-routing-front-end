@@ -98,7 +98,7 @@ export default {
     return {
       // 路由协议列表
       protocol_selected: 'RIP',
-      protocol_list: ['RIP', 'OSPF', 'BGP'],
+      protocol_list: ['RIP', 'OSPF'],
       // 设备列表
       dev_selected: 'Router1',
       dev_list: ['Switch2', 'Router0', 'Router1', 'Router2'],
