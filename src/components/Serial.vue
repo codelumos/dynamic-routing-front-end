@@ -184,7 +184,7 @@ export default {
     },
     // 初始化串行接口
     init() {
-      this.loader = true // 设置加载器
+      this.unify.loader = true // 设置加载器
       const url = 'http://127.0.0.1:5000/init'
       let data = {
         r0: {

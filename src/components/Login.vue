@@ -303,7 +303,7 @@ export default {
       },
       r0: {
         state: false, // 登陆状态(true:已登陆, false:未登陆)
-        ip: '172.16.0.1', // IP地址
+        ip: '172.16.0.2', // IP地址
         mask: '255.255.0.0', // 子网掩码
         pwd: '', // telnet密码
         show: false, // 密码可见性
@@ -311,7 +311,7 @@ export default {
       },
       r1: {
         state: false, // 登陆状态(true:已登陆, false:未登陆)
-        ip: '172.16.0.1', // IP地址
+        ip: '172.16.0.3', // IP地址
         mask: '255.255.0.0', // 子网掩码
         pwd: '', // telnet密码
         show: false, // 密码可见性
@@ -319,7 +319,7 @@ export default {
       },
       r2: {
         state: false, // 登陆状态(true:已登陆, false:未登陆)
-        ip: '172.16.0.1', // IP地址
+        ip: '172.16.0.4', // IP地址
         mask: '255.255.0.0', // 子网掩码
         pwd: '', // telnet密码
         show: false, // 密码可见性

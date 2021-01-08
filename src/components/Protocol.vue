@@ -139,8 +139,6 @@ export default {
         data: data
       }).then(res => {
         console.log(res)
-        // 输出信息到控制台
-        this.msg += res.data.info + '\n'
         if (res.data.state) {
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
           this.closeLoader('protocol')
@@ -177,7 +175,7 @@ export default {
         }
         // 输出信息到控制台
         let result = res.data
-        this.msg += 'IP Route>\n' + result.info.route + '\nIP Protocols>\n' + result.info.protocol + '\n'
+        this.msg += '# IP Route\n' + result.info.route + '\n\n# IP Protocols\n' + result.info.protocol + '\n'
       }).catch(err => {
         console.log(err)
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')

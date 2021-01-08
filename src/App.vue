@@ -54,6 +54,7 @@
         dark
     >
       <div class="align-center">
+        Copyright ©
         第40组
         组长：史浩楠（MF20320124）
         组员：沈政（MF20320121）、施玲珑（MF20320122）、朱宽（MF20320239）
