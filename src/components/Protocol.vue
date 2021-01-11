@@ -21,8 +21,8 @@
         <v-btn
             elevation="4"
             color="primary"
-            :loading="loader_protocol"
-            @click="config"
+            :loading="loader_r0 && loader_r1 && loader_r2"
+            @click="config_all"
         >
           配置路由
         </v-btn>
@@ -103,7 +103,9 @@ export default {
       dev_selected: 'Router1',
       dev_list: ['Switch2', 'Router0', 'Router1', 'Router2'],
       // 加载器
-      loader_protocol: false,
+      loader_r0: false,
+      loader_r1: false,
+      loader_r2: false,
       loader_info: false,
       // 控制台信息
       msg: '## Telnet Client ##\n'
@@ -118,19 +120,21 @@ export default {
         content: {icon, msg, color},
       })
     },
-    // 关闭加载器
-    closeLoader(btn_name) {
-      let set_loader = "this.loader_" + btn_name + " = false"
+    // 设置加载器
+    setLoader(dev_no, state) {
+      let set_loader = "this.loader_" + dev_no + " = " + state
       eval(set_loader)
     },
     // 配置协议
-    config() {
-      this.loader_protocol = true // 设置加载器
+    config(dev_no, dev_data) {
+      // 设置加载器
+      let set_loader = "this.loader_" + dev_no + " = true"
+      eval(set_loader)
+      // 配置协议
       let url = 'http://127.0.0.1:5000/config/' + this.protocol_selected.toLowerCase()
       let data = {
-        r0: Serial.data().r0,
-        r1: Serial.data().r1,
-        r2: Serial.data().r2
+        dev_no: dev_no,
+        dev_data: dev_data
       }
       // 调用接口
       axios({
@@ -141,20 +145,31 @@ export default {
         console.log(res)
         if (res.data.state) {
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
-          this.closeLoader('protocol')
+          this.setLoader(dev_no, false)
         } else {
           this.showMessage('mdi-cancel', res.data.msg, 'error')
-          this.closeLoader('protocol')
+          this.setLoader(dev_no, false)
         }
       }).catch(err => {
         console.log(err)
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
-        this.closeLoader('protocol')
+        this.setLoader(dev_no, false)
+      })
+    },
+    // 一键配置协议
+    config_all() {
+      axios.all([this.config("r0", Serial.data().r0),
+        this.config("r1", Serial.data().r1),
+        this.config("r2", Serial.data().r2)
+      ]).then(axios.spread(function (res) {
+        console.log(res);
+      })).catch(err => {
+        console.log(err)
       })
     },
     // 查看信息
     info() {
-      this.loader_info = true // 设置加载器
+      this.setLoader('info', true) // 设置加载器
       let data = {
         dev_no: this.dev_selected[0].toLowerCase() + this.dev_selected[this.dev_selected.length - 1]
       }
@@ -168,18 +183,18 @@ export default {
         console.log(res)
         if (res.data.state) {
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
-          this.closeLoader('info')
+          this.setLoader('info', false)
         } else {
           this.showMessage('mdi-cancel', res.data.msg, 'error')
-          this.closeLoader('info')
+          this.setLoader('info', false)
         }
         // 输出信息到控制台
         let result = res.data
-        this.msg += '# IP Route\n' + result.info.route + '\n\n# IP Protocols\n' + result.info.protocol + '\n'
+        this.msg += '# IP Route\n' + result.info.route + '\n# IP Protocols\n' + result.info.protocol + '\n'
       }).catch(err => {
         console.log(err)
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
-        this.closeLoader('info')
+        this.setLoader('info', false)
       })
     }
   }

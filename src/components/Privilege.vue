@@ -118,9 +118,9 @@
           <v-btn
               elevation="4"
               color="primary"
-              :disabled="unify.state"
-              :loading="unify.loader"
-              @click="enable"
+              :disabled="s2.state && r0.state && r1.state && r2.state"
+              :loading="s2.loader && r0.loader && r1.loader && r2.loader"
+              @click="enable_all"
           >
             进入特权模式
           </v-btn>
@@ -131,7 +131,7 @@
       <v-overlay
           absolute
           :z-index=0
-          :value="unify.state"
+          :value="s2.state && r0.state && r1.state && r2.state"
       >
         <v-btn color="success">
           已进入特权模式
@@ -151,25 +151,31 @@ export default {
       s2: {
         pwd: '', // 特权密码
         show: false, // 密码可见性
+        state: false, // 设备状态(true:特权模式, false:非特权模式)
+        loader: false // 加载器
       },
       r0: {
         pwd: '', // 特权密码
         show: false, // 密码可见性
+        state: false, // 设备状态(true:特权模式, false:非特权模式)
+        loader: false // 加载器
       },
       r1: {
         pwd: '', // 特权密码
         show: false, // 密码可见性
+        state: false, // 设备状态(true:特权模式, false:非特权模式)
+        loader: false // 加载器
       },
       r2: {
         pwd: '', // 特权密码
         show: false, // 密码可见性
+        state: false, // 设备状态(true:特权模式, false:非特权模式)
+        loader: false // 加载器
       },
       unify: {
-        state: false, // 设备状态(true:特权模式, false:普通模式)
         enable: true, // 使用统一密码
         pwd: '', // 统一特权密码
-        show: false, // 密码可见性
-        loader: false // 加载器
+        show: false // 密码可见性
       }
     }
   },
@@ -182,31 +188,37 @@ export default {
         content: {icon, msg, color},
       })
     },
-    // 关闭加载器
-    closeLoader() {
-      this.unify.loader = false
+    // 设置加载器
+    setLoader(dev_no, state) {
+      let set_loader = "this." + dev_no + ".loader = " + state
+      eval(set_loader)
     },
-    // 改变设备状态
-    changeState(state) {
-      let set_state = "this.unify.state = " + state
+    // 设置设备状态
+    setState(dev_no, state) {
+      let set_state = "this." + dev_no + ".state = " + state
       eval(set_state)
     },
     // 进入特权模式
-    enable() {
+    enable(dev_no, pwd) {
+      // 检查设备状态
+      let state_check = "this." + dev_no + ".state === true" // 已登录
+      let waiting_check = "this." + dev_no + ".loader === true" // 登陆中
+      if (eval(state_check) || eval(waiting_check)) {
+        return
+      }
       // 检查密码是否为空
-      if ((this.unify.enable && this.unify.pwd === '') || (!this.unify.enable && (this.r0.pwd === '' || this.r1.pwd === '' || this.r2.pwd === '' || this.s2.pwd === ''))) {
+      let pwd_check = "this." + dev_no + ".pwd === ''"
+      if ((this.unify.enable && this.unify.pwd === '') || (!this.unify.enable && eval(pwd_check))) {
         this.showMessage('mdi-alert-circle', '密码不能为空', 'warning')
-        this.closeLoader()
         return
       }
       // 设置加载器
-      this.unify.loader = true
-      const url = 'http://127.0.0.1:5000/enable'
+      this.setLoader(dev_no, true)
       // 进入特权模式
+      const url = 'http://127.0.0.1:5000/enable'
       let data = {
-        pwd_r0: this.unify.enable ? this.unify.pwd : this.r0.pwd,
-        pwd_r1: this.unify.enable ? this.unify.pwd : this.r1.pwd,
-        pwd_r2: this.unify.enable ? this.unify.pwd : this.r2.pwd
+        dev_no: dev_no,
+        pwd: pwd
       }
       axios({
         method: 'post',
@@ -216,17 +228,29 @@ export default {
         console.log(res)
         if (res.data.state) {
           // 将状态设为特权模式
-          this.changeState(true)
+          this.setState(dev_no, true)
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
-          this.closeLoader()
+          this.setLoader(dev_no, false)
         } else {
           this.showMessage('mdi-cancel', res.data.msg, 'error')
-          this.closeLoader()
+          this.setLoader(dev_no, false)
         }
       }).catch(err => {
         console.log(err)
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
-        this.closeLoader()
+        this.setLoader(dev_no, false)
+      })
+    },
+    // 一键进入特权模式
+    enable_all() {
+      axios.all([this.enable("s2", this.unify.enable ? this.unify.pwd : this.s2.pwd),
+        this.enable("r0", this.unify.enable ? this.unify.pwd : this.r0.pwd),
+        this.enable("r1", this.unify.enable ? this.unify.pwd : this.r1.pwd),
+        this.enable("r2", this.unify.enable ? this.unify.pwd : this.r2.pwd)
+      ]).then(axios.spread(function (res) {
+        console.log(res);
+      })).catch(err => {
+        console.log(err)
       })
     }
   }

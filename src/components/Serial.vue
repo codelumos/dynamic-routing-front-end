@@ -113,9 +113,9 @@
           <v-btn
               elevation="4"
               color="primary"
-              :disabled="unify.state"
-              :loading="unify.loader"
-              @click="init"
+              :disabled="r0.state && r1.state && r2.state"
+              :loading="r0.loader && r1.loader && r2.loader"
+              @click="init_all"
           >
             初始化串口
           </v-btn>
@@ -126,7 +126,7 @@
       <v-overlay
           absolute
           :z-index=0
-          :value="unify.state"
+          :value="r0.state && r1.state && r2.state"
       >
         <v-btn color="success">
           串行接口已初始化
@@ -146,20 +146,22 @@ export default {
       r0: {
         serial0: '172.17.0.1', // 串行接口Serial0/0/0
         serial1: '-', // 串行接口Serial0/0/1
-        mask: '255.255.0.0' // 串行接口子网掩码
+        mask: '255.255.0.0', // 串行接口子网掩码
+        state: false, // 配置状态(true:已初始化, false:未初始化)
+        loader: false // 加载器
       },
       r1: {
         serial0: '172.17.0.2', // 串行接口Serial0/0/0
         serial1: '172.18.0.1', // 串行接口Serial0/0/1
-        mask: '255.255.0.0' // 串行接口子网掩码
+        mask: '255.255.0.0', // 串行接口子网掩码
+        state: false, // 配置状态(true:已初始化, false:未初始化)
+        loader: false // 加载器
       },
       r2: {
         serial0: '172.18.0.2', // 串行接口Serial0/0/0
         serial1: '-', // 串行接口Serial0/0/1
-        mask: '255.255.0.0' // 串行接口子网掩码
-      },
-      unify: {
-        state: false, // 状态(true:已初始化, false:未初始化)
+        mask: '255.255.0.0', // 串行接口子网掩码
+        state: false, // 配置状态(true:已初始化, false:未初始化)
         loader: false // 加载器
       }
     }
@@ -173,32 +175,32 @@ export default {
         content: {icon, msg, color},
       })
     },
-    // 关闭加载器
-    closeLoader() {
-      this.unify.loader = false
+    // 设置加载器
+    setLoader(dev_no, state) {
+      let set_loader = "this." + dev_no + ".loader = " + state
+      eval(set_loader)
     },
-    // 改变状态
-    changeState(state) {
-      let set_state = "this.unify.state = " + state
+    // 设置配置状态
+    setState(dev_no, state) {
+      let set_state = "this." + dev_no + ".state = " + state
       eval(set_state)
     },
     // 初始化串行接口
-    init() {
-      this.unify.loader = true // 设置加载器
+    init(dev_no, ip_list, mask) {
+      // 检查设备状态
+      let state_check = "this." + dev_no + ".state === true" // 已登录
+      let waiting_check = "this." + dev_no + ".loader === true" // 登陆中
+      if (eval(state_check) || eval(waiting_check)) {
+        return
+      }
+      // 设置加载器
+      this.setLoader(dev_no, true)
+      // 初始化串行接口
       const url = 'http://127.0.0.1:5000/init'
       let data = {
-        r0: {
-          serial_ip: [this.r0.serial0, this.r0.serial1],
-          mask: this.r0.mask
-        },
-        r1: {
-          serial_ip: [this.r1.serial0, this.r1.serial1],
-          mask: this.r1.mask
-        },
-        r2: {
-          serial_ip: [this.r2.serial0, this.r2.serial1],
-          mask: this.r2.mask
-        }
+        dev_no: dev_no,
+        ip_list: ip_list,
+        mask: mask
       }
       axios({
         url: url,
@@ -208,17 +210,28 @@ export default {
         console.log(res)
         if (res.data.state) {
           // 将状态设为已初始化
-          this.changeState(true)
+          this.setState(dev_no, true)
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
-          this.closeLoader()
+          this.setLoader(dev_no, false)
         } else {
           this.showMessage('mdi-cancel', res.data.msg, 'error')
-          this.closeLoader()
+          this.setLoader(dev_no, false)
         }
       }).catch(err => {
         console.log(err)
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
-        this.closeLoader()
+        this.setLoader(dev_no, false)
+      })
+    },
+    // 一键初始化串行接口
+    init_all() {
+      axios.all([this.init("r0", [this.r0.serial0, this.r0.serial1], this.r0.mask),
+        this.init("r1", [this.r1.serial0, this.r1.serial1], this.r1.mask),
+        this.init("r2", [this.r2.serial0, this.r2.serial1], this.r2.mask)
+      ]).then(axios.spread(function (res) {
+        console.log(res);
+      })).catch(err => {
+        console.log(err)
       })
     }
   }

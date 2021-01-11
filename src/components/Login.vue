@@ -271,7 +271,6 @@
       </v-col>
       <v-col sm="3">
         <v-btn
-            v-show="unify.enable"
             elevation="4"
             color="primary"
             :disabled="s2.state && r0.state && r1.state && r2.state"
@@ -294,35 +293,35 @@ export default {
   data() {
     return {
       s2: {
-        state: false, // 登陆状态(true:已登陆, false:未登陆)
         ip: '172.16.0.1', // IP地址
         mask: '255.255.0.0', // 子网掩码
         pwd: '', // telnet密码
         show: false, // 密码可见性
+        state: false, // 登陆状态(true:已登陆, false:未登陆)
         loader: false // 加载器
       },
       r0: {
-        state: false, // 登陆状态(true:已登陆, false:未登陆)
         ip: '172.16.0.2', // IP地址
         mask: '255.255.0.0', // 子网掩码
         pwd: '', // telnet密码
         show: false, // 密码可见性
+        state: false, // 登陆状态(true:已登陆, false:未登陆)
         loader: false // 加载器
       },
       r1: {
-        state: false, // 登陆状态(true:已登陆, false:未登陆)
         ip: '172.16.0.3', // IP地址
         mask: '255.255.0.0', // 子网掩码
         pwd: '', // telnet密码
         show: false, // 密码可见性
+        state: false, // 登陆状态(true:已登陆, false:未登陆)
         loader: false // 加载器
       },
       r2: {
-        state: false, // 登陆状态(true:已登陆, false:未登陆)
         ip: '172.16.0.4', // IP地址
         mask: '255.255.0.0', // 子网掩码
         pwd: '', // telnet密码
         show: false, // 密码可见性
+        state: false, // 登陆状态(true:已登陆, false:未登陆)
         loader: false // 加载器
       },
       unify: {
@@ -341,13 +340,13 @@ export default {
         content: {icon, msg, color},
       })
     },
-    // 关闭加载器
-    closeLoader(dev_no) {
-      let set_loader = "this." + dev_no + ".loader = false"
+    // 设置加载器
+    setLoader(dev_no, state) {
+      let set_loader = "this." + dev_no + ".loader = " + state
       eval(set_loader)
     },
-    // 改变设备登陆状态
-    changeState(dev_no, state) {
+    // 设置设备登陆状态
+    setState(dev_no, state) {
       let set_state = "this." + dev_no + ".state = " + state
       eval(set_state)
     },
@@ -361,19 +360,12 @@ export default {
       }
       // 检查密码是否为空
       let pwd_check = "this." + dev_no + ".pwd === ''"
-      if (this.unify.enable && this.unify.pwd === '') {
+      if ((this.unify.enable && this.unify.pwd === '') || (!this.unify.enable && eval(pwd_check))) {
         this.showMessage('mdi-alert-circle', '密码不能为空', 'warning')
-        this.closeLoader(dev_no)
-        return
-      }
-      if (!this.unify.enable && eval(pwd_check)) {
-        this.showMessage('mdi-alert-circle', '密码不能为空', 'warning')
-        this.closeLoader(dev_no)
         return
       }
       // 设置加载器
-      let set_loader = "this." + dev_no + ".loader = true"
-      eval(set_loader)
+      this.setLoader(dev_no, true)
       // 设备登陆
       const url = 'http://127.0.0.1:5000/login'
       let params = {
@@ -389,19 +381,19 @@ export default {
         console.log(res);
         if (res.data.state) {
           // 将设备状态设为登陆状态
-          this.changeState(dev_no, true)
+          this.setState(dev_no, true)
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
-          this.closeLoader(dev_no)
+          this.setLoader(dev_no, false)
         } else {
           // 将设备状态设为未登陆状态
-          this.changeState(dev_no, false)
+          this.setState(dev_no, false)
           this.showMessage('mdi-cancel', res.data.msg, 'error')
-          this.closeLoader(dev_no)
+          this.setLoader(dev_no, false)
         }
       }).catch(err => {
         console.log(err)
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
-        this.closeLoader(dev_no)
+        this.setLoader(dev_no, false)
       })
     },
     // 设备登出
@@ -416,24 +408,26 @@ export default {
         data: params
       }).then(res => {
         console.log(res);
+        // 将设备状态设为未登陆状态
+        this.setState(dev_no, false)
         if (res.data.state) {
-          // 将设备状态设为未登陆状态
-          this.changeState(dev_no, false)
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
         } else {
           this.showMessage('mdi-cancel', res.data.msg, 'error')
         }
       }).catch(err => {
         console.log(err)
+        // 将设备状态设为未登陆状态
+        this.setState(dev_no, false)
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
       })
     },
     // 一键登录
     login_all() {
-      axios.all([this.login("s2", this.s2.ip, this.s2.mask, this.unify.pwd),
-        this.login("r0", this.r0.ip, this.r0.mask, this.unify.pwd),
-        this.login("r1", this.r1.ip, this.r1.mask, this.unify.pwd),
-        this.login("r2", this.r2.ip, this.r2.mask, this.unify.pwd),
+      axios.all([this.login("s2", this.s2.ip, this.s2.mask, this.unify.enable ? this.unify.pwd : this.s2.pwd),
+        this.login("r0", this.r0.ip, this.r0.mask, this.unify.enable ? this.unify.pwd : this.r0.pwd),
+        this.login("r1", this.r1.ip, this.r1.mask, this.unify.enable ? this.unify.pwd : this.r1.pwd),
+        this.login("r2", this.r2.ip, this.r2.mask, this.unify.enable ? this.unify.pwd : this.r2.pwd)
       ]).then(axios.spread(function (res) {
         console.log(res);
       })).catch(err => {
