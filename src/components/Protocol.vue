@@ -21,7 +21,7 @@
         <v-btn
             elevation="4"
             color="primary"
-            :loading="loader_r0 && loader_r1 && loader_r2"
+            :loading="loader_r0 || loader_r1 || loader_r2"
             @click="config_all"
         >
           配置路由

@@ -114,7 +114,7 @@
               elevation="4"
               color="primary"
               :disabled="r0.state && r1.state && r2.state"
-              :loading="r0.loader && r1.loader && r2.loader"
+              :loading="r0.loader || r1.loader || r2.loader"
               @click="init_all"
           >
             初始化串口

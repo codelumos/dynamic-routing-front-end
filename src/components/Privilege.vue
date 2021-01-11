@@ -119,7 +119,7 @@
               elevation="4"
               color="primary"
               :disabled="s2.state && r0.state && r1.state && r2.state"
-              :loading="s2.loader && r0.loader && r1.loader && r2.loader"
+              :loading="s2.loader || r0.loader || r1.loader || r2.loader"
               @click="enable_all"
           >
             进入特权模式
