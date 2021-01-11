@@ -9,65 +9,7 @@
 
     <!-- 配置卡片 -->
     <v-row class="text-center">
-      <v-col sm="3">
-        <v-hover v-slot="{ hover }">
-          <v-card :elevation="hover ? 12 : 4">
-            <v-card-title>Switch2</v-card-title>
-            <v-card-text>
-              <v-text-field
-                  v-model="s2.ip"
-                  label="IP地址"
-                  required
-                  outlined
-              ></v-text-field>
-              <v-text-field
-                  v-model="s2.mask"
-                  label="子网掩码"
-                  required
-                  outlined
-              ></v-text-field>
-              <v-text-field
-                  v-show="!unify.enable"
-                  v-model="s2.pwd"
-                  label="Telnet密码"
-                  required
-                  outlined
-                  :append-icon="s2.show ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="s2.show ? 'text' : 'password'"
-                  @click:append="s2.show = !s2.show"
-              ></v-text-field>
-              <v-btn
-                  elevation="4"
-                  color="primary"
-                  :disabled="s2.state"
-                  :loading="s2.loader"
-                  @click="login('s2', s2.ip, s2.mask, unify.enable ? unify.pwd : s2.pwd)"
-              >
-                登陆
-              </v-btn>
-            </v-card-text>
-
-            <!-- 遮罩层 -->
-            <v-overlay
-                absolute
-                :z-index=0
-                :value="s2.state"
-            >
-              <v-btn
-                  elevation="4"
-                  color="red lighten"
-                  @click="logout('s2')"
-              >
-                退出登陆
-              </v-btn>
-            </v-overlay>
-          </v-card>
-        </v-hover>
-      </v-col>
-
-      <v-spacer></v-spacer>
-
-      <v-col sm="3">
+      <v-col sm="4">
         <v-hover v-slot="{ hover }">
           <v-card :elevation="hover ? 12 : 4">
             <v-card-title>Router0</v-card-title>
@@ -125,7 +67,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-col sm="3">
+      <v-col sm="4">
         <v-hover v-slot="{ hover }">
           <v-card :elevation="hover ? 12 : 4">
             <v-card-title>Router1</v-card-title>
@@ -183,7 +125,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-col sm="3">
+      <v-col sm="4">
         <v-hover v-slot="{ hover }">
           <v-card :elevation="hover ? 12 : 4">
             <v-card-title>Router2</v-card-title>
@@ -240,16 +182,17 @@
       </v-col>
     </v-row>
 
-    <!-- 统一密码选项 -->
-    <p style="white-space: pre-line" v-show="unify.enable"></p>
-    <v-row>
+    <p style="white-space: pre-line"></p>
+
+    <!-- 统一操作选项 -->
+    <v-row class="text-center">
       <v-col sm="3">
         <v-switch
             v-model="unify.enable"
             :label="`使用统一密码`"
         ></v-switch>
       </v-col>
-      <v-col sm="6">
+      <v-col sm="7">
         <v-text-field
             v-show="unify.enable"
             v-model="unify.pwd"
@@ -261,12 +204,13 @@
             @click:append="unify.show = !unify.show"
         ></v-text-field>
       </v-col>
-      <v-col sm="3">
+      <v-col sm="2">
         <v-btn
+            large
             elevation="4"
             color="primary"
-            :disabled="s2.state && r0.state && r1.state && r2.state"
-            :loading="s2.loader && r0.loader && r1.loader && r2.loader"
+            :disabled="r0.state && r1.state && r2.state"
+            :loading="r0.loader && r1.loader && r2.loader"
             @click="login_all"
         >
           一键登录
@@ -284,14 +228,6 @@ export default {
   name: 'Login',
   data() {
     return {
-      s2: {
-        ip: '172.16.0.1', // IP地址
-        mask: '255.255.0.0', // 子网掩码
-        pwd: '', // telnet密码
-        show: false, // 密码可见性
-        state: false, // 登陆状态(true:已登陆, false:未登陆)
-        loader: false // 加载器
-      },
       r0: {
         ip: '172.16.0.2', // IP地址
         mask: '255.255.0.0', // 子网掩码
@@ -416,8 +352,7 @@ export default {
     },
     // 一键登录
     login_all() {
-      axios.all([this.login("s2", this.s2.ip, this.s2.mask, this.unify.enable ? this.unify.pwd : this.s2.pwd),
-        this.login("r0", this.r0.ip, this.r0.mask, this.unify.enable ? this.unify.pwd : this.r0.pwd),
+      axios.all([this.login("r0", this.r0.ip, this.r0.mask, this.unify.enable ? this.unify.pwd : this.r0.pwd),
         this.login("r1", this.r1.ip, this.r1.mask, this.unify.enable ? this.unify.pwd : this.r1.pwd),
         this.login("r2", this.r2.ip, this.r2.mask, this.unify.enable ? this.unify.pwd : this.r2.pwd)
       ]).then(axios.spread(function (res) {

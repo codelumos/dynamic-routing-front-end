@@ -73,10 +73,11 @@
     </v-row>
 
     <!-- 清空按钮 -->
-    <v-row>
+    <v-row class="text-center">
       <v-col sm="10"></v-col>
       <v-col sm="2">
         <v-btn
+            large
             elevation="4"
             color="primary"
             @click="msg='## Telnet Client ##\n'"

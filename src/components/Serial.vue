@@ -7,123 +7,184 @@
       </p>
     </v-row>
 
-    <v-card flat>
-      <!-- 配置卡片 -->
-      <v-row class="text-center">
-        <v-col sm="4">
-          <v-hover v-slot="{ hover }">
-            <v-card :elevation="hover ? 12 : 4">
-              <v-card-title>Router0</v-card-title>
-              <v-card-text>
-                <v-text-field
-                    v-model="r0.serial0"
-                    label="Serial0/0/0"
-                    required
-                    outlined
-                ></v-text-field>
-                <v-text-field
-                    v-model="r0.serial1"
-                    label="Serial0/0/1"
-                    required
-                    outlined
-                ></v-text-field>
-                <v-text-field
-                    v-model="r0.mask"
-                    label="子网掩码"
-                    required
-                    outlined
-                ></v-text-field>
-              </v-card-text>
-            </v-card>
-          </v-hover>
-        </v-col>
+    <!-- 配置卡片 -->
+    <v-row class="text-center">
+      <v-col sm="4">
+        <v-hover v-slot="{ hover }">
+          <v-card :elevation="hover ? 12 : 4">
+            <v-card-title>Router0</v-card-title>
+            <v-card-text>
+              <v-text-field
+                  v-model="r0.serial0"
+                  label="Serial0/0/0"
+                  required
+                  outlined
+              ></v-text-field>
+              <v-text-field
+                  v-model="r0.serial1"
+                  label="Serial0/0/1"
+                  required
+                  outlined
+              ></v-text-field>
+              <v-text-field
+                  v-model="r0.mask"
+                  label="子网掩码"
+                  required
+                  outlined
+              ></v-text-field>
+              <v-btn
+                  elevation="4"
+                  color="primary"
+                  :disabled="r0.state"
+                  :loading="r0.loader"
+                  @click="init('r0', [r0.serial0, r0.serial1], r0.mask)"
+              >
+                初始化串行接口
+              </v-btn>
+            </v-card-text>
 
-        <v-spacer></v-spacer>
+            <!-- 遮罩层 -->
+            <v-overlay
+                absolute
+                :z-index=0
+                :value="r0.state"
+            >
+              <v-btn
+                  elevation="4"
+                  color="success"
+              >
+                串行接口已初始化
+              </v-btn>
+            </v-overlay>
+          </v-card>
+        </v-hover>
+      </v-col>
 
-        <v-col sm="4">
-          <v-hover v-slot="{ hover }">
-            <v-card :elevation="hover ? 12 : 4">
-              <v-card-title>Router1</v-card-title>
-              <v-card-text>
-                <v-text-field
-                    v-model="r1.serial0"
-                    label="Serial0/0/0"
-                    required
-                    outlined
-                ></v-text-field>
-                <v-text-field
-                    v-model="r1.serial1"
-                    label="Serial0/0/1"
-                    required
-                    outlined
-                ></v-text-field>
-                <v-text-field
-                    v-model="r1.mask"
-                    label="子网掩码"
-                    required
-                    outlined
-                ></v-text-field>
-              </v-card-text>
-            </v-card>
-          </v-hover>
-        </v-col>
+      <v-spacer></v-spacer>
 
-        <v-spacer></v-spacer>
+      <v-col sm="4">
+        <v-hover v-slot="{ hover }">
+          <v-card :elevation="hover ? 12 : 4">
+            <v-card-title>Router1</v-card-title>
+            <v-card-text>
+              <v-text-field
+                  v-model="r1.serial0"
+                  label="Serial0/0/0"
+                  required
+                  outlined
+              ></v-text-field>
+              <v-text-field
+                  v-model="r1.serial1"
+                  label="Serial0/0/1"
+                  required
+                  outlined
+              ></v-text-field>
+              <v-text-field
+                  v-model="r1.mask"
+                  label="子网掩码"
+                  required
+                  outlined
+              ></v-text-field>
+              <v-btn
+                  elevation="4"
+                  color="primary"
+                  :disabled="r1.state"
+                  :loading="r1.loader"
+                  @click="init('r1', [r1.serial0, r1.serial1], r1.mask)"
+              >
+                初始化串行接口
+              </v-btn>
+            </v-card-text>
 
-        <v-col sm="4">
-          <v-hover v-slot="{ hover }">
-            <v-card :elevation="hover ? 12 : 4">
-              <v-card-title>Router2</v-card-title>
-              <v-card-text>
-                <v-text-field
-                    v-model="r2.serial0"
-                    label="Serial0/0/0"
-                    required
-                    outlined
-                ></v-text-field>
-                <v-text-field
-                    v-model="r2.serial1"
-                    label="Serial0/0/1"
-                    required
-                    outlined
-                ></v-text-field>
-                <v-text-field
-                    v-model="r2.mask"
-                    label="子网掩码"
-                    required
-                    outlined
-                ></v-text-field>
-              </v-card-text>
-            </v-card>
-          </v-hover>
-        </v-col>
-      </v-row>
+            <!-- 遮罩层 -->
+            <v-overlay
+                absolute
+                :z-index=0
+                :value="r1.state"
+            >
+              <v-btn
+                  elevation="4"
+                  color="success"
+              >
+                串行接口已初始化
+              </v-btn>
+            </v-overlay>
+          </v-card>
+        </v-hover>
+      </v-col>
 
-      <v-row class="text-center">
-        <v-col>
-          <v-btn
-              elevation="4"
-              color="primary"
-              :disabled="r0.state && r1.state && r2.state"
-              :loading="r0.loader || r1.loader || r2.loader"
-              @click="init_all"
-          >
-            初始化串口
-          </v-btn>
-        </v-col>
-      </v-row>
+      <v-spacer></v-spacer>
 
-      <!-- 遮罩层 -->
-      <v-overlay
-          absolute
-          :z-index=0
-          :value="r0.state && r1.state && r2.state"
-      >
-        <v-btn color="success">
-          串行接口已初始化
+      <v-col sm="4">
+        <v-hover v-slot="{ hover }">
+          <v-card :elevation="hover ? 12 : 4">
+            <v-card-title>Router2</v-card-title>
+            <v-card-text>
+              <v-text-field
+                  v-model="r2.serial0"
+                  label="Serial0/0/0"
+                  required
+                  outlined
+              ></v-text-field>
+              <v-text-field
+                  v-model="r2.serial1"
+                  label="Serial0/0/1"
+                  required
+                  outlined
+              ></v-text-field>
+              <v-text-field
+                  v-model="r2.mask"
+                  label="子网掩码"
+                  required
+                  outlined
+              ></v-text-field>
+              <v-btn
+                  elevation="4"
+                  color="primary"
+                  :disabled="r2.state"
+                  :loading="r2.loader"
+                  @click="init('r2', [r2.serial0, r2.serial1], r2.mask)"
+              >
+                初始化串行接口
+              </v-btn>
+            </v-card-text>
+
+            <!-- 遮罩层 -->
+            <v-overlay
+                absolute
+                :z-index=0
+                :value="r2.state"
+            >
+              <v-btn
+                  elevation="4"
+                  color="success"
+              >
+                串行接口已初始化
+              </v-btn>
+            </v-overlay>
+          </v-card>
+        </v-hover>
+      </v-col>
+    </v-row>
+
+    <p style="white-space: pre-line"></p>
+
+    <!-- 统一操作选项 -->
+    <v-row class="text-center">
+      <v-col sm="10"></v-col>
+      <v-col sm="2">
+        <v-btn
+            large
+            elevation="4"
+            color="primary"
+            :disabled="r0.state && r1.state && r2.state"
+            :loading="r0.loader && r1.loader && r2.loader"
+            @click="init_all"
+        >
+          一键初始化<br>串行接口
         </v-btn>
-      </v-overlay>
-    </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -179,9 +240,10 @@ export default {
     // 初始化串行接口
     init(dev_no, ip_list, mask) {
       // 检查设备状态
-      let state_check = "this." + dev_no + ".state === true" // 已登录
-      let waiting_check = "this." + dev_no + ".loader === true" // 登陆中
+      let state_check = "this." + dev_no + ".state === true" // 已初始化
+      let waiting_check = "this." + dev_no + ".loader === true" // 初始化中
       if (eval(state_check) || eval(waiting_check)) {
+        console.log("return")
         return
       }
       // 设置加载器
