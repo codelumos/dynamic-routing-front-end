@@ -20,21 +20,18 @@
                     label="Serial0/0/0"
                     required
                     outlined
-                    disabled
                 ></v-text-field>
                 <v-text-field
                     v-model="r0.serial1"
                     label="Serial0/0/1"
                     required
                     outlined
-                    disabled
                 ></v-text-field>
                 <v-text-field
                     v-model="r0.mask"
                     label="子网掩码"
                     required
                     outlined
-                    disabled
                 ></v-text-field>
               </v-card-text>
             </v-card>
@@ -53,21 +50,18 @@
                     label="Serial0/0/0"
                     required
                     outlined
-                    disabled
                 ></v-text-field>
                 <v-text-field
                     v-model="r1.serial1"
                     label="Serial0/0/1"
                     required
                     outlined
-                    disabled
                 ></v-text-field>
                 <v-text-field
                     v-model="r1.mask"
                     label="子网掩码"
                     required
                     outlined
-                    disabled
                 ></v-text-field>
               </v-card-text>
             </v-card>
@@ -86,21 +80,18 @@
                     label="Serial0/0/0"
                     required
                     outlined
-                    disabled
                 ></v-text-field>
                 <v-text-field
                     v-model="r2.serial1"
                     label="Serial0/0/1"
                     required
                     outlined
-                    disabled
                 ></v-text-field>
                 <v-text-field
                     v-model="r2.mask"
                     label="子网掩码"
                     required
                     outlined
-                    disabled
                 ></v-text-field>
               </v-card-text>
             </v-card>

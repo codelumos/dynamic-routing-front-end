@@ -19,14 +19,12 @@
                   label="IP地址"
                   required
                   outlined
-                  disabled
               ></v-text-field>
               <v-text-field
                   v-model="s2.mask"
                   label="子网掩码"
                   required
                   outlined
-                  disabled
               ></v-text-field>
               <v-text-field
                   v-show="!unify.enable"
@@ -79,14 +77,12 @@
                   label="IP地址"
                   required
                   outlined
-                  disabled
               ></v-text-field>
               <v-text-field
                   v-model="r0.mask"
                   label="子网掩码"
                   required
                   outlined
-                  disabled
               ></v-text-field>
               <v-text-field
                   v-show="!unify.enable"
@@ -139,14 +135,12 @@
                   label="IP地址"
                   required
                   outlined
-                  disabled
               ></v-text-field>
               <v-text-field
                   v-model="r1.mask"
                   label="子网掩码"
                   required
                   outlined
-                  disabled
               ></v-text-field>
               <v-text-field
                   v-show="!unify.enable"
@@ -199,14 +193,12 @@
                   label="IP地址"
                   required
                   outlined
-                  disabled
               ></v-text-field>
               <v-text-field
                   v-model="r2.mask"
                   label="子网掩码"
                   required
                   outlined
-                  disabled
               ></v-text-field>
               <v-text-field
                   v-show="!unify.enable"
