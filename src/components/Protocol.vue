@@ -9,7 +9,7 @@
 
     <!-- 路由协议及设备选择 -->
     <v-row>
-      <v-col sm="4">
+      <v-col cols="8" sm="4">
         <v-select
             v-model="protocol_selected"
             :items="protocol_list"
@@ -28,7 +28,7 @@
         </v-btn>
       </v-col>
 
-      <v-col sm="4">
+      <v-col cols="8" sm="4">
         <v-select
             v-model="dev_selected"
             :items="dev_list"

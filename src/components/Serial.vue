@@ -9,7 +9,7 @@
 
     <!-- 配置卡片 -->
     <v-row class="text-center">
-      <v-col sm="4">
+      <v-col cols="12" sm="4">
         <v-hover v-slot="{ hover }">
           <v-card :elevation="hover ? 12 : 4">
             <v-card-title>Router0</v-card-title>
@@ -62,7 +62,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-col sm="4">
+      <v-col cols="12" sm="4">
         <v-hover v-slot="{ hover }">
           <v-card :elevation="hover ? 12 : 4">
             <v-card-title>Router1</v-card-title>
@@ -115,7 +115,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-col sm="4">
+      <v-col cols="12" sm="4">
         <v-hover v-slot="{ hover }">
           <v-card :elevation="hover ? 12 : 4">
             <v-card-title>Router2</v-card-title>

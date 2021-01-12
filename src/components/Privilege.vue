@@ -9,7 +9,7 @@
 
     <!-- 配置卡片 -->
     <v-row class="text-center">
-      <v-col sm="4">
+      <v-col cols="12" sm="4">
         <v-hover v-slot="{ hover }">
           <v-card :elevation="hover ? 12 : 4">
             <v-card-title>Router0</v-card-title>
@@ -54,7 +54,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-col sm="4">
+      <v-col cols="12" sm="4">
         <v-hover v-slot="{ hover }">
           <v-card :elevation="hover ? 12 : 4">
             <v-card-title>Router1</v-card-title>
@@ -99,7 +99,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-col sm="4">
+      <v-col cols="12" sm="4">
         <v-hover v-slot="{ hover }">
           <v-card :elevation="hover ? 12 : 4">
             <v-card-title>Router2</v-card-title>
@@ -165,7 +165,7 @@
             @click:append="unify.show = !unify.show"
         ></v-text-field>
       </v-col>
-      <v-col sm="2">
+      <v-col cols="12" sm="2">
         <v-btn
             large
             elevation="4"

@@ -47,7 +47,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .component-snackbar {
   z-index: 1;
   width: 350px;
