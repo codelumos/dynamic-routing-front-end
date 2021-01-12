@@ -14,9 +14,8 @@
           <v-card :elevation="hover ? 12 : 4">
             <v-img
                 :src="require('../assets/Topography.png')"
-                class="my-3"
                 contain
-                height="350"
+                max-height="320"
             />
           </v-card>
         </v-hover>

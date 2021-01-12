@@ -13,7 +13,7 @@
             contain
             src="./assets/logo.png"
             transition="scale-transition"
-            height="50"
+            width="170"
         />
       </div>
       <v-app-bar-title class="d-flex align-center">
