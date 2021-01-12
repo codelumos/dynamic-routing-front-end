@@ -3,7 +3,7 @@
     <!-- 标题 -->
     <v-row>
       <p class="title font-weight-bold mb-3">
-        网络拓补
+        网络拓扑
       </p>
     </v-row>
 
