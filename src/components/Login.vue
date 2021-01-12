@@ -3,7 +3,7 @@
     <!-- 标题 -->
     <v-row>
       <p class="title font-weight-bold mb-3">
-        设备登陆
+        设备登录
       </p>
     </v-row>
 
@@ -43,7 +43,7 @@
                   :loading="r0.loader"
                   @click="login('r0', r0.ip, r0.mask, unify.enable ? unify.pwd : r0.pwd)"
               >
-                登陆
+                登录
               </v-btn>
             </v-card-text>
 
@@ -58,7 +58,7 @@
                   color="red lighten"
                   @click="logout('r0')"
               >
-                退出登陆
+                退出登录
               </v-btn>
             </v-overlay>
           </v-card>
@@ -101,7 +101,7 @@
                   :loading="r1.loader"
                   @click="login('r1', r1.ip, r1.mask, unify.enable ? unify.pwd : r1.pwd)"
               >
-                登陆
+                登录
               </v-btn>
             </v-card-text>
 
@@ -116,7 +116,7 @@
                   color="red lighten"
                   @click="logout('r1')"
               >
-                退出登陆
+                退出登录
               </v-btn>
             </v-overlay>
           </v-card>
@@ -159,7 +159,7 @@
                   :loading="r2.loader"
                   @click="login('r2', r2.ip, r2.mask, unify.enable ? unify.pwd : r2.pwd)"
               >
-                登陆
+                登录
               </v-btn>
             </v-card-text>
 
@@ -174,7 +174,7 @@
                   color="red lighten"
                   @click="logout('r2')"
               >
-                退出登陆
+                退出登录
               </v-btn>
             </v-overlay>
           </v-card>
@@ -233,7 +233,7 @@ export default {
         mask: '255.255.0.0', // 子网掩码
         pwd: '', // telnet密码
         show: false, // 密码可见性
-        state: false, // 登陆状态(true:已登陆, false:未登陆)
+        state: false, // 登录状态(true:已登录, false:未登录)
         loader: false // 加载器
       },
       r1: {
@@ -241,7 +241,7 @@ export default {
         mask: '255.255.0.0', // 子网掩码
         pwd: '', // telnet密码
         show: false, // 密码可见性
-        state: false, // 登陆状态(true:已登陆, false:未登陆)
+        state: false, // 登录状态(true:已登录, false:未登录)
         loader: false // 加载器
       },
       r2: {
@@ -249,7 +249,7 @@ export default {
         mask: '255.255.0.0', // 子网掩码
         pwd: '', // telnet密码
         show: false, // 密码可见性
-        state: false, // 登陆状态(true:已登陆, false:未登陆)
+        state: false, // 登录状态(true:已登录, false:未登录)
         loader: false // 加载器
       },
       unify: {
@@ -273,16 +273,16 @@ export default {
       let set_loader = "this." + dev_no + ".loader = " + state
       eval(set_loader)
     },
-    // 设置设备登陆状态
+    // 设置设备登录状态
     setState(dev_no, state) {
       let set_state = "this." + dev_no + ".state = " + state
       eval(set_state)
     },
-    // 设备登陆
+    // 设备登录
     login(dev_no, ip, mask, pwd) {
-      // 检查设备登陆状态
+      // 检查设备登录状态
       let state_check = "this." + dev_no + ".state === true" // 已登录
-      let waiting_check = "this." + dev_no + ".loader === true" // 登陆中
+      let waiting_check = "this." + dev_no + ".loader === true" // 登录中
       if (eval(state_check) || eval(waiting_check)) {
         return
       }
@@ -294,7 +294,7 @@ export default {
       }
       // 设置加载器
       this.setLoader(dev_no, true)
-      // 设备登陆
+      // 设备登录
       const url = 'http://127.0.0.1:5000/login'
       let params = {
         dev_no: dev_no,
@@ -308,12 +308,12 @@ export default {
       }).then(res => {
         console.log(res);
         if (res.data.state) {
-          // 将设备状态设为登陆状态
+          // 将设备状态设为登录状态
           this.setState(dev_no, true)
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
           this.setLoader(dev_no, false)
         } else {
-          // 将设备状态设为未登陆状态
+          // 将设备状态设为未登录状态
           this.setState(dev_no, false)
           this.showMessage('mdi-cancel', res.data.msg, 'error')
           this.setLoader(dev_no, false)
@@ -336,7 +336,7 @@ export default {
         data: params
       }).then(res => {
         console.log(res);
-        // 将设备状态设为未登陆状态
+        // 将设备状态设为未登录状态
         this.setState(dev_no, false)
         if (res.data.state) {
           this.showMessage('mdi-checkbox-marked-circle', res.data.msg, 'success')
@@ -345,7 +345,7 @@ export default {
         }
       }).catch(err => {
         console.log(err)
-        // 将设备状态设为未登陆状态
+        // 将设备状态设为未登录状态
         this.setState(dev_no, false)
         this.showMessage('mdi-minus-circle', '网络连接失败', 'warning')
       })
