@@ -224,7 +224,7 @@ export default {
       // 通过触发showSnackbar事件并传递消息参数，从而调用全局Snackbar
       this.$eventBus.$emit('showSnackbar', {
         id: new Date().getTime(), // id用于设置Snackbar在v-for循环中的key属性，避免排序混乱的问题
-        content: {icon, msg, color},
+        content: {icon, msg, color}
       })
     },
     // 设置加载器

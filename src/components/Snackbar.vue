@@ -21,11 +21,11 @@ export default {
   name: "component-snackbar",
   props: {
     value: Boolean, // 调用本组件v-model传入的值
-    message: String // 消息内容
+    message: Object // 消息内容
   },
   data: function () {
     return {
-      showTime: 6000, // snackbar显示的时长
+      showTime: 5000, // snackbar显示的时长
       timer: null // 定时器
     }
   },
