@@ -1,5 +1,6 @@
 {
   "name": "dynamic_router",
+  "author": "Haonan Shi <haonshi@qq.com>",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,22 +10,22 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "core-js": "^3.10.1",
+    "core-js": "^3.11.0",
     "vue": "^2.6.12",
-    "vuetify": "^2.4.9"
+    "vuetify": "^2.4.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.12",
     "@vue/cli-plugin-eslint": "~4.5.12",
     "@vue/cli-service": "~4.5.12",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.24.0",
+    "eslint": "^7.25.0",
     "eslint-plugin-vue": "^7.9.0",
     "less": "^4.1.1",
-    "less-loader": "^7.2.1",
-    "sass": "^1.32.8",
-    "sass-loader": "^8.0.2",
-    "vue-cli-plugin-vuetify": "^2.3.1",
+    "less-loader": "^7.3.0",
+    "sass": "^1.32.11",
+    "sass-loader": "^10.1.1",
+    "vue-cli-plugin-vuetify": "^2.4.0",
     "vue-template-compiler": "^2.6.12",
     "vuetify-loader": "^1.7.2"
   },
