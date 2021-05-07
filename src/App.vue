@@ -54,7 +54,7 @@
         dark
     >
       <div class="align-center">
-        Copyright &copy; Haonan Shi &lt;<a href="mailto:haonshi@qq.com" style="color: white">haonshi@qq.com</a>&gt;
+        Copyright &copy; <a href="https://github.com/HaoNShi" style="color: white">Haonan Shi</a>
       </div>
     </v-footer>
   </v-app>

@@ -14,9 +14,7 @@
 
 ## 运行环境
 
-Node.js v14.15.3
-
-Vue CLI 4.5.9 with Vuetify v2.4.2
+Vue.js with Vuetify
 
 ## 构建安装
 
