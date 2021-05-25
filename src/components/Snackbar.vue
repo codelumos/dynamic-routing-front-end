@@ -47,7 +47,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 .component-snackbar {
   z-index: 1;
   width: 350px;
@@ -61,24 +61,24 @@ export default {
   flex-direction: row;
   align-items: center;
   border-radius: 8px;
-  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, .4);
+  box-shadow: 2px 4px 6px 0 rgba(0, 0, 0, 0.4);
   transition: transform 500ms ease-in;
+}
 
-  .snackbar-logo {
-    margin: 0 16px;
-  }
+.component-snackbar .snackbar-logo {
+  margin: 0 16px;
+}
 
-  .snackbar-content {
-    flex: 1;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: white;
-  }
+.component-snackbar .snackbar-content {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: white;
+}
 
-  .snackbar-close {
-    margin: 0 16px;
-    cursor: pointer;
-  }
+.component-snackbar .snackbar-close {
+  margin: 0 16px;
+  cursor: pointer;
 }
 </style>

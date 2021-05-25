@@ -202,14 +202,14 @@ export default {
 }
 </script>
 
-<style scoped lang="less">
+<style scoped>
 .console {
   font-family: Consolas, sans-serif;
   font-size: 16px;
+}
 
-  ::selection {
-    color: black;
-    background: white;
-  }
+.console ::selection {
+  color: black;
+  background: white;
 }
 </style>
