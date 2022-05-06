@@ -90,8 +90,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Serial from "@/components/Serial"
+import axios from "axios"
+import Serial from "./Serial.vue"
 
 export default {
   name: "Config",

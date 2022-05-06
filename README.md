@@ -14,7 +14,7 @@
 
 ## 运行环境
 
-Vue.js with Vuetify
+Vue 2 with Vuetify
 
 ## 构建安装
 
@@ -29,24 +29,4 @@ npm run server
 
 # build for production with minification
 npm run build
-```
-
-## 更新依赖
-
-使用npm-check-updates帮助我们检查版本是否有变化
-
-> 更新依赖可能会导致项目失效，请谨慎执行
-
-``` bash
-# 安装
-npm install -g npm-check-updates
-
-# 检查当前目录下可更新的依赖项
-ncu
-
-# 升级 package.json
-ncu -u
-
-# 根据更新的 package.json 安装新版本
-npm install
 ```

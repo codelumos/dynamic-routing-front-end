@@ -13,7 +13,7 @@
         <v-hover v-slot="{ hover }">
           <v-card :elevation="hover ? 12 : 4">
             <v-img
-                :src="require('../assets/Topography.png')"
+                src="../assets/Topography.png"
                 contain
                 max-height="320"
             />

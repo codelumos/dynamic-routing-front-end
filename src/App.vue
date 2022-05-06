@@ -61,15 +61,15 @@
 </template>
 
 <script>
-import Snackbar from '@/components/Snackbar';
-import Login from '@/components/Login';
-import Privilege from "@/components/Privilege";
-import Serial from "@/components/Serial";
-import Topology from '@/components/Topology';
-import Protocol from "@/components/Protocol";
+import Snackbar from "./components/Snackbar.vue";
+import Login from "./components/Login.vue";
+import Privilege from "./components/Privilege.vue";
+import Serial from "./components/Serial.vue";
+import Topology from "./components/Topology.vue";
+import Protocol from "./components/Protocol.vue";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
     Snackbar,
