@@ -18,7 +18,7 @@ Vue 2 with Vuetify
 
 ## 构建安装
 
-需要启动“动态路由后端”项目，其余所有操作在浏览器客户端完成
+需要启动[`动态路由后端`](https://github.com/codelumos/dynamic-routing-rear-end)项目，其余所有操作在浏览器客户端完成
 
 ``` bash
 # install dependencies

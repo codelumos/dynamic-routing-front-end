@@ -35,17 +35,72 @@
             @input="onSnackbarClose($event, index)">
         </snackbar>
       </div>
+
       <p style="white-space: pre-line"></p>
       <Topology/>
       <p style="white-space: pre-line"></p>
-      <Login/>
+
+      <v-tabs centered>
+        <v-tab>
+          <v-icon left>
+            mdi-account
+          </v-icon>
+          <h3>设备登录</h3>
+        </v-tab>
+        <v-tab>
+          <v-icon left>
+            mdi-account-cog
+          </v-icon>
+          <h3>特权模式</h3>
+        </v-tab>
+        <v-tab>
+          <v-icon left>
+            mdi-link-variant
+          </v-icon>
+          <h3>串行接口配置</h3>
+        </v-tab>
+        <v-tab>
+          <v-icon left>
+            mdi-source-branch-check
+          </v-icon>
+          <h3>连通性检测</h3>
+        </v-tab>
+        <v-tab>
+          <v-icon left>
+            mdi-sitemap
+          </v-icon>
+          <h3>路由配置</h3>
+        </v-tab>
+
+        <v-tab-item>
+          <v-card flat>
+            <Login/>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+            <Privilege/>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+            <Serial/>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+            <Connectivity/>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+            <Protocol/>
+          </v-card>
+        </v-tab-item>
+      </v-tabs>
+
       <p style="white-space: pre-line"></p>
-      <Privilege/>
-      <p style="white-space: pre-line"></p>
-      <Serial/>
-      <p style="white-space: pre-line"></p>
-      <Protocol/>
-      <p style="white-space: pre-line"></p>
+
     </v-main>
 
     <!-- 底栏 -->
@@ -53,25 +108,34 @@
         color="primary"
         dark
     >
-      <div class="align-center">
-        Copyright &copy; <a href="https://github.com/HaoNShi" style="color: white">Haonan Shi</a>
-      </div>
+      <v-card
+          flat
+          width="100%"
+          class="primary text-center"
+      >
+        <span>
+        Copyright &copy; <a href="mailto:haonshi@qq.com" style="color: white">Haonan Shi</a>,
+        <a href="https://www.nju.edu.cn/" style="color: white">Nanjing University</a>
+        </span>
+      </v-card>
     </v-footer>
   </v-app>
 </template>
 
 <script>
 import Snackbar from "./components/Snackbar.vue";
+import Topology from "./components/Topology.vue";
 import Login from "./components/Login.vue";
 import Privilege from "./components/Privilege.vue";
 import Serial from "./components/Serial.vue";
-import Topology from "./components/Topology.vue";
+import Connectivity from "./components/Connectivity.vue";
 import Protocol from "./components/Protocol.vue";
 
 export default {
   name: "App",
 
   components: {
+    Connectivity,
     Snackbar,
     Login,
     Privilege,

@@ -1,13 +1,6 @@
 <template>
   <v-container>
-    <!-- 标题 -->
-    <v-row>
-      <p class="title font-weight-bold mb-3">
-        路由配置
-      </p>
-    </v-row>
 
-    <!-- 路由协议及设备选择 -->
     <v-row>
       <v-col cols="8" sm="4">
         <v-select
@@ -49,43 +42,32 @@
     </v-row>
 
     <!-- 控制台 -->
-    <v-row>
-      <p class="title font-weight-bold mb-3">
-        控制台
-      </p>
-    </v-row>
-
-    <v-row>
-      <v-col cols="12">
-        <v-textarea
-            v-model="msg"
-            outlined
-            readonly
-            dense
-            dark
-            background-color="#212121"
-            height="500"
-            no-resize
-            class="console"
-        >
-        </v-textarea>
-      </v-col>
-    </v-row>
+    <v-textarea
+        v-model="msg"
+        outlined
+        readonly
+        dense
+        dark
+        background-color="#212121"
+        height="500"
+        no-resize
+        class="console"
+    >
+    </v-textarea>
 
     <!-- 清空按钮 -->
-    <v-row class="text-center">
-      <v-col sm="10"></v-col>
-      <v-col sm="2">
-        <v-btn
-            large
-            elevation="4"
-            color="primary"
-            @click="msg='## Telnet Client ##\n'"
-        >
-          清空控制台
-        </v-btn>
-      </v-col>
-    </v-row>
+    <v-card
+        flat
+        class="text-right"
+    >
+      <v-btn
+          elevation="4"
+          color="primary"
+          @click="msg='Terminal Information\n'"
+      >
+        清空
+      </v-btn>
+    </v-card>
   </v-container>
 </template>
 
@@ -109,7 +91,7 @@ export default {
       loader_r2: false,
       loader_info: false,
       // 控制台信息
-      msg: '## Telnet Client ##\n'
+      msg: 'Terminal Information\n'
     }
   },
   methods: {

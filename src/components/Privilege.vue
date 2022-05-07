@@ -1,13 +1,6 @@
 <template>
   <v-container>
-    <!-- 标题 -->
-    <v-row>
-      <p class="title font-weight-bold mb-3">
-        特权模式
-      </p>
-    </v-row>
 
-    <!-- 配置卡片 -->
     <v-row class="text-center">
       <v-col cols="12" sm="4">
         <v-hover v-slot="{ hover }">
